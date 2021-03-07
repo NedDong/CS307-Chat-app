@@ -65,6 +65,28 @@ public class User {
         this.status = Status.Offline;
     }
 
+    public User(int uid, String password, String name, String email, String account, boolean privacy) {
+        this.uid = uid;
+        this.password = password;
+        this.name = name;
+        this.email = email;
+        this.account = account;
+        this.privacy = privacy;
+        this.gender = new Gender();
+
+        //Set the avatar to default avatar
+        //this.avatar = default avatar;
+        //keep birth date empty to let the user set it later
+        this.birthdate = 0;
+
+        this.friendList = new ArrayList<User>();
+        this.blackList = new ArrayList<User>();
+        this.groupList = new ArrayList<Group>();
+
+        this.isAdmin = false;
+        this.status = Status.Offline;
+    }
+
     //getters No getter to password
 
     public int getUid() {
