@@ -9,8 +9,6 @@ import java.util.*;
 /**
  * This thread handles connection for each connected client, so the server
  * can handle multiple clients at the same time.
- *
- * @author www.codejava.net
  */
 public class UserThread extends Thread {
     private Socket socket;
@@ -65,26 +63,7 @@ public class UserThread extends Thread {
                     if(!successLogin) initialHandshake = (Message)reader.readObject();
                 } while (!successLogin);
             }
-            //userList.add(User())
-            //server.addUserName(initialHandshake.getUsername());
-
-//            String serverMessage = "New user connected: " + initialHandshake.getUsername();
-//            //server.broadcast(serverMessage, this);
             printUsers();
-//            String clientMessage;
-//
-//            do {
-//                clientMessage = reader.readLine();
-//                serverMessage = "[" + initialHandshake.getUsername() + "] @"+ getCurrentTime() + " :" + clientMessage;
-//                server.broadcast(serverMessage, this);
-//
-//            } while (!clientMessage.equals("bye"));
-//
-//            server.removeUser(initialHandshake.getUsername(), this);
-//            socket.close();
-//
-//            serverMessage = initialHandshake.getUsername() + " has quitted.";
-//            server.broadcast(serverMessage, this);
 
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println("Error in UserThread: " + ex.getMessage());
@@ -107,12 +86,5 @@ public class UserThread extends Thread {
         } else {
             writer.println("No other users connected");
         }
-    }
-
-    /**
-     * Sends a message to the client.
-     */
-    void sendMessage(String message) {
-        writer.println(message);
     }
 }

@@ -5,9 +5,6 @@ import java.util.*;
 
 /**
  * This is the chat server program.
- * Press Ctrl + C to terminate the program.
- *
- * @author www.codejava.net
  */
 public class ChatServer {
     private int port;
@@ -45,23 +42,7 @@ public class ChatServer {
         server.execute();
     }
 
-    /**
-     * Delivers a message from one user to others (broadcasting)
-     */
-    void broadcast(String message, UserThread excludeUser) {
-        for (UserThread aUser : userThreads) {
-            if (aUser != excludeUser) {
-                aUser.sendMessage(message);
-            }
-        }
-    }
 
-    /**
-     * Stores username of the newly connected client.
-     */
-    void addUserName(String userName) {
-        userNames.add(userName);
-    }
 
     /**
      * When a client is disconneted, removes the associated username and UserThread
@@ -74,16 +55,7 @@ public class ChatServer {
         }
     }
 
-    Set<String> getUserNames() {
-        return this.userNames;
-    }
 
-    /**
-     * Returns true if there are other users connected (not count the currently connected user)
-     */
-    boolean hasUsers() {
-        return !this.userNames.isEmpty();
-    }
 
     int getUid()
     {

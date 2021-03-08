@@ -15,6 +15,7 @@ public class User {
         this.password = password;
         this.socket = socket;
         this.password = password;
+        this.uid = uid;
     }
 
     public int getUid() {
