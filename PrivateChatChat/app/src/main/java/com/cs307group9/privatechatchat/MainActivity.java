@@ -18,18 +18,20 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference myDatabase;
 
     //static String hostname = "cs307-chat-app.webredirect.org";
-    static String hostname = "localhost";
+    static String hostname = "10.0.2.2";
     static int port = 12345;
 
     Button sendButton;
     EditText sendText;
     TextView clientText;
+    Button serverButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +42,15 @@ public class MainActivity extends AppCompatActivity {
         sendButton = findViewById(R.id.sendButton);
         sendText   = findViewById(R.id.editText);
         clientText = findViewById(R.id.text);
-        Button serverButton = findViewById(R.id.ConnectServer);
+        serverButton = findViewById(R.id.serverButton);
 
-        serverButton
-
-//        sendButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String sendMsg = sendText.getText().toString().trim();
-//                if (!sendMsg.isEmpty()) {
-//                    new Thread(new ClientThread(sendMsg)).start();
-//                }
-//            }
-//        });
+        serverButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clientText.setText("");
+                new Thread(new ServerConnectThread()).start();
+            }
+        });
 
         // myDatabase = FirebaseDatabase.getInstance().getReference("Message");
 
@@ -114,12 +112,14 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        clientText.setText("Connected\n");
                     }
                 });
                 new Thread(new ServerMsgThread()).start();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (UnknownHostException ex) {
+                System.out.println("Server not found: " + ex.getMessage());
+            } catch (IOException ex) {
+                System.out.println("I/O Error: " + ex.getMessage());
             }
         }
     }
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                clientText.append(msg + "\n");
+                                clientText.append("Server" + msg + "\n");
                             }
                         });
                     }
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    clientText.append(msg + "\n");
+                    clientText.append("Client[Smart Pete]: " + msg + "\n");
                     sendText.setText("");
                 }
             });
