@@ -1,32 +1,64 @@
 package com.cs307group9.privatechatchat;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference myDatabase;
 
+    //static String hostname = "cs307-chat-app.webredirect.org";
+    static String hostname = "localhost";
+    static int port = 12345;
+
+    Button sendButton;
+    EditText sendText;
+    TextView clientText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
-        myDatabase = FirebaseDatabase.getInstance().getReference("Message");
+        sendButton = findViewById(R.id.sendButton);
+        sendText   = findViewById(R.id.editText);
+        clientText = findViewById(R.id.text);
+        Button serverButton = findViewById(R.id.ConnectServer);
 
-        TextView myText = findViewById(R.id.text);
+        serverButton
+
+//        sendButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String sendMsg = sendText.getText().toString().trim();
+//                if (!sendMsg.isEmpty()) {
+//                    new Thread(new ClientThread(sendMsg)).start();
+//                }
+//            }
+//        });
+
+        // myDatabase = FirebaseDatabase.getInstance().getReference("Message");
+
+        // myText.setText("");
+
+        /*
 
         myDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -34,28 +66,108 @@ public class MainActivity extends AppCompatActivity {
 
                 myText.setText(""); // Cleaning the text Area
 
-                System.out.println(snapshot.getValue().toString());
+                if (snapshot.getValue() != null) {
+                    System.out.println(snapshot.getValue().toString());
 
-                String[] sendMsg = sortMsg(snapshot.getValue().toString());
+                    String[] sendMsg = sortMsg(snapshot.getValue().toString());
 
-                for (String i : sendMsg) myText.append(i);
+                    for (String i : sendMsg) myText.append(i.split("=")[1]);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
                 myText.setText("CANCELLED");
-
             }
         });
+
+         */
     }
 
     public void sendMessage(View view) {
-        EditText myEditText = findViewById(R.id.editText);
+        String sendMsg = sendText.getText().toString().trim();
+        if (!sendMsg.isEmpty()) {
+            new Thread(new ClientThread(sendMsg)).start();
+        }
 
-        myDatabase.child(Long.toString(System.currentTimeMillis())).setValue(myEditText.getText().toString());
-        myEditText.setText("");
+//        EditText myEditText = findViewById(R.id.editText);
+//
+//        String sendMsg = myEditText.getText().toString();
+//
+//        if (sendMsg == "") return;
+//
+//        // myDatabase.child(Long.toString(System.currentTimeMillis())).setValue(myEditText.getText().toString());
+//        myEditText.setText("");
     }
+
+    private PrintWriter output;
+    private BufferedReader input;
+
+    class ServerConnectThread implements Runnable {
+        public void run() {
+            System.out.println("==== I Am Currently Running Thread 1===");
+            Socket socket;
+            try {
+                socket = new Socket(hostname, port);
+                output = new PrintWriter(socket.getOutputStream());
+                input  = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+                new Thread(new ServerMsgThread()).start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class ServerMsgThread implements Runnable {
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    final String msg = input.readLine();
+                    if (msg != null) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                clientText.append(msg + "\n");
+                            }
+                        });
+                    }
+                    else {
+                        new Thread(new ServerConnectThread()).start();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    class ClientThread implements Runnable {
+        private String msg;
+        ClientThread(String msg) { this.msg = msg; }
+        @Override
+        public void run() {
+            System.out.println(msg);
+            output.write(msg);
+            output.flush();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    clientText.append(msg + "\n");
+                    sendText.setText("");
+                }
+            });
+        }
+
+    }
+
+
 
     private String[] sortMsg(String msg) {
         if (msg.contains("=")) {
@@ -80,18 +192,26 @@ public class MainActivity extends AppCompatActivity {
                 else
                     order[pos] = Long.parseLong(i.split("=")[0]);
 
-                System.out.printf("String: %s\n", tmpMsg);
-                System.out.println("Order");
-                System.out.println(order);
+//                System.out.printf("String: %s\n", tmpMsg);
+//                System.out.println("Order");
+//                System.out.println(order);
 
                 pos++;
             }
 
             quickSort(order, sendMessage, 0, size - 1);
 
+            System.out.println("====================");
+            for (String i : sendMessage) System.out.println(i);
+            System.out.println("====================");
+
             return sendMessage;
         }
         String[] messages = {""};
+
+        System.out.println("++++++++++++++++++++");
+        System.out.println(messages);
+        System.out.println("++++++++++++++++++++");
 
         return messages;
     }
@@ -128,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
         arr[i+1] = arr[end];
         msg[i+1] = msg[end];
         arr[end] = swapTemp;
-        msg[end] =swapTempMsg;
+        msg[end] = swapTempMsg;
 
         return i+1;
     }
