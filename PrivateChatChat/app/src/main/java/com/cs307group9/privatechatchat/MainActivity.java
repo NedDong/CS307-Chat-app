@@ -20,6 +20,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * https://www.tutorialspoint.com/sending-and-receiving-data-with-sockets-in-android
+ **/
+
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference myDatabase;
