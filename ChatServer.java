@@ -1,17 +1,19 @@
 package net.codejava.networking.chat.server;
 import java.io.*;
 import java.net.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
  * This is the chat server program.
  */
-public class ChatServer {
+public class ChatServer implements Serializable {
     private int port;
     private Set<String> userNames = new HashSet<>();
     private Set<UserThread> userThreads = new HashSet<>();
     int uid = 0;
-
+    public List<User> userList = new ArrayList<>();
     public ChatServer(int port) {
         this.port = port;
     }
@@ -23,7 +25,8 @@ public class ChatServer {
 
             while (true) {
                 Socket socket = serverSocket.accept();
-                System.out.println("New user connected");
+
+                System.out.println("New user connected        @   "+getCurrentTime());
 
                 UserThread newUser = new UserThread(socket, this);
                 userThreads.add(newUser);
@@ -32,7 +35,7 @@ public class ChatServer {
             }
 
         } catch (IOException ex) {
-            System.out.println("Error in the server: " + ex.getMessage());
+            System.out.println("Error in the server: " + ex.getMessage()+ " @    "+getCurrentTime() );
             ex.printStackTrace();
         }
     }
@@ -42,6 +45,12 @@ public class ChatServer {
         server.execute();
     }
 
+    public String getCurrentTime()
+    {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
+    }
 
 
     /**
@@ -54,8 +63,14 @@ public class ChatServer {
             System.out.println("The user " + userName + " quitted");
         }
     }
+    public void addToUserList(User user)
+    {
+        userList.add(user);
+    }
 
-
+    public List<User> getUserList(){
+        return userList;
+    }
 
     int getUid()
     {

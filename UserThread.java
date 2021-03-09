@@ -10,11 +10,10 @@ import java.util.*;
  * This thread handles connection for each connected client, so the server
  * can handle multiple clients at the same time.
  */
-public class UserThread extends Thread {
+public class UserThread extends Thread implements Serializable{
     private Socket socket;
     private ChatServer server;
     private PrintWriter writer;
-    public List<User> userList;
     public UserThread(Socket socket, ChatServer server) {
         this.socket = socket;
         this.server = server;
@@ -30,10 +29,13 @@ public class UserThread extends Thread {
             boolean usernameDuplicated;
             boolean successLogin;
             initialHandshake = (Message)reader.readObject();
-            if(initialHandshake.getMessageType()=="REG") {
+            //userList.add(new User("local",100, socket,"123456"));
+            //writer.println("Type" + initialHandshake.getMessageType()+"Username"+initialHandshake.getUsername()+"Password"+initialHandshake.getPassword());
+            if(initialHandshake.getMessageType().equals("REG")) {
+                //writer.println("Here");
                 do {
                     usernameDuplicated = false;
-                    for(User user : userList)
+                    for(User user : server.getUserList())
                     {
                         if(user.getUsername().equals(initialHandshake.getUsername()))
                         {
@@ -44,13 +46,14 @@ public class UserThread extends Thread {
                     }
                     if(usernameDuplicated) initialHandshake = (Message)reader.readObject();
                 } while (usernameDuplicated);
-                userList.add(new User(initialHandshake.getUsername(),server.getUid(), socket,initialHandshake.getPassword()));
+                server.getUserList().add(new User(initialHandshake.getUsername(),server.getUid(), socket,initialHandshake.getPassword()));
                 writer.println("User Creation Successful.");
+                System.out.println("User Created:   "+initialHandshake.getUsername()+ "     @   "+getCurrentTime() );
             }
-            if(initialHandshake.getMessageType()=="LOG") {
+            if(initialHandshake.getMessageType().equals("LOG")) {
                 do {
                     successLogin = false;
-                    for(User user : userList)
+                    for(User user : server.getUserList())
                     {
                         if(user.getUsername().equals(initialHandshake.getUsername()) && user.getPassword().equals(initialHandshake.getPassword()))
                         {
@@ -66,10 +69,11 @@ public class UserThread extends Thread {
             printUsers();
 
         } catch (IOException | ClassNotFoundException ex) {
-            System.out.println("Error in UserThread: " + ex.getMessage());
+            System.out.println("Error in UserThread: " + ex.getMessage()+ " @   "+getCurrentTime() ) ;
             ex.printStackTrace();
         }
     }
+
     public String getCurrentTime()
     {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -80,9 +84,13 @@ public class UserThread extends Thread {
      * Sends a list of online users to the newly connected user.
      */
     void printUsers() {
-        if (!userList.isEmpty()) {
+        if (!server.getUserList().isEmpty()) {
 
-            writer.println("These users are available to connect " + userList);
+            writer.println("These users are available to connect: ");
+            for(User user: server.getUserList())
+            {
+                writer.println("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getSocket().getInetAddress());
+            }
         } else {
             writer.println("No other users connected");
         }
