@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3d9fee5-3237-47b0-b827-6696398af8fa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/ChatClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChatClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chat_demo/ReadThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chat_demo/ReadThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Chat_demo/UserThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chat_demo/UserThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ReadThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ReadThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UserThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/data/LoginDataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/data/LoginDataSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/login/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/login/LoginActivity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ChatClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+            <state relative-caret-position="988">
+              <caret line="63" column="1" lean-forward="true" selection-start-line="63" selection-start-column="1" selection-end-line="63" selection-end-column="1" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1051#1052#0" expanded="true" />
@@ -54,17 +57,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ReadThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="77">
-              <caret line="52" column="48" lean-forward="true" selection-start-line="52" selection-start-column="48" selection-end-line="52" selection-end-column="48" />
+            <state relative-caret-position="136">
+              <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/UserThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="125">
+              <caret line="73" selection-start-line="73" selection-end-line="73" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/UserThread.java">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-11.0.6.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/Thread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="116" column="35" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="35" />
+            <state relative-caret-position="-547">
+              <caret line="833" selection-start-line="833" selection-end-line="833" />
             </state>
           </provider>
         </entry>
@@ -127,9 +139,9 @@
         <option value="$PROJECT_DIR$/src/ChatServer.java" />
         <option value="$PROJECT_DIR$/src/WriteThread.java" />
         <option value="$PROJECT_DIR$/src/User.java" />
+        <option value="$PROJECT_DIR$/src/ChatClient.java" />
         <option value="$PROJECT_DIR$/src/ReadThread.java" />
         <option value="$PROJECT_DIR$/src/UserThread.java" />
-        <option value="$PROJECT_DIR$/src/ChatClient.java" />
       </list>
     </option>
   </component>
@@ -169,7 +181,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1615562504077" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1615565473913" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -238,7 +250,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="25" width="1440" height="823" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
       <window_info id="Designer" />
@@ -253,7 +264,7 @@
       <window_info anchor="bottom" id="Messages" weight="0.32965517" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3586207" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.37793103" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -361,24 +372,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ReadThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="77">
-          <caret line="52" column="48" lean-forward="true" selection-start-line="52" selection-start-column="48" selection-end-line="52" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UserThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="116" column="35" selection-start-line="116" selection-start-column="35" selection-end-line="116" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ChatClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+        <state relative-caret-position="988">
+          <caret line="63" column="1" lean-forward="true" selection-start-line="63" selection-start-column="1" selection-end-line="63" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1051#1052#0" expanded="true" />
@@ -386,6 +383,27 @@
             <element signature="e#1119#1120#0" expanded="true" />
             <element signature="e#1155#1156#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReadThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-11.0.6.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-547">
+          <caret line="833" selection-start-line="833" selection-end-line="833" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UserThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="73" selection-start-line="73" selection-end-line="73" />
         </state>
       </provider>
     </entry>

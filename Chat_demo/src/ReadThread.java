@@ -46,8 +46,6 @@ public class ReadThread extends Thread {
                 int num = (int) inputStream.readObject();
 
 
-
-
                 for (int i = 0; i < num; i++) {
                     response = (String) inputStream.readObject();
                     System.out.println(response);

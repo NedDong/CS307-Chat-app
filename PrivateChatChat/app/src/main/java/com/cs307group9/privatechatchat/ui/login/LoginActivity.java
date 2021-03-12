@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     final String KEY_PREF_USERNAME = "username";
     final String KEY_PREF_PASSWORD = "password";
     final String KEY_PREF_FRIENDLIST = "friendlist";
+    final String KEY_PREF_ISLOGIN = "islogin";
 
     static String hostname = "10.0.2.2";
     //="cs307-chat-app.webredirect.org";
@@ -102,10 +103,14 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 loadingProgressBar.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
+//                if (loginResult.getError() != null) {
+//                    showLoginFailed(loginResult.getError());
+//                }
+                if (!sharedPreferences.getBoolean(KEY_PREF_ISLOGIN, true)) {
+                    System.out.println("=====WRONG!!====");
+                    showLoginFailed("Wrong Username/Password");
                 }
-                if (loginResult.getSuccess() != null) {
+                else if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
                     Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -116,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                 setResult(Activity.RESULT_OK);
 
                 //Complete and destroy login activity once successful
-                finish();
+                // finish();
             }
         });
 
@@ -182,20 +187,12 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
-    private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    private void showLoginFailed(String errorString) {
+        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_LONG).show();
     }
 
     private ObjectOutputStream output;
     private ObjectInputStream input;
-
-    private void clickLog(View view) {
-        type = 0;
-    }
-
-    private void clickReg(View view) {
-        type = 1;
-    }
 
     class ServerConnectThread implements Runnable {
         public void run() {
@@ -249,7 +246,13 @@ public class LoginActivity extends AppCompatActivity {
         public void run() {
             try {
                 String result = (String) input.readObject();
-                if (!result.contains("Successful")) return;
+                if (!result.contains("Successful")) {
+                    editor.putBoolean(KEY_PREF_ISLOGIN, false);
+                    editor.commit();
+                    return;
+                }
+                editor.putBoolean(KEY_PREF_ISLOGIN, true);
+                editor.commit();
                 int num = (int) input.readObject();
 
                 for (int i = 0; i < num; i++) {
@@ -260,8 +263,7 @@ public class LoginActivity extends AppCompatActivity {
                     int uid = (int) input.readObject();
                     InetAddress inetAddress = (InetAddress) input.readObject();
                     String psw = (String) input.readObject();
-                    Socket socket = new Socket(inetAddress, port);
-                    User friend = new User(name, uid, socket, psw);
+                    User friend = new User(name, uid, inetAddress, psw);
                     frindlist.put(name, friend);
                     System.out.println("add friend successfully" + friend.getUsername());
                 }

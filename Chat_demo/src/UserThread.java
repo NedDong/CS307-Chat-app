@@ -70,7 +70,13 @@ public class UserThread extends Thread implements Serializable{
                         }
                         outputStream.writeObject("Incorrect username or password, Please try again");
                     }
-                    if(!successLogin) initialHandshake = (Message)reader.readObject();
+                    if(!successLogin) {
+                        type = (String) reader.readObject();
+                        userName = (String) reader.readObject();
+                        password = (String) reader.readObject();
+
+                        initialHandshake = new Message(type, userName, password);
+                    }
                 } while (!successLogin);
             }
             printUsers();
