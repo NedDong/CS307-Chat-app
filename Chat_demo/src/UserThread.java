@@ -10,9 +10,9 @@ import java.util.*;
  * can handle multiple clients at the same time.
  */
 public class UserThread extends Thread implements Serializable{
-    private Socket socket;
+    private transient Socket socket;
     private ChatServer server;
-    private PrintWriter writer;
+    // private PrintWriter writer;
     private ObjectOutputStream outputStream;
     public UserThread(Socket socket, ChatServer server) {
         this.socket = socket;
@@ -24,8 +24,10 @@ public class UserThread extends Thread implements Serializable{
             InputStream input = socket.getInputStream();
             ObjectInputStream reader = new ObjectInputStream(input);
             Message initialHandshake;
-            OutputStream output = socket.getOutputStream();
-            writer = new PrintWriter(output, true);
+            outputStream = new ObjectOutputStream(socket.getOutputStream());
+            // OutputStream output = socket.getOutputStream();
+
+            // writer = new PrintWriter(outputStream, true);
             boolean usernameDuplicated;
             boolean successLogin;
             initialHandshake = (Message)reader.readObject();
@@ -39,7 +41,7 @@ public class UserThread extends Thread implements Serializable{
                     {
                         if(user.getUsername().equals(initialHandshake.getUsername()))
                         {
-                            writer.println("Username Duplicated. Try again.");
+                            outputStream.writeObject("Username Duplicated. Try again.");
                             usernameDuplicated = true;
                             break;
                         }
@@ -47,7 +49,7 @@ public class UserThread extends Thread implements Serializable{
                     if(usernameDuplicated) initialHandshake = (Message)reader.readObject();
                 } while (usernameDuplicated);
                 server.getUserList().add(new User(initialHandshake.getUsername(),server.getUid(), socket,initialHandshake.getPassword()));
-                writer.println("User Creation Successful.");
+                outputStream.writeObject("User Creation Successful.");
                 System.out.println("User Created:   "+initialHandshake.getUsername()+ "     @   "+getCurrentTime() );
             }
             if(initialHandshake.getMessageType().equals("LOG")) {
@@ -57,11 +59,11 @@ public class UserThread extends Thread implements Serializable{
                     {
                         if(user.getUsername().equals(initialHandshake.getUsername()) && user.getPassword().equals(initialHandshake.getPassword()))
                         {
-                            writer.println("Login Success");
+                            outputStream.writeObject("Login Success");
                             successLogin = true;
                             break;
                         }
-                        writer.println("Incorrect username or password, Please try again");
+                        outputStream.writeObject("Incorrect username or password, Please try again");
                     }
                     if(!successLogin) initialHandshake = (Message)reader.readObject();
                 } while (!successLogin);
@@ -86,25 +88,52 @@ public class UserThread extends Thread implements Serializable{
     void printUsers() {
         if (!server.getUserList().isEmpty()) {
             //writer.println("These users are available to connect: ");
-            try{
-                outputStream.writeChars("These users are available to connect: ");
-            } catch (IOException e){
+//            try{
+//                outputStream.writeObject("These users are available to connect: ");
+//                //outputStream.flush();
+//            } catch (IOException e){
+//                e.printStackTrace();
+//            }
+            System.out.println("=====NOT EMPTY====");
+
+
+            // Pass the size of userlist
+
+            try {
+                outputStream.writeObject(server.getUserList().size());
+            } catch (IOException e) {
                 e.printStackTrace();
             }
+
             for(User user: server.getUserList())
             {
                 //writer.println("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getSocket().getInetAddress());
                 try{
-                    //outputStream.writeChars("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getSocket().getInetAddress());
+                    outputStream.writeObject("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getSocket().getInetAddress());
                     //outputStream.flush();
-                    outputStream.writeObject(user);
-                    outputStream.flush();
+
+                    //String s = "" + user.getSocket();
+
+
+                    outputStream.writeObject(user.getUsername());
+                    outputStream.writeObject(user.getUid());
+                    outputStream.writeObject(user.getPort());
+                    outputStream.writeObject(user.getInetAddress());
+                    outputStream.writeObject(user.getPassword());
+
+                    // outputStream.writeObject(new User(user.getUsername(),user.getUid(),user.getSocket(), user.getPassword()));
+                    // outputStream.flush();
                 } catch (IOException e){
                     e.printStackTrace();
                 }
             }
         } else {
-            writer.println("No other users connected");
+            System.out.println("=====EMPTY====");
+            try {
+                outputStream.writeObject("No other users connected");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

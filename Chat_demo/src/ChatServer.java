@@ -8,11 +8,11 @@ import java.util.*;
  * This is the chat server program.
  */
 public class ChatServer implements Serializable {
-    private int port;
-    private Set<String> userNames = new HashSet<>();
-    private Set<UserThread> userThreads = new HashSet<>();
+    private transient int port;
+    private transient Set<String> userNames = new HashSet<>();
+    private transient Set<UserThread> userThreads = new HashSet<>();
     int uid = 0;
-    public List<User> userList = new ArrayList<>();
+    public transient List<User> userList = new ArrayList<>();
     public ChatServer(int port) {
         this.port = port;
     }
@@ -40,7 +40,7 @@ public class ChatServer implements Serializable {
     }
 
     public static void main(String[] args) {
-        ChatServer server = new ChatServer(12345);
+        ChatServer server = new ChatServer(1111);
         server.execute();
     }
 

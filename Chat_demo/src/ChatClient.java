@@ -1,4 +1,6 @@
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.SQLOutput;
@@ -11,7 +13,7 @@ public class ChatClient {
     private String hostname;
     private int port;
     private String userName;
-    private HashMap<String , User> friendsMap;
+    private HashMap<String , User> friendsMap = new HashMap<>();
     public ChatClient(String hostname, int port) {
         this.hostname = hostname;
         this.port = port;
@@ -21,9 +23,11 @@ public class ChatClient {
             Socket socket = new Socket(hostname, port);
 
             System.out.println("Connected to the chat server");
+            System.out.println("Connected to the chat server");
 
-            new ReadThread(socket, this).start();
-            new WriteThread(socket, this).start();
+            new Thread(new WriteThread(socket, this)).start();
+            new Thread(new ReadThread(socket,this)).start();
+
 
         } catch (UnknownHostException ex) {
             System.out.println("Server not found: " + ex.getMessage());
@@ -39,6 +43,8 @@ public class ChatClient {
         return this.userName;
     }
     void addFriends(String username , User user){
+        System.out.println("USER NAME:" + username);
+        System.out.println(user.getUid());
         friendsMap.put(username , user);
     }
     public static void main(String[] args) {

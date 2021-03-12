@@ -21,9 +21,9 @@ public class ReadThread extends Thread {
         this.client = client;
 
         try {
-            InputStream input = socket.getInputStream();
+            // InputStream input = socket.getInputStream();
             //reader = new BufferedReader(new InputStreamReader(input));
-            inputStream = new ObjectInputStream(input);
+            inputStream = new ObjectInputStream(socket.getInputStream());
         } catch (IOException ex) {
             System.out.println("Error getting input stream: " + ex.getMessage());
             ex.printStackTrace();
@@ -40,14 +40,49 @@ public class ReadThread extends Thread {
                 if (client.getUserName() != null) {
                     System.out.print("[" + client.getUserName() + "]: ");
                 }*/
-                Object response;
-                while ((response = inputStream.readObject()) != null){
-                    User friend = (User) response;
-                    client.addFriends(friend.getUsername() , friend);
+                String response = (String)inputStream.readObject(); //= inputStream.read();
+                System.out.println(response);
+
+                int num = (int) inputStream.readObject();
+
+
+
+
+                for (int i = 0; i < num; i++) {
+                    response = (String) inputStream.readObject();
+                    System.out.println(response);
+
+                    String name = (String) inputStream.readObject();
+                    int uid = (int) inputStream.readObject();
+                    int port = (int) inputStream.readObject();
+                    InetAddress inetAddress = (InetAddress) inputStream.readObject();
+                    String psw = (String) inputStream.readObject();
+                    Socket socket = new Socket(inetAddress, port);
+                    User friend = new User(name, uid, socket, psw);
+
+
+
+                    client.addFriends(name, friend);
                     System.out.println("add friend successfully" + friend.getUsername());
                 }
-            } catch (IOException | ClassNotFoundException ex) {
+
+                // User friend = (User) inputStream.readObject();
+
+                // if (friend != null) {
+
+                // }
+
+                // while ((a = inputStream.readObject()) != null){
+                //    User friend = (User) a;
+//                    client.addFriends(friend.getUsername() , friend);
+//                    System.out.println("add friend successfully" + friend.getUsername());
+                // }
+            } catch (IOException ex) {
                 System.out.println("Error reading from server: " + ex.getMessage());
+                ex.printStackTrace();
+                break;
+            } catch (ClassNotFoundException ex) {
+                System.out.println("Class Not Found reading from server: " + ex.getMessage());
                 ex.printStackTrace();
                 break;
             }
