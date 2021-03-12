@@ -2,6 +2,7 @@ package com.cs307group9.privatechatchat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.cs307group9.privatechatchat.ui.login.LoginActivity;
 import com.google.firebase.database.DatabaseReference;
 
 import java.io.BufferedReader;
@@ -37,11 +39,14 @@ public class MainActivity extends AppCompatActivity {
     TextView clientText;
     Button serverButton;
 
+    Thread ServerThread = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
 
         sendButton = findViewById(R.id.sendButton);
         sendText   = findViewById(R.id.editText);
@@ -52,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 clientText.setText("");
-                new Thread(new ServerConnectThread()).start();
+                ServerThread = new Thread(new ServerConnectThread());
+                ServerThread.start();
             }
         });
 
@@ -105,13 +111,23 @@ public class MainActivity extends AppCompatActivity {
     private PrintWriter output;
     private BufferedReader input;
 
+    public void backButton(View view) {
+        Intent intent = new Intent(MainActivity.this, MainScreenActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        new Thread(new ClientThread("bye")).start();
+
+        startActivity(intent);
+        finish();
+    }
+
     class ServerConnectThread implements Runnable {
         public void run() {
             System.out.println("==== I Am Currently Running Thread 1===");
             Socket socket;
             try {
                 socket = new Socket(hostname, port);
-                output = new PrintWriter(socket.getOutputStream());
+                output = new PrintWriter(socket.getOutputStream(), true);
                 input  = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 runOnUiThread(new Runnable() {
                     @Override
@@ -120,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 new Thread(new ServerMsgThread()).start();
+                new Thread(new ClientThread("张涛")).start();
             } catch (UnknownHostException ex) {
                 System.out.println("Server not found: " + ex.getMessage());
             } catch (IOException ex) {
@@ -138,12 +155,14 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                clientText.append("Server" + msg + "\n");
+                                clientText.append("Server-" + msg + "\n");
                             }
                         });
                     }
                     else {
-                        new Thread(new ServerConnectThread()).start();
+                        ServerThread = new Thread(new ServerConnectThread());
+                        ServerThread.start();
+                        return;
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -158,12 +177,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             System.out.println(msg);
-            output.write(msg);
-            output.flush();
+            output.println(msg);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    clientText.append("Client[Smart Pete]: " + msg + "\n");
+                    clientText.append("Client-[Smart Pete]: " + msg + "\n");
                     sendText.setText("");
                 }
             });
@@ -172,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+/*
     private String[] sortMsg(String msg) {
         if (msg.contains("=")) {
             String[] messages = new String[1];
@@ -256,5 +274,6 @@ public class MainActivity extends AppCompatActivity {
 
         return i+1;
     }
+    */
 
 }

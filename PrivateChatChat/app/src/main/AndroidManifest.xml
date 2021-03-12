@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cs307group9.privatechatchat">
+    package="com.cs307group9.privatechatchat" >
 
     <application
         android:allowBackup="true"
@@ -8,8 +8,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PrivateChatChat">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.PrivateChatChat" >
+        <activity
+            android:name=".MainScreenActivity"
+            android:label="@string/title_activity_main__screen_" >
+        </activity>
+        <!-- <activity -->
+        <!-- android:name=".ui.login.LoginActivity" -->
+        <!-- android:label="@string/title_activity_login"></activity> -->
+        <activity
+            android:name=".MainActivity"
+            android:label="MainActivity" />
+        <activity android:name=".ui.login.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
