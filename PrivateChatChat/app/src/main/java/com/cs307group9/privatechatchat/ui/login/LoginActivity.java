@@ -27,14 +27,18 @@ import android.widget.Toast;
 
 import com.cs307group9.privatechatchat.MainActivity;
 import com.cs307group9.privatechatchat.MainScreenActivity;
+import com.cs307group9.privatechatchat.OutputInputHandler;
 import com.cs307group9.privatechatchat.PrefManager;
 import com.cs307group9.privatechatchat.R;
+import com.cs307group9.privatechatchat.SocketHandler;
 import com.cs307group9.privatechatchat.entity.User;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Type;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -45,10 +49,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
 
+    final String KEY_PREF_APP = "myPref";
     final String KEY_PREF_USERNAME = "username";
     final String KEY_PREF_PASSWORD = "password";
     final String KEY_PREF_FRIENDLIST = "friendlist";
     final String KEY_PREF_ISLOGIN = "islogin";
+    final String KEY_PREF_SOCKET = "socket";
 
     static String hostname = "10.0.2.2";
     //="cs307-chat-app.webredirect.org";
@@ -71,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        sharedPreferences = getSharedPreferences(KEY_PREF_USERNAME, MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(KEY_PREF_APP, MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         final EditText usernameEditText = findViewById(R.id.username);
@@ -114,6 +120,13 @@ public class LoginActivity extends AppCompatActivity {
                     updateUiWithUser(loginResult.getSuccess());
                     Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    try {
+//                        output.close();
+//                        input.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+
                     startActivity(intent);
 
                     finish();
@@ -269,6 +282,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 Gson gson = new Gson();
+                //Type hashMapType = new TypeToken<HashMap<String, User>>() {}.getType();
+                //HashMap<String, User> frindMap = gson.fromJson(gson.toJson(frindlist), hashMapType);
                 String json = gson.toJson(frindlist);
 
                 editor.putString(KEY_PREF_FRIENDLIST, json);
@@ -276,9 +291,16 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//
+//                try {
+//                    output.close();
+//                    input.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
                 startActivity(intent);
-                finish();
+                // finish();
             }
             catch (IOException e) {
                 e.printStackTrace();

@@ -55,11 +55,17 @@ public class ChatServer implements Serializable {
     /**
      * When a client is disconneted, removes the associated username and UserThread
      */
-    void removeUser(String userName, UserThread aUser) {
-        boolean removed = userNames.remove(userName);
-        if (removed) {
-            userThreads.remove(aUser);
-            System.out.println("The user " + userName + " quitted");
+    public void removeUser(String username)
+    {
+        userNames.remove(username);
+        for(User user : userList)
+        {
+            if(user.getUsername().equals(username))
+            {
+                userList.remove(user);
+                System.out.println("User"+username+"removed.");
+                break;
+            }
         }
     }
     public void addToUserList(User user)

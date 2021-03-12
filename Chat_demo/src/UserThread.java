@@ -14,6 +14,10 @@ public class UserThread extends Thread implements Serializable{
     private ChatServer server;
     // private PrintWriter writer;
     private ObjectOutputStream outputStream;
+    private ObjectInputStream inputStream;
+
+    private boolean isLogin = false;
+
     public UserThread(Socket socket, ChatServer server) {
         this.socket = socket;
         this.server = server;
@@ -25,6 +29,7 @@ public class UserThread extends Thread implements Serializable{
             ObjectInputStream reader = new ObjectInputStream(input);
             Message initialHandshake;
             outputStream = new ObjectOutputStream(socket.getOutputStream());
+           //  inputStream = new ObjectInputStream(socket.getInputStream());
             // OutputStream output = socket.getOutputStream();
 
             // writer = new PrintWriter(outputStream, true);
@@ -53,6 +58,7 @@ public class UserThread extends Thread implements Serializable{
                     }
                     if(usernameDuplicated) initialHandshake = (Message)reader.readObject();
                 } while (usernameDuplicated);
+
                 server.getUserList().add(new User(initialHandshake.getUsername(),server.getUid(), socket.getInetAddress(),initialHandshake.getPassword()));
                 outputStream.writeObject("User Creation Successful.");
                 System.out.println("User Created:   "+initialHandshake.getUsername()+ "     @   "+getCurrentTime() );
@@ -64,6 +70,7 @@ public class UserThread extends Thread implements Serializable{
                     {
                         if(user.getUsername().equals(initialHandshake.getUsername()) && user.getPassword().equals(initialHandshake.getPassword()))
                         {
+                            isLogin = true;
                             outputStream.writeObject("Login Success");
                             successLogin = true;
                             break;
@@ -79,7 +86,33 @@ public class UserThread extends Thread implements Serializable{
                     }
                 } while (!successLogin);
             }
-            printUsers();
+            if(initialHandshake.getMessageType().equals("LIST")) {
+                outputStream.writeObject(server.getUserList().size());
+
+                for (User user : server.getUserList()) {
+                    //writer.println("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getSocket().getInetAddress());
+                    try {
+                        outputStream.writeObject("Username: " + user.getUsername() + " UID" + user.getUid() + " Address:" + user.getInetAddress());
+                        //outputStream.flush();
+
+                        //String s = "" + user.getSocket();
+
+                        outputStream.writeObject(user.getUsername());
+                        outputStream.writeObject(user.getUid());
+                        outputStream.writeObject(user.getInetAddress());
+                        outputStream.writeObject(user.getPassword());
+
+                        // outputStream.writeObject(new User(user.getUsername(),user.getUid(),user.getSocket(), user.getPassword()));
+                        // outputStream.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if(initialHandshake.getMessageType().equals("DEREGISTER")) {
+                server.removeUser(initialHandshake.getUsername());
+            }
+            else printUsers();
 
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println("Error in UserThread: " + ex.getMessage()+ " @   "+getCurrentTime() ) ;
@@ -132,7 +165,7 @@ public class UserThread extends Thread implements Serializable{
 
                     // outputStream.writeObject(new User(user.getUsername(),user.getUid(),user.getSocket(), user.getPassword()));
                     // outputStream.flush();
-                } catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }

@@ -8,35 +8,106 @@
 
     <SearchView
         android:id="@+id/searchBar"
-        android:layout_width="416dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/Friend_A_Image"
+        android:layout_marginBottom="87dp"
+        app:layout_constraintBottom_toTopOf="@+id/friendA"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/Friend_A_Text"
-        android:layout_width="196dp"
-        android:layout_height="49dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Friend_A"
-        app:layout_constraintTop_toTopOf="@+id/Friend_A_Image"
-        tools:layout_editor_absoluteX="172dp" />
-
-    <ImageButton
-        android:id="@+id/Friend_A_Image"
-        android:layout_width="139dp"
+    <TextView
+        android:id="@+id/friendB"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="501dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="106dp"
+        android:text="NullFriend"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        app:layout_constraintBottom_toTopOf="@+id/friendC"
+        app:layout_constraintEnd_toStartOf="@+id/chatButtonB"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBar"
-        tools:src="@tools:sample/avatars" />
+        app:layout_constraintTop_toBottomOf="@+id/friendA" />
+
+    <TextView
+        android:id="@+id/friendC"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="44dp"
+        android:text="NullFriend"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/reloadButton"
+        app:layout_constraintEnd_toStartOf="@+id/ChatButtonC"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friendB" />
+
+    <TextView
+        android:id="@+id/friendA"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="77dp"
+        android:text="NullFriend"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/friendB"
+        app:layout_constraintEnd_toStartOf="@+id/chatButtonA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+
+    <Button
+        android:id="@+id/chatButtonA"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="87dp"
+        android:text="Chat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/friendA"
+        app:layout_constraintTop_toTopOf="@+id/friendA" />
+
+    <Button
+        android:id="@+id/chatButtonB"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="227dp"
+        android:layout_marginEnd="86dp"
+        android:layout_marginBottom="226dp"
+        android:text="Chat"
+        app:layout_constraintBottom_toTopOf="@+id/reloadButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/friendB"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+
+    <Button
+        android:id="@+id/ChatButtonC"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="106dp"
+        android:layout_marginEnd="87dp"
+        android:layout_marginBottom="104dp"
+        android:text="Chat"
+        app:layout_constraintBottom_toBottomOf="@+id/reloadButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/friendC"
+        app:layout_constraintTop_toBottomOf="@+id/friendB" />
+
+    <Button
+        android:id="@+id/reloadButton"
+        android:layout_width="94dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="122dp"
+        android:text="Reload"
+        app:backgroundTint="#FF9800"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friendC" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
