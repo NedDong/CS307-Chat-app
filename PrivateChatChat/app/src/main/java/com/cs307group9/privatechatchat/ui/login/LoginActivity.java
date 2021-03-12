@@ -269,7 +269,7 @@ public class LoginActivity extends AppCompatActivity {
         public void run() {
             try {
                 String result = (String) input.readObject();
-                if (!result.contains("Success")) {
+                if (!result.contains("uccess")) {
                     editor.putBoolean(KEY_PREF_ISLOGIN, false);
                     editor.commit();
                     return;

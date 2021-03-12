@@ -17,6 +17,7 @@ public class UserThread extends Thread implements Serializable{
     private ObjectInputStream inputStream;
 
     private boolean isLogin = false;
+    private String blockedUser;
 
     public UserThread(Socket socket, ChatServer server) {
         this.socket = socket;
@@ -63,7 +64,7 @@ public class UserThread extends Thread implements Serializable{
                 outputStream.writeObject("User Creation Successful.");
                 System.out.println("User Created:   "+initialHandshake.getUsername()+ "     @   "+getCurrentTime() );
             }
-            if(initialHandshake.getMessageType().equals("LOG")) {
+            else if(initialHandshake.getMessageType().equals("LOG")) {
                 do {
                     successLogin = false;
                     for(User user : server.getUserList())
@@ -86,12 +87,16 @@ public class UserThread extends Thread implements Serializable{
                     }
                 } while (!successLogin);
             }
-            if(initialHandshake.getMessageType().equals("LIST")) {
+            else if(initialHandshake.getMessageType().equals("LIST")) {
                 outputStream.writeObject(server.getUserList().size());
 
                 for (User user : server.getUserList()) {
                     //writer.println("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getSocket().getInetAddress());
                     try {
+                        if(user.getUsername().equals(blockedUser))
+                        {
+                            continue;
+                        }
                         outputStream.writeObject("Username: " + user.getUsername() + " UID" + user.getUid() + " Address:" + user.getInetAddress());
                         //outputStream.flush();
 
@@ -108,11 +113,21 @@ public class UserThread extends Thread implements Serializable{
                         e.printStackTrace();
                     }
                 }
+                return;
             }
-            if(initialHandshake.getMessageType().equals("DEREGISTER")) {
+            else if (initialHandshake.getMessageType().equals("DEREGISTER")) {
                 server.removeUser(initialHandshake.getUsername());
+                return;
             }
-            else printUsers();
+            else if (initialHandshake.getMessageType().equals("UpdateUserName")) {
+                server.changeUsername(initialHandshake.getUsername(), initialHandshake.getPassword());
+                return;
+            }
+            else if (initialHandshake.getMessageType().equals("block")) {
+                blockedUser = initialHandshake.getUsername();
+                return;
+            }
+            printUsers();
 
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println("Error in UserThread: " + ex.getMessage()+ " @   "+getCurrentTime() ) ;
@@ -153,6 +168,10 @@ public class UserThread extends Thread implements Serializable{
             {
                 //writer.println("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getSocket().getInetAddress());
                 try{
+                    if(user.getUsername().equals(blockedUser))
+                    {
+                        continue;
+                    }
                     outputStream.writeObject("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getInetAddress());
                     //outputStream.flush();
 

@@ -49,13 +49,15 @@ public class ContactFragment extends Fragment {
     final String KEY_PREF_FRIENDLIST = "friendlist";
     final String KEY_PREF_ISLOGIN = "islogin";
     final String KEY_PREF_SOCKET = "socket";
+    final String KEY_PREF_MUTE = "mute";
+    final String KEY_PREF_BLOCK = "block";
     final String LIST = "LIST";
 
     ObjectOutputStream oos;
     ObjectInputStream ois;
 
     TextView nameA, nameB, nameC;
-    Button buttonA, buttonB, buttonC, groupButton;
+    Button buttonA, buttonB, buttonC, groupButton, mA, mB, mC, bA, bB, bC;;
 
     View view;
 
@@ -143,8 +145,62 @@ public class ContactFragment extends Fragment {
         if (i > 1) nameB.setText(nameList[1]);
         if (i > 2) nameC.setText(nameList[2]);
 
+
+        mA = view.findViewById(R.id.muteA);
+        mA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString(KEY_PREF_MUTE, nameA.getText().toString());
+                editor.commit();
+            }
+        });
+
+        mB = view.findViewById(R.id.muteB);
+        mB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString(KEY_PREF_MUTE, nameB.getText().toString());
+                editor.commit();
+            }
+        });
+
+        mC = view.findViewById(R.id.muteC);
+        mC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString(KEY_PREF_MUTE, nameC.getText().toString());
+                editor.commit();
+            }
+        });
+
+        bA = view.findViewById(R.id.blockA);
+        bA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString(KEY_PREF_BLOCK, nameA.getText().toString());
+                editor.commit();
+            }
+        });
+        bB = view.findViewById(R.id.blockB);
+        bB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString(KEY_PREF_BLOCK, nameB.getText().toString());
+                editor.commit();
+            }
+        });
+        bC = view.findViewById(R.id.blockC);
+        bC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString(KEY_PREF_BLOCK, nameC.getText().toString());
+                editor.commit();
+            }
+        });
+
         return view;
     }
+
 
     class ReloadThread implements Runnable {
         @Override
@@ -165,6 +221,8 @@ public class ContactFragment extends Fragment {
 
                 System.out.println(num);
 
+                String blockName = sharedPreferences.getString(KEY_PREF_BLOCK, "");
+
                 for (int i = 0; i < num; i++) {
                     String response = (String) ois.readObject();
                     System.out.println(response);
@@ -174,6 +232,9 @@ public class ContactFragment extends Fragment {
                     InetAddress inetAddress = (InetAddress) ois.readObject();
                     String psw = (String) ois.readObject();
                     User friend = new User(name, uid, inetAddress, psw);
+
+                    if (name.equals(blockName)) continue;
+
                     updateFriendList.put(name, friend);
                     System.out.println("add friend successfully" + friend.getUsername());
                 }
@@ -199,10 +260,14 @@ public class ContactFragment extends Fragment {
                     i++;
                     if (i == 3) break;
                 }
+                String nof = "NullFriend";
 
                 if (i > 0) nameA.setText(nameList[0]);
+                else nameA.setText(nof);
                 if (i > 1) nameB.setText(nameList[1]);
+                else nameB.setText(nof);
                 if (i > 2) nameC.setText(nameList[2]);
+                else nameC.setText(nof);
 
             } catch (IOException e) {
                 e.printStackTrace();

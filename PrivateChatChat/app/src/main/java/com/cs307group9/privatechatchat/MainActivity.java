@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     //static String hostname = "cs307-chat-app.webredirect.org";
     static String hostname = "10.0.2.2";
-    static int port = 12346;
+    static int port = 11111;
 
     Button sendButton;
     EditText sendText;
@@ -51,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
     final String KEY_PREF_PASSWORD = "password";
     final String KEY_PREF_FRIENDLIST = "friendlist";
     final String KEY_PREF_ISLOGIN = "islogin";
+    final String KEY_PREF_MUTE = "mute";
 
     boolean connectServer = true;
+    String muteUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(KEY_PREF_APP, MODE_PRIVATE);
 
         username = sharedPreferences.getString(KEY_PREF_USERNAME, "");
+        muteUser = sharedPreferences.getString(KEY_PREF_MUTE,"______");
 
         if (connectServer) {
             connectServer = false;
@@ -77,16 +80,6 @@ public class MainActivity extends AppCompatActivity {
             ServerThread = new Thread(new ServerConnectThread());
             ServerThread.start();
         }
-
-
-//        serverButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                clientText.setText("");
-//                ServerThread = new Thread(new ServerConnectThread());
-//                ServerThread.start();
-//            }
-//        });
     }
 
     public void sendMessage(View view) {
@@ -142,7 +135,9 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (!msg.contains("Connected"))
+                                System.out.println(msg + "\n");
+                                System.out.println(muteUser + "\n");
+                                if (!msg.contains("connected") && !msg.contains(muteUser))
                                     clientText.append(msg + "\n");
                             }
                         });

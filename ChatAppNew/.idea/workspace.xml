@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="09035f45-fda3-4bcb-9c9b-d4645ddf74d3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/ChatServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/ChatServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/UserThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/UserThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/src/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/src/ChatServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/src/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/src/UserThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/src/UserThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/notifications/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/notifications/ProfileFragment.java" afterDir="false" />
-    </list>
+    <list default="true" id="09035f45-fda3-4bcb-9c9b-d4645ddf74d3" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,21 +14,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="60" column="32" lean-forward="true" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
-              <folding>
-                <element signature="e#1054#1055#0" expanded="true" />
-                <element signature="e#1090#1091#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="168">
+              <caret line="23" column="38" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/UserThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/WriteThread.java">
+        <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="50" column="32" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="32" />
+            <state relative-caret-position="266">
+              <caret line="43" column="48" selection-start-line="43" selection-start-column="48" selection-end-line="43" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/Message.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="38" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -47,26 +50,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/ReadThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="39" column="38" lean-forward="true" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="50" column="24" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
+            <state relative-caret-position="300">
+              <caret line="21" column="29" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/UserThread.java">
+        <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="47" column="27" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
+            <state relative-caret-position="60">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/WriteThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -80,23 +83,21 @@
       </list>
     </option>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/net/codejava/networking/chat/server/WriteThread.java" />
+        <option value="$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatClient.java" />
         <option value="$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatServer.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="y" value="25" />
     <option name="width" value="1440" />
-    <option name="height" value="824" />
+    <option name="height" value="823" />
   </component>
   <component name="ProjectId" id="1pQhPI3isby1GiKIvz1FRlQqEB1" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -108,6 +109,16 @@
             <path>
               <item name="ChatApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="ChatApp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ChatApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ChatApp" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ChatApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ChatApp" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ChatApp" type="b2602c69:ProjectViewProjectNode" />
@@ -137,11 +148,16 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1615592097001" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1615580317964" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/net/codejava/networking/chat/server" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -188,8 +204,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ChatClient" />
         <item itemvalue="Application.ChatServer" />
+        <item itemvalue="Application.ChatClient" />
       </list>
     </recent_temporary>
   </component>
@@ -224,9 +240,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1440" height="823" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25679544" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18025751" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -235,7 +250,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31448275" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.21517241" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -248,9 +263,9 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Maven" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
   </component>
@@ -304,42 +319,52 @@
     <state x="397" y="267" key="com.intellij.ide.util.TipDialog/0.23.1440.823@0.23.1440.823" timestamp="1615121215476" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/UserThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="47" column="27" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="60" column="32" lean-forward="true" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
-          <folding>
-            <element signature="e#1054#1055#0" expanded="true" />
-            <element signature="e#1090#1091#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="168">
+          <caret line="23" column="38" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/WriteThread.java">
+    <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/Message.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="50" column="32" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="32" />
+        <state relative-caret-position="120">
+          <caret line="8" column="38" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/ReadThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="39" column="38" lean-forward="true" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
+        <state relative-caret-position="300">
+          <caret line="21" column="29" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/WriteThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="50" column="24" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
+        <state relative-caret-position="266">
+          <caret line="43" column="48" selection-start-line="43" selection-start-column="48" selection-end-line="43" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/UserThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
         </state>
       </provider>
     </entry>

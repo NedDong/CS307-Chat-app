@@ -51,6 +51,20 @@ public class ChatServer implements Serializable {
         return dtf.format(now);
     }
 
+    public void changeUsername(String previousUsername, String newUsername)
+    {
+        userNames.remove(previousUsername);
+        userNames.add(newUsername);
+        for(User user : userList)
+        {
+            if(user.getUsername().equals(previousUsername))
+            {
+                user.setUsername(newUsername);
+                System.out.println("User"+newUsername+"changed.");
+                break;
+            }
+        }
+    }
 
     /**
      * When a client is disconneted, removes the associated username and UserThread

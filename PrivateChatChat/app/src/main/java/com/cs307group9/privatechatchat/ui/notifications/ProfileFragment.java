@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.cs307group9.privatechatchat.R;
 import com.cs307group9.privatechatchat.entity.User;
 import com.cs307group9.privatechatchat.ui.login.LoginActivity;
+import com.google.firebase.database.core.view.Change;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -28,8 +31,11 @@ import java.util.HashMap;
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel notificationsViewModel;
-    Button deButton, changeButton, quitButton;
+    Button deButton, changeButton, quitButton, applyButton, mA, mB, mC;
     View avatar01, avatar02;
+
+    EditText nameBox;
+    TextView uidBox;
 
     ObjectOutputStream oos;
     ObjectInputStream ois;
@@ -39,11 +45,15 @@ public class ProfileFragment extends Fragment {
     final String KEY_PREF_PASSWORD = "password";
     final String DEREGISTER = "DEREGISTER";
     final String KEY_PREF_FRIENDLIST = "friendlist";
+    final String KEY_PREF_CHANGE = "UpdateUserName";
+    final String KEY_PREF_MUTE = "mute";
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    int deORch = 0; // 0 means deregister, 1 means chaneg name
     boolean switchImage = false;
+    String sendMsg;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -54,16 +64,31 @@ public class ProfileFragment extends Fragment {
         avatar01 = view.findViewById(R.id.avatar01);
         avatar02 = view.findViewById(R.id.avatar02);
 
+        nameBox = view.findViewById(R.id.usernameText);
+        uidBox = view.findViewById(R.id.UID);
+
         avatar02.setVisibility(View.INVISIBLE);
         avatar01.setVisibility(View.VISIBLE);
 
         sharedPreferences = getContext().getSharedPreferences(KEY_PREF_APP, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
+        nameBox.setText(sharedPreferences.getString(KEY_PREF_USERNAME, ""));
+        applyButton = view.findViewById(R.id.applyButton);
+        applyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deORch = 1;
+                sendMsg = nameBox.getText().toString().trim();
+                new Thread(new DeregisterThread()).start();
+            }
+        });
+
         deButton = view.findViewById(R.id.deregisterButton);
         deButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                deORch = 0;
                 new Thread(new DeregisterThread()).start();
 
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
@@ -117,60 +142,40 @@ public class ProfileFragment extends Fragment {
                 ois = new ObjectInputStream(socket.getInputStream());
                 HashMap<String, User> updateFriendList = new HashMap<>();
 
-                oos.writeObject(DEREGISTER);
-                oos.writeObject(sharedPreferences.getString(KEY_PREF_USERNAME, ""));
-                oos.writeObject(sharedPreferences.getString(KEY_PREF_PASSWORD, ""));
-                // update Friendlist
-                int num = (int) ois.readObject();
-
-                System.out.println(num);
-
-                for (int i = 0; i < num; i++) {
-                    String response = (String) ois.readObject();
-                    System.out.println(response);
-
-                    String name = (String) ois.readObject();
-                    int uid = (int) ois.readObject();
-                    InetAddress inetAddress = (InetAddress) ois.readObject();
-                    String psw = (String) ois.readObject();
-                    User friend = new User(name, uid, inetAddress, psw);
-                    updateFriendList.put(name, friend);
-                    System.out.println("add friend successfully" + friend.getUsername());
+                if (deORch == 0) {
+                    oos.writeObject(DEREGISTER);
+                    oos.writeObject(sharedPreferences.getString(KEY_PREF_USERNAME, ""));
+                    oos.writeObject(sharedPreferences.getString(KEY_PREF_PASSWORD, ""));
                 }
-
-
-
-//                Gson gson = new Gson();
-//                String json = gson.toJson(updateFriendList);
+                else {
+                    oos.writeObject(KEY_PREF_CHANGE);
+                    oos.writeObject(sharedPreferences.getString(KEY_PREF_USERNAME, ""));
+                    oos.writeObject(sendMsg);
+                    editor.putString(KEY_PREF_USERNAME, sendMsg);
+                }
+                // update Friendlist
+//                int num = (int) ois.readObject();
 //
-//                editor.putString(KEY_PREF_FRIENDLIST, json);
-//                editor.commit();
+//                System.out.println(num);
 //
-//                nameA = view.findViewById(R.id.friendA);
-//                nameB = view.findViewById(R.id.friendB);
-//                nameC = view.findViewById(R.id.friendC);
+//                for (int i = 0; i < num; i++) {
+//                    String response = (String) ois.readObject();
+//                    System.out.println(response);
 //
-//                User userList[] = new User[3];
-//                String nameList[] = new String[3];
-//
-//                int i = 0;
-//
-//                for(Map.Entry<String, User> entry : updateFriendList.entrySet()) {
-//                    nameList[i] = entry.getKey();
-//                    userList[i] = updateFriendList.get(nameList[i]);
-//                    i++;
-//                    if (i == 3) break;
+//                    String name = (String) ois.readObject();
+//                    int uid = (int) ois.readObject();
+//                    InetAddress inetAddress = (InetAddress) ois.readObject();
+//                    String psw = (String) ois.readObject();
+//                    User friend = new User(name, uid, inetAddress, psw);
+//                    updateFriendList.put(name, friend);
+//                    System.out.println("add friend successfully" + friend.getUsername());
 //                }
-//
-//                if (i > 0) nameA.setText(nameList[0]);
-//                if (i > 1) nameB.setText(nameList[1]);
-//                if (i > 2) nameC.setText(nameList[2]);
-
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             }
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 }

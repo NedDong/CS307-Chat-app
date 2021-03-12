@@ -11,9 +11,9 @@ import java.util.*;
  */
 public class ChatServer {
     private int port;
-    private String hostname = "cs307-chat-app.webredirect.org";
     private Set<String> userNames = new HashSet<>();
     private Set<UserThread> userThreads = new HashSet<>();
+    int uid = 0;
 
     public ChatServer(int port) {
         this.port = port;
@@ -41,25 +41,7 @@ public class ChatServer {
     }
 
     public static void main(String[] args) {
-        /*
-        if (args.length < 1) {
-            System.out.println("Syntax: java ChatServer <port-number>");
-            System.exit(0);
-        }*/
-//        System.out.print("port: ");
-//        Scanner scan = new Scanner(System.in);
-        int port = 11111;
-//        try{
-//            port = scan.nextInt();
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-        //int port = Integer.parseInt(args[0]);
-        if (port == 0){
-            System.out.println("wrong port");
-            System.exit(0);
-        }
-        ChatServer server = new ChatServer(port);
+        ChatServer server = new ChatServer(12346);
         server.execute();
     }
 
@@ -101,5 +83,11 @@ public class ChatServer {
      */
     boolean hasUsers() {
         return !this.userNames.isEmpty();
+    }
+
+    int getUid()
+    {
+        uid++;
+        return uid;
     }
 }
