@@ -1,19 +1,20 @@
-package net.codejava.networking.chat.server;
 import java.io.*;
 import java.net.*;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import com.mysql.cj.jdbc.Driver;
 
 /**
  * This is the chat server program.
  */
 public class ChatServer implements Serializable {
-    private int port;
-    private Set<String> userNames = new HashSet<>();
-    private Set<UserThread> userThreads = new HashSet<>();
+    private transient int port;
+    private transient Set<String> userNames = new HashSet<>();
+    private transient Set<UserThread> userThreads = new HashSet<>();
     int uid = 0;
-    public List<User> userList = new ArrayList<>();
+    public transient List<User> userList = new ArrayList<>();
     public ChatServer(int port) {
         this.port = port;
     }
@@ -39,10 +40,31 @@ public class ChatServer implements Serializable {
             ex.printStackTrace();
         }
     }
+    private static String dbUrl = "jdbc:mysql://127.0.0.1:3306/CS307-Chat-Database";
+    private static String dbUsername = "root";
+    private static String dbPassword = "12345678";
+
+    private Statement statement = null;
+
+//    public void dbConnect() {
+//        try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            Connection connection = DriverManager.getConnection(dbUrl, dbUsername, dbPassword);
+//            statement = connection.createStatement();
+//            //System.out.println("database");
+//        } catch(SQLException e) {
+//            System.err.print(e.getMessage() + " ARGH!");
+//        } catch(Exception e) {
+//            System.err.print(e.getMessage() + " FUUUUUUUUUU!");
+//        }
+//    }
 
     public static void main(String[] args) {
         ChatServer server = new ChatServer(12345);
+        //server.dbConnect();
         server.execute();
+
+
     }
 
     public String getCurrentTime()
