@@ -61,35 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 ServerThread.start();
             }
         });
-
-        // myDatabase = FirebaseDatabase.getInstance().getReference("Message");
-
-        // myText.setText("");
-
-        /*
-
-        myDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                myText.setText(""); // Cleaning the text Area
-
-                if (snapshot.getValue() != null) {
-                    System.out.println(snapshot.getValue().toString());
-
-                    String[] sendMsg = sortMsg(snapshot.getValue().toString());
-
-                    for (String i : sendMsg) myText.append(i.split("=")[1]);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                myText.setText("CANCELLED");
-            }
-        });
-
-         */
     }
 
     public void sendMessage(View view) {
@@ -97,15 +68,6 @@ public class MainActivity extends AppCompatActivity {
         if (!sendMsg.isEmpty()) {
             new Thread(new ClientThread(sendMsg)).start();
         }
-
-//        EditText myEditText = findViewById(R.id.editText);
-//
-//        String sendMsg = myEditText.getText().toString();
-//
-//        if (sendMsg == "") return;
-//
-//        // myDatabase.child(Long.toString(System.currentTimeMillis())).setValue(myEditText.getText().toString());
-//        myEditText.setText("");
     }
 
     private PrintWriter output;

@@ -26,14 +26,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cs307group9.privatechatchat.MainActivity;
+import com.cs307group9.privatechatchat.MainScreenActivity;
 import com.cs307group9.privatechatchat.PrefManager;
 import com.cs307group9.privatechatchat.R;
+import com.cs307group9.privatechatchat.entity.User;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -41,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
     final String KEY_PREF_USERNAME = "username";
     final String KEY_PREF_PASSWORD = "password";
+    final String KEY_PREF_FRIENDLIST = "friendlist";
 
     static String hostname = "10.0.2.2";
     //="cs307-chat-app.webredirect.org";
@@ -52,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
     String password;
 
     SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     boolean connectServer = false;
 
@@ -61,6 +69,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
+
+        sharedPreferences = getSharedPreferences(KEY_PREF_USERNAME, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
@@ -96,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
 
@@ -216,10 +227,6 @@ public class LoginActivity extends AppCompatActivity {
             System.out.println(username);
             System.out.println(password);
 
-            sharedPreferences = getSharedPreferences(KEY_PREF_USERNAME, MODE_PRIVATE);
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
             editor.putString(KEY_PREF_USERNAME, username);
             editor.putString(KEY_PREF_PASSWORD, password);
             editor.commit();
@@ -228,16 +235,55 @@ public class LoginActivity extends AppCompatActivity {
                 output.writeObject(typeStr);
                 output.writeObject(username);
                 output.writeObject(password);
+                new Thread(new RecieveFriendList()).start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    HashMap<String, User> frindlist = new HashMap<>();
+
     class RecieveFriendList implements Runnable {
         @Override
         public void run() {
-            int num = input.readObject();
+            try {
+                String result = (String) input.readObject();
+                if (!result.contains("Successful")) return;
+                int num = (int) input.readObject();
+
+                for (int i = 0; i < num; i++) {
+                    String response = (String) input.readObject();
+                    System.out.println(response);
+
+                    String name = (String) input.readObject();
+                    int uid = (int) input.readObject();
+                    InetAddress inetAddress = (InetAddress) input.readObject();
+                    String psw = (String) input.readObject();
+                    Socket socket = new Socket(inetAddress, port);
+                    User friend = new User(name, uid, socket, psw);
+                    frindlist.put(name, friend);
+                    System.out.println("add friend successfully" + friend.getUsername());
+                }
+
+                Gson gson = new Gson();
+                String json = gson.toJson(frindlist);
+
+                editor.putString(KEY_PREF_FRIENDLIST, json);
+                editor.commit();
+
+                Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                startActivity(intent);
+                finish();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

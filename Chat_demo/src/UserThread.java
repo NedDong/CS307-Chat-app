@@ -53,7 +53,7 @@ public class UserThread extends Thread implements Serializable{
                     }
                     if(usernameDuplicated) initialHandshake = (Message)reader.readObject();
                 } while (usernameDuplicated);
-                server.getUserList().add(new User(initialHandshake.getUsername(),server.getUid(), socket,initialHandshake.getPassword()));
+                server.getUserList().add(new User(initialHandshake.getUsername(),server.getUid(), socket.getInetAddress(),initialHandshake.getPassword()));
                 outputStream.writeObject("User Creation Successful.");
                 System.out.println("User Created:   "+initialHandshake.getUsername()+ "     @   "+getCurrentTime() );
             }
@@ -114,15 +114,13 @@ public class UserThread extends Thread implements Serializable{
             {
                 //writer.println("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getSocket().getInetAddress());
                 try{
-                    outputStream.writeObject("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getSocket().getInetAddress());
+                    outputStream.writeObject("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getInetAddress());
                     //outputStream.flush();
 
                     //String s = "" + user.getSocket();
 
-
                     outputStream.writeObject(user.getUsername());
                     outputStream.writeObject(user.getUid());
-                    outputStream.writeObject(user.getPort());
                     outputStream.writeObject(user.getInetAddress());
                     outputStream.writeObject(user.getPassword());
 
