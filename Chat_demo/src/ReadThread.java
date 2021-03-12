@@ -36,20 +36,15 @@ public class ReadThread extends Thread {
                 /*
                 String response = reader.readLine();
                 System.out.println("\n" + response);
-
                 // prints the username after displaying the server's message
                 if (client.getUserName() != null) {
                     System.out.print("[" + client.getUserName() + "]: ");
                 }*/
-                HashMap<String , User> userHashMap = new HashMap<String , User>();
                 Object response;
                 while ((response = inputStream.readObject()) != null){
-                    if (response instanceof String){
-                        System.out.println(response);
-                    }
-                    if (response instanceof User){
-                        userHashMap.put(((User) response).getUsername() , (User) response);
-                    }
+                    User friend = (User) response;
+                    client.addFriends(friend.getUsername() , friend);
+                    System.out.println("add friend successfully" + friend.getUsername());
                 }
             } catch (IOException | ClassNotFoundException ex) {
                 System.out.println("Error reading from server: " + ex.getMessage());

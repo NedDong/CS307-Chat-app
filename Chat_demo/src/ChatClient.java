@@ -4,13 +4,14 @@ import java.net.UnknownHostException;
 import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class ChatClient {
     private String hostname;
     private int port;
     private String userName;
-
+    private HashMap<String , User> friendsMap;
     public ChatClient(String hostname, int port) {
         this.hostname = hostname;
         this.port = port;
@@ -37,10 +38,12 @@ public class ChatClient {
     String getUserName() {
         return this.userName;
     }
+    void addFriends(String username , User user){
+        friendsMap.put(username , user);
+    }
     public static void main(String[] args) {
         /*
         if (args.length < 2) return;
-
         String hostname = args[0];
         int port = Integer.parseInt(args[1]);
         */

@@ -95,8 +95,8 @@ public class UserThread extends Thread implements Serializable{
             {
                 //writer.println("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getSocket().getInetAddress());
                 try{
-                    outputStream.writeChars("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getSocket().getInetAddress());
-                    outputStream.flush();
+                    //outputStream.writeChars("Username: "+ user.getUsername() + " UID" + user.getUid() +" Address:"+user.getSocket().getInetAddress());
+                    //outputStream.flush();
                     outputStream.writeObject(user);
                     outputStream.flush();
                 } catch (IOException e){

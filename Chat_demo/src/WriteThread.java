@@ -43,21 +43,16 @@ public class WriteThread extends Thread {
         String userName = scan.nextLine();
         client.setUserName(userName);
         writer.println(userName);
-
         String text;
-
         do {
             //text = console.readLine("[" + userName + "]: ");
             System.out.print("[" + userName + "]: ");
             text = scan.nextLine();
             writer.println(text);
-
         } while (!text.equals("bye"));
-
         try {
             socket.close();
         } catch (IOException ex) {
-
             System.out.println("Error writing to server: " + ex.getMessage());
         }
          */
