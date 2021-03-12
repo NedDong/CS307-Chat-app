@@ -7,54 +7,92 @@
     tools:context=".ui.notifications.ProfileFragment">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/avatar01"
         android:layout_width="208dp"
         android:layout_height="0dp"
         android:layout_marginTop="57dp"
-        android:layout_marginBottom="27dp"
-        app:layout_constraintBottom_toTopOf="@+id/userName"
+        android:layout_marginBottom="9dp"
+        app:layout_constraintBottom_toTopOf="@+id/change"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
+        app:srcCompat="@drawable/ic_home_black_24dp"
+        tools:src="@drawable/ic_home_black_24dp"
+        tools:srcCompat="@drawable/ic_home_black_24dp" />
+
+    <ImageView
+        android:id="@+id/avatar02"
+        android:layout_width="208dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="57dp"
+        android:layout_marginBottom="9dp"
+        app:layout_constraintBottom_toTopOf="@+id/change"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_dashboard_black_24dp"
+        tools:src="@drawable/ic_dashboard_black_24dp"
+        tools:srcCompat="@drawable/ic_dashboard_black_24dp" />
 
     <TextView
         android:id="@+id/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="64dp"
         android:text="张涛"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/birthdayText"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintBottom_toTopOf="@+id/accountText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/change" />
 
     <TextView
         android:id="@+id/birthdayText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="335dp"
         android:text="Birthday: 04/08/1999"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Birthday: 04/08/1999" />
+
+    <Button
+        android:id="@+id/change"
+        android:layout_width="98dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="37dp"
+        android:text="Change"
+        app:layout_constraintBottom_toTopOf="@+id/userName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatar01" />
 
     <TextView
         android:id="@+id/accountText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="47dp"
+        android:layout_marginBottom="12dp"
         android:text="Account:  365968531"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/quitButton"
-        app:layout_constraintStart_toStartOf="@+id/birthdayText"
-        app:layout_constraintTop_toBottomOf="@+id/birthdayText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName"
         tools:text="Account:  365968531" />
+
+    <Button
+        android:id="@+id/deregisterButton"
+        android:layout_width="220dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="81dp"
+        android:text="deregister"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quitButton" />
 
     <Button
         android:id="@+id/quitButton"
@@ -67,26 +105,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/accountText" />
 
-    <Button
-        android:id="@+id/deregisterButton"
-        android:layout_width="220dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="118dp"
-        android:text="deregister"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quitButton" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="98dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="229dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginBottom="79dp"
-        android:text="Change"
-        app:layout_constraintBottom_toTopOf="@+id/birthdayText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

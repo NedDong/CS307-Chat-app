@@ -32,14 +32,27 @@ public class MainActivity extends AppCompatActivity {
 
     //static String hostname = "cs307-chat-app.webredirect.org";
     static String hostname = "10.0.2.2";
-    static int port = 12345;
+    static int port = 12346;
 
     Button sendButton;
     EditText sendText;
     TextView clientText;
     Button serverButton;
 
+    String username;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     Thread ServerThread = null;
+
+    final String KEY_PREF_APP = "myPref";
+    final String KEY_PREF_USERNAME = "username";
+    final String KEY_PREF_PASSWORD = "password";
+    final String KEY_PREF_FRIENDLIST = "friendlist";
+    final String KEY_PREF_ISLOGIN = "islogin";
+
+    boolean connectServer = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +60,33 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-
         sendButton = findViewById(R.id.sendButton);
         sendText   = findViewById(R.id.editText);
         clientText = findViewById(R.id.text);
         serverButton = findViewById(R.id.serverButton);
 
-        serverButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clientText.setText("");
-                ServerThread = new Thread(new ServerConnectThread());
-                ServerThread.start();
-            }
-        });
+        serverButton.setVisibility(View.INVISIBLE);
+
+        sharedPreferences = getSharedPreferences(KEY_PREF_APP, MODE_PRIVATE);
+
+        username = sharedPreferences.getString(KEY_PREF_USERNAME, "");
+
+        if (connectServer) {
+            connectServer = false;
+            clientText.setText("");
+            ServerThread = new Thread(new ServerConnectThread());
+            ServerThread.start();
+        }
+
+
+//        serverButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                clientText.setText("");
+//                ServerThread = new Thread(new ServerConnectThread());
+//                ServerThread.start();
+//            }
+//        });
     }
 
     public void sendMessage(View view) {
@@ -93,12 +119,11 @@ public class MainActivity extends AppCompatActivity {
                 input  = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 runOnUiThread(new Runnable() {
                     @Override
-                    public void run() {
-                        clientText.setText("Connected\n");
+                    public void run() { clientText.setText("Connected\n");
                     }
                 });
                 new Thread(new ServerMsgThread()).start();
-                new Thread(new ClientThread("张涛")).start();
+                new Thread(new ClientThread(username)).start();
             } catch (UnknownHostException ex) {
                 System.out.println("Server not found: " + ex.getMessage());
             } catch (IOException ex) {
@@ -117,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                clientText.append("Server-" + msg + "\n");
+                                if (!msg.contains("Connected"))
+                                    clientText.append(msg + "\n");
                             }
                         });
                     }
@@ -140,10 +166,14 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             System.out.println(msg);
             output.println(msg);
+            if (msg == username) {
+                sendText.setText("");
+                return;
+            }
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    clientText.append("Client-[Smart Pete]: " + msg + "\n");
+                    clientText.append("[" + username + "] : " + msg + "\n");
                     sendText.setText("");
                 }
             });

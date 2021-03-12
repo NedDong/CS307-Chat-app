@@ -10,8 +10,8 @@
         android:id="@+id/searchBar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="87dp"
-        app:layout_constraintBottom_toTopOf="@+id/friendA"
+        android:layout_marginBottom="504dp"
+        app:layout_constraintBottom_toTopOf="@+id/groupButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +43,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/reloadButton"
-        app:layout_constraintEnd_toStartOf="@+id/ChatButtonC"
+        app:layout_constraintEnd_toStartOf="@+id/chatButtonC"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/friendB" />
 
@@ -66,6 +66,7 @@
         android:id="@+id/chatButtonA"
         android:layout_width="0dp"
         android:layout_height="48dp"
+        android:layout_marginTop="68dp"
         android:layout_marginEnd="87dp"
         android:text="Chat"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/searchBar" />
 
     <Button
-        android:id="@+id/ChatButtonC"
+        android:id="@+id/chatButtonC"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="106dp"
@@ -100,7 +101,7 @@
 
     <Button
         android:id="@+id/reloadButton"
-        android:layout_width="94dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="122dp"
@@ -108,6 +109,20 @@
         app:backgroundTint="#FF9800"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/groupButton"
         app:layout_constraintTop_toBottomOf="@+id/friendC" />
+
+    <Button
+        android:id="@+id/groupButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="133dp"
+        android:text="GroupChat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/reloadButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

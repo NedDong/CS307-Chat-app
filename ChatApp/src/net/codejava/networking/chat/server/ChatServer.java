@@ -45,14 +45,14 @@ public class ChatServer {
             System.out.println("Syntax: java ChatServer <port-number>");
             System.exit(0);
         }*/
-        System.out.print("port: ");
-        Scanner scan = new Scanner(System.in);
-        int port = 0;
-        try{
-            port = scan.nextInt();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+//        System.out.print("port: ");
+//        Scanner scan = new Scanner(System.in);
+        int port = 12346;
+//        try{
+//            port = scan.nextInt();
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
         //int port = Integer.parseInt(args[0]);
         if (port == 0){
             System.out.println("wrong port");

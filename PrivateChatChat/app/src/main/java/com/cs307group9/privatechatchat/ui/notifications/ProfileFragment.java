@@ -3,25 +3,20 @@ package com.cs307group9.privatechatchat.ui.notifications;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.cs307group9.privatechatchat.MainScreenActivity;
 import com.cs307group9.privatechatchat.R;
 import com.cs307group9.privatechatchat.entity.User;
-import com.cs307group9.privatechatchat.ui.dashboard.ContactFragment;
 import com.cs307group9.privatechatchat.ui.login.LoginActivity;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -29,12 +24,12 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.HashMap;
-import java.util.Map;
 
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel notificationsViewModel;
-    Button deButton;
+    Button deButton, changeButton, quitButton;
+    View avatar01, avatar02;
 
     ObjectOutputStream oos;
     ObjectInputStream ois;
@@ -48,11 +43,19 @@ public class ProfileFragment extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    boolean switchImage = false;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        avatar01 = view.findViewById(R.id.avatar01);
+        avatar02 = view.findViewById(R.id.avatar02);
+
+        avatar02.setVisibility(View.INVISIBLE);
+        avatar01.setVisibility(View.VISIBLE);
 
         sharedPreferences = getContext().getSharedPreferences(KEY_PREF_APP, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -63,6 +66,35 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 new Thread(new DeregisterThread()).start();
 
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                startActivity(intent);
+            }
+
+        });
+
+        changeButton = view.findViewById(R.id.change);
+        changeButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if (!switchImage) {
+                    avatar02.setVisibility(View.VISIBLE);
+                    avatar01.setVisibility(View.INVISIBLE);
+                    switchImage = true;
+                } else {
+                    switchImage = false;
+                    avatar01.setVisibility(View.VISIBLE);
+                    avatar02.setVisibility(View.INVISIBLE);
+                }
+            }
+
+        });
+
+        quitButton = view.findViewById(R.id.quitButton);
+        quitButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

@@ -62,6 +62,8 @@ public class LoginActivity extends AppCompatActivity {
     int type = -1; // 0 means LogIn, 1 means Register
     static int port = 1111;
 
+    boolean isLogIN = false;
+
     String username;
     String password;
 
@@ -112,29 +114,32 @@ public class LoginActivity extends AppCompatActivity {
 //                if (loginResult.getError() != null) {
 //                    showLoginFailed(loginResult.getError());
 //                }
-                if (!sharedPreferences.getBoolean(KEY_PREF_ISLOGIN, true)) {
+                if (!sharedPreferences.getBoolean(KEY_PREF_ISLOGIN, false)) {
                     System.out.println("=====WRONG!!====");
                     showLoginFailed("Wrong Username/Password");
                 }
-                else if (loginResult.getSuccess() != null) {
+                else {
                     updateUiWithUser(loginResult.getSuccess());
                     Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    try {
-//                        output.close();
-//                        input.close();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
+
+                    editor.putBoolean(KEY_PREF_ISLOGIN, false);
+                    editor.commit();
+                    try {
+                        output.close();
+                        input.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     startActivity(intent);
 
-                    finish();
+                    //finish();
                 }
                 setResult(Activity.RESULT_OK);
 
                 //Complete and destroy login activity once successful
-                // finish();
+                //finish();
             }
         });
 
@@ -186,10 +191,15 @@ public class LoginActivity extends AppCompatActivity {
                 password = passwordEditText.getText().toString();
 
                 loadingProgressBar.setVisibility(View.VISIBLE);
+
+                type = 0;
+                editor.putBoolean(KEY_PREF_ISLOGIN, false);
+                editor.commit();
+                new Thread(new ServerConnectThread()).start();
+
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
-                type = 0;
-                new Thread(new ServerConnectThread()).start();
+
             }
         });
     }
@@ -259,7 +269,7 @@ public class LoginActivity extends AppCompatActivity {
         public void run() {
             try {
                 String result = (String) input.readObject();
-                if (!result.contains("Successful")) {
+                if (!result.contains("Success")) {
                     editor.putBoolean(KEY_PREF_ISLOGIN, false);
                     editor.commit();
                     return;
@@ -291,7 +301,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//
+
 //                try {
 //                    output.close();
 //                    input.close();
@@ -300,7 +310,7 @@ public class LoginActivity extends AppCompatActivity {
 //                }
 
                 startActivity(intent);
-                // finish();
+                finish();
             }
             catch (IOException e) {
                 e.printStackTrace();

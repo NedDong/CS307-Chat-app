@@ -1,6 +1,7 @@
 package com.cs307group9.privatechatchat.ui.dashboard;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.cs307group9.privatechatchat.MainActivity;
 import com.cs307group9.privatechatchat.OutputInputHandler;
 import com.cs307group9.privatechatchat.R;
 import com.cs307group9.privatechatchat.SocketHandler;
@@ -53,6 +55,7 @@ public class ContactFragment extends Fragment {
     ObjectInputStream ois;
 
     TextView nameA, nameB, nameC;
+    Button buttonA, buttonB, buttonC, groupButton;
 
     View view;
 
@@ -74,12 +77,51 @@ public class ContactFragment extends Fragment {
 
         HashMap<String, User> friendList = gson.fromJson(json, type);
 
-//        nameA = view.findViewById(R.id.friendA);
-//        nameB = view.findViewById(R.id.friendB);
-//        nameC = view.findViewById(R.id.friendC);
-//
-//        User userList[] = new User[3];
-//        String nameList[] = new String[3];
+        nameA = view.findViewById(R.id.friendA);
+        nameB = view.findViewById(R.id.friendB);
+        nameC = view.findViewById(R.id.friendC);
+
+        buttonA = view.findViewById(R.id.chatButtonA);
+        buttonB = view.findViewById(R.id.chatButtonB);
+        buttonC = view.findViewById(R.id.chatButtonC);
+        groupButton = view.findViewById(R.id.groupButton);
+
+        User userList[] = new User[3];
+        String nameList[] = new String[3];
+
+        buttonA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+        buttonB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+        buttonC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+        groupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
 
         reloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,18 +130,18 @@ public class ContactFragment extends Fragment {
             }
         });
 
-//        int i = 0;
-//
-//        for(Map.Entry<String, User> entry : friendList.entrySet()) {
-//            nameList[i] = entry.getKey();
-//            userList[i] = friendList.get(nameList[i]);
-//            i++;
-//            if (i == 3) break;
-//        }
-//
-//        if (i > 0) nameA.setText(nameList[0]);
-//        if (i > 1) nameB.setText(nameList[1]);
-//        if (i > 2) nameC.setText(nameList[2]);
+        int i = 0;
+
+        for(Map.Entry<String, User> entry : friendList.entrySet()) {
+            nameList[i] = entry.getKey();
+            userList[i] = friendList.get(nameList[i]);
+            i++;
+            if (i == 3) break;
+        }
+
+        if (i > 0) nameA.setText(nameList[0]);
+        if (i > 1) nameB.setText(nameList[1]);
+        if (i > 2) nameC.setText(nameList[2]);
 
         return view;
     }
