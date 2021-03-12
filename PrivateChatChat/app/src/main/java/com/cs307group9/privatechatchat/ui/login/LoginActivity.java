@@ -5,7 +5,9 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -24,13 +26,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cs307group9.privatechatchat.MainActivity;
+import com.cs307group9.privatechatchat.PrefManager;
 import com.cs307group9.privatechatchat.R;
-import com.cs307group9.privatechatchat.ui.login.LoginViewModel;
-import com.cs307group9.privatechatchat.ui.login.LoginViewModelFactory;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+
+    final String KEY_PREF_USERNAME = "username";
+    final String KEY_PREF_PASSWORD = "password";
+
+    static String hostname = "10.0.2.2";
+    //="cs307-chat-app.webredirect.org";
+            //= "10.0.2.2";
+    int type = -1; // 0 means LogIn, 1 means Register
+    static int port = 1111;
+
+    String username;
+    String password;
+
+    SharedPreferences sharedPreferences;
+
+    boolean connectServer = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
+        final Button registerButton = findViewById(R.id.register);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -116,12 +140,27 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                username = usernameEditText.getText().toString();
+                password = passwordEditText.getText().toString();
+                type = 1;
+                new Thread(new ServerConnectThread()).start();
+            }
+        });
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                username = usernameEditText.getText().toString();
+                password = passwordEditText.getText().toString();
+
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+                type = 0;
+                new Thread(new ServerConnectThread()).start();
             }
         });
     }
@@ -134,5 +173,71 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    }
+
+    private ObjectOutputStream output;
+    private ObjectInputStream input;
+
+    private void clickLog(View view) {
+        type = 0;
+    }
+
+    private void clickReg(View view) {
+        type = 1;
+    }
+
+    class ServerConnectThread implements Runnable {
+        public void run() {
+            System.out.println("==== I Am Currently Running Thread 1===");
+            Socket socket;
+            try {
+                socket = new Socket(hostname, port);
+                output = new ObjectOutputStream(socket.getOutputStream());
+                input  = new ObjectInputStream(socket.getInputStream());
+
+                new Thread(new LoginActivity.SendUserInfoThread()).start();
+            } catch (UnknownHostException ex) {
+                System.out.println("Server not found: " + ex.getMessage());
+            } catch (IOException ex) {
+                System.out.println("I/O Error: " + ex.getMessage());
+            }
+        }
+    }
+
+    class SendUserInfoThread implements Runnable {
+        @Override
+        public void run() {
+            String typeStr;
+            if (type == 0) typeStr = "LOG";
+            else typeStr = "REG";
+
+            // Message msg = new Message(typeStr, username, password);
+
+            System.out.println(username);
+            System.out.println(password);
+
+            sharedPreferences = getSharedPreferences(KEY_PREF_USERNAME, MODE_PRIVATE);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            editor.putString(KEY_PREF_USERNAME, username);
+            editor.putString(KEY_PREF_PASSWORD, password);
+            editor.commit();
+
+            try {
+                output.writeObject(typeStr);
+                output.writeObject(username);
+                output.writeObject(password);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class RecieveFriendList implements Runnable {
+        @Override
+        public void run() {
+            int num = input.readObject();
+        }
     }
 }

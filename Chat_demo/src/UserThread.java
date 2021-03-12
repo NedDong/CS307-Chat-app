@@ -30,7 +30,12 @@ public class UserThread extends Thread implements Serializable{
             // writer = new PrintWriter(outputStream, true);
             boolean usernameDuplicated;
             boolean successLogin;
-            initialHandshake = (Message)reader.readObject();
+
+            String type = (String)reader.readObject();
+            String userName = (String)reader.readObject();
+            String password = (String)reader.readObject();
+
+            initialHandshake = new Message(type, userName, password);
             //userList.add(new User("local",100, socket,"123456"));
             //writer.println("Type" + initialHandshake.getMessageType()+"Username"+initialHandshake.getUsername()+"Password"+initialHandshake.getPassword());
             if(initialHandshake.getMessageType().equals("REG")) {

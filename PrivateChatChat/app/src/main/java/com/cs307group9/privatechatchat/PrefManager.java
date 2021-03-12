@@ -3,6 +3,8 @@ package com.cs307group9.privatechatchat;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.cs307group9.privatechatchat.entity.User;
+
 public class PrefManager {
     // Shared Preferences
     SharedPreferences pref;
@@ -17,7 +19,7 @@ public class PrefManager {
     int PRIVATE_MODE = 0;
 
     // Shared preferences file name
-    private static final String PREF_NAME = "YourAppName";
+    private static final String PREF_NAME = "PrivateChatChat";
 
     // All Shared Preferences Keys
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";

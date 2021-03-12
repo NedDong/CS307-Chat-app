@@ -1,3 +1,9 @@
+package com.example.myapplication.logIn;
+
+import android.util.Log;
+
+import com.example.myapplication.entity.User;
+
 import java.io.*;
 import java.net.*;
 import java.util.HashMap;
@@ -10,13 +16,13 @@ import java.util.HashSet;
  *
  * @author www.codejava.net
  */
-public class ReadThread extends Thread {
+public class ReadThread extends Thread implements Runnable {
     //private BufferedReader reader;
     private ObjectInputStream inputStream;
     private Socket socket;
-    private ChatClient client;
+    private LoginClient client;
 
-    public ReadThread(Socket socket, ChatClient client) {
+    public ReadThread(Socket socket, LoginClient client) {
         this.socket = socket;
         this.client = client;
 
@@ -45,9 +51,6 @@ public class ReadThread extends Thread {
 
                 int num = (int) inputStream.readObject();
 
-
-
-
                 for (int i = 0; i < num; i++) {
                     response = (String) inputStream.readObject();
                     System.out.println(response);
@@ -59,7 +62,6 @@ public class ReadThread extends Thread {
                     String psw = (String) inputStream.readObject();
                     Socket socket = new Socket(inetAddress, port);
                     User friend = new User(name, uid, socket, psw);
-
 
                     client.addFriends(name, friend);
                     System.out.println("add friend successfully" + friend.getUsername());

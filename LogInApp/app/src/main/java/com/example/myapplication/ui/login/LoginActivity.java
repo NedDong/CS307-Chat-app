@@ -27,14 +27,35 @@ import android.widget.Toast;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.PrefManager;
 import com.example.myapplication.R;
+import com.example.myapplication.entity.Message;
 import com.example.myapplication.ui.login.LoginViewModel;
 import com.example.myapplication.ui.login.LoginViewModelFactory;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     PrefManager pref;
     private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+
+    static String hostname = "10.0.2.2";
+    int type = -1; // 0 means LogIn, 1 means Register
+    static int port = 1111;
+
+    String username;
+    String password;
+
+    boolean connectServer = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +67,11 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
+        final Button registerButton = findViewById(R.id.register);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
+        username = usernameEditText.getText().toString();
+        password = passwordEditText.getText().toString();
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -121,12 +146,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type = 1;
+                new Thread(new ServerConnectThread()).start();
+            }
+        });
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
+                type = 0;
+                new Thread(new ServerConnectThread()).start();
             }
         });
     }
@@ -141,16 +176,50 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 
-//    protected void onResume() {
-//        super.onResume();
-//
-//        if (pref.isLoggedIn()) {
-//            //here, pref is the instance of your preference manager
-//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
-//
-//            finish();
-//        }
-//    }
+    private ObjectOutputStream output;
+    private ObjectInputStream input;
+
+    private void clickLog(View view) {
+        type = 0;
+    }
+
+    private void clickReg(View view) {
+        type = 1;
+    }
+
+    class ServerConnectThread implements Runnable {
+        public void run() {
+            System.out.println("==== I Am Currently Running Thread 1===");
+            Socket socket;
+            try {
+                socket = new Socket(hostname, port);
+                output = new ObjectOutputStream(socket.getOutputStream());
+                input  = new ObjectInputStream(socket.getInputStream());
+
+                new Thread(new LoginActivity.SendUserInfoThread()).start();
+            } catch (UnknownHostException ex) {
+                System.out.println("Server not found: " + ex.getMessage());
+            } catch (IOException ex) {
+                System.out.println("I/O Error: " + ex.getMessage());
+            }
+        }
+    }
+
+    class SendUserInfoThread implements Runnable {
+        @Override
+        public void run() {
+
+            String typeStr;
+            if (type == 0) typeStr = "LOG";
+            else typeStr = "REG";
+
+            try {
+                output.writeObject(new Message(typeStr, username, password));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }

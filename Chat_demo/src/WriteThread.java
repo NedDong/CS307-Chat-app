@@ -63,9 +63,12 @@ public class WriteThread extends Thread {
         String username = scan.nextLine();
         System.out.print("Password: ");
         String password = scan.nextLine();
-        Message send = new Message(type , username , password);
+
+        // Message send = new Message(type , username , password);
         try{
-            outputStream.writeObject(send);
+            outputStream.writeObject(type);
+            outputStream.writeObject(username);
+            outputStream.writeObject(password);
         } catch (Exception e){
             e.printStackTrace();
         }
