@@ -56,11 +56,10 @@ public class LoginActivity extends AppCompatActivity {
     final String KEY_PREF_ISLOGIN = "islogin";
     final String KEY_PREF_SOCKET = "socket";
 
-    static String hostname = "10.0.2.2";
-    //="cs307-chat-app.webredirect.org";
+    static String hostname ="cs307-chat-app.webredirect.org";
             //= "10.0.2.2";
     int type = -1; // 0 means LogIn, 1 means Register
-    static int port = 1111;
+    static int port = 12345;
 
     boolean isLogIN = false;
 

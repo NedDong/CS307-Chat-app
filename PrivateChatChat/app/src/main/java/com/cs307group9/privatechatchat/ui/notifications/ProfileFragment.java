@@ -137,7 +137,7 @@ public class ProfileFragment extends Fragment {
             try {
                 System.out.println("==============");
 
-                Socket socket = new Socket("10.0.2.2", 1111);
+                Socket socket = new Socket("cs307-chat-app.webredirect.org", 12345);
                 oos = new ObjectOutputStream(socket.getOutputStream());
                 ois = new ObjectInputStream(socket.getInputStream());
                 HashMap<String, User> updateFriendList = new HashMap<>();

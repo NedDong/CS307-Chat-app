@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference myDatabase;
 
     //static String hostname = "cs307-chat-app.webredirect.org";
-    static String hostname = "10.0.2.2";
+    static String hostname = "cs307-chat-app.webredirect.org";
     static int port = 11111;
 
     Button sendButton;
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 System.out.println(msg + "\n");
                                 System.out.println(muteUser + "\n");
-                                if (!msg.contains("connected") && !msg.contains(muteUser))
+                                if (!msg.contains("Connected") && !msg.contains("connected") && !msg.contains(muteUser))
                                     clientText.append(msg + "\n");
                             }
                         });
