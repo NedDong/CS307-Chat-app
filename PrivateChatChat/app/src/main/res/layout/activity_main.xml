@@ -9,12 +9,14 @@
 
     <TextView
         android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="415dp"
+        android:layout_width="410dp"
+        android:layout_height="483dp"
+        android:layout_above="@+id/editText"
+        android:layout_below="@+id/TopWindow"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="115dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="128dp"
         android:gravity="bottom|center_vertical"
         android:hint="Chat Message will appear here..."
         android:textAlignment="gravity"
@@ -46,7 +48,8 @@
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="0dp"
         android:onClick="sendMessage"
-        android:text="Send" />
+        android:text="Send"
+        app:backgroundTint="#FF7384DF" />
 
     <Button
         android:id="@+id/serverButton"
@@ -56,33 +59,53 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="50dp"
-        android:text="Go Server!" />
+        android:text="Go Server!"
+        app:backgroundTint="#7384DF" />
 
     <TextView
         android:id="@+id/TopWindow"
-        android:layout_width="match_parent"
+        android:layout_width="269dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="-13dp"
-        android:layout_marginTop="0dp"
-        android:text="Private Chat Window"
-        android:textAlignment="textEnd"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textColor="@color/purple_500"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="65dp"
+        android:fontFamily="@font/allerta"
+        android:text="Friend"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#1A1263"
         android:textSize="30sp"
         android:textStyle="bold"
         android:typeface="normal" />
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
+    <ImageButton
+        android:id="@+id/ChatBackButton"
+        android:layout_width="60dp"
         android:layout_height="37dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/button_round_shape"
         android:onClick="backButton"
-        android:text="Back" />
+        android:scaleType="fitCenter"
+        android:tint="#FFFFFF"
+        app:srcCompat="@drawable/left" />
+
+    <ImageButton
+        android:id="@+id/ChatMoreButton"
+        android:layout_width="60dp"
+        android:layout_height="37dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/button_round_shape"
+        android:scaleType="fitCenter"
+        android:tint="#FFFFFF"
+        app:srcCompat="@drawable/more" />
 
 </RelativeLayout>
