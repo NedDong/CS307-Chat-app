@@ -104,4 +104,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.3" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="656dp"
+        android:background="#FFFFFF"
+        android:fontFamily="@font/allerta_stencil"
+        android:text="Contact us at: xu1163@purdue.edu"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#FF7384DF"
+        android:textSize="60px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
