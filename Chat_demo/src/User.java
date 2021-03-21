@@ -42,4 +42,32 @@ public class User implements Serializable {
     public InetAddress getInetAddress() {
         return inetAddress;
     }
+
+    /*
+    public static void getUserPassword(Connection con) throws SQLException {
+    String query = "select Password from Users where UserName = '" + username + "'";
+    try (Statement stmt = con.createStatement()) {
+      ResultSet rs = stmt.executeQuery(query);
+      while (rs.next()) {
+        String password = rs.getString("Password");
+        System.out.println(password);
+      }
+    } catch (SQLException e) {
+      JDBCTutorialUtilities.printSQLException(e);
+    }
+  }
+
+    public static void getUserPasswordUID(Connection con) throws SQLException {
+        String query = "select Password from Users where UID = '" + Uid + "'";
+        try(Statement stmt = con.createStetement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()) {
+                String password = rs.getString("Password");
+                System.out.println(password);
+            }
+        } catch (SQLException e) {
+            JDBCTutorialUtilities.printSQLException(e);
+        }
+     }
+     */
 }
