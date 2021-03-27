@@ -1,6 +1,6 @@
-package net.codejava.networking.chat.server;
+import java.io.Serializable;
 
-public class Message {
+public class Message implements Serializable {
     private String messageType;
     private String username;
     private String password;
