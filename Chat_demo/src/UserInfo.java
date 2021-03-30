@@ -17,3 +17,18 @@ public class UserInfo {
         return address;
     }
 }
+
+/*
+public static void getUserAddress(Connection con) throws SQLException {
+    String query = "select Address from UserInfo where UID = '" + Uid + "'";
+    try(Statement stmt = con.createStetement()) {
+        ResultSet rs = stmt.executeQuery(query);
+        while(rs.next()) {
+            String password = rs.getString("Password");
+            System.out.println(password);
+        }
+    } catch (SQLException e) {
+        JDBCTutorialUtilities.printSQLException(e);
+    }
+}
+ */
