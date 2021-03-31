@@ -20,7 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd482b7a-aad2-4c8e-8980-dc0b8c4a0420" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/entity/ChatFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/entity/badwords.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
