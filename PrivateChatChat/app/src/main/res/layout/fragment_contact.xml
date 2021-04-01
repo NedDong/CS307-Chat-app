@@ -6,190 +6,190 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.ContactFragment">
 
-    <TextView
-        android:id="@+id/friendB"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="55dp"
-        android:layout_marginBottom="1dp"
-        android:text="NullFriend"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:typeface="normal"
-        app:layout_constraintBottom_toTopOf="@+id/chatButtonB"
-        app:layout_constraintEnd_toStartOf="@+id/muteB"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chatButtonA" />
+<!--    <TextView-->
+<!--        android:id="@+id/friendB"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="36dp"-->
+<!--        android:layout_marginEnd="55dp"-->
+<!--        android:layout_marginBottom="1dp"-->
+<!--        android:text="NullFriend"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:typeface="normal"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/chatButtonB"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/muteB"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/chatButtonA" />-->
 
-    <TextView
-        android:id="@+id/friendC"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginEnd="52dp"
-        android:text="NullFriend"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/chatButtonC"
-        app:layout_constraintEnd_toStartOf="@+id/muteC"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chatButtonB" />
+<!--    <TextView-->
+<!--        android:id="@+id/friendC"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="39dp"-->
+<!--        android:layout_marginEnd="52dp"-->
+<!--        android:text="NullFriend"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/chatButtonC"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/muteC"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/chatButtonB" />-->
 
-    <TextView
-        android:id="@+id/friendA"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="3dp"
-        android:text="NullFriend"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/chatButtonA"
-        app:layout_constraintEnd_toEndOf="@+id/friendC"
-        app:layout_constraintStart_toStartOf="@+id/chatButtonA"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <TextView-->
+<!--        android:id="@+id/friendA"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="3dp"-->
+<!--        android:layout_marginTop="52dp"-->
+<!--        android:layout_marginEnd="3dp"-->
+<!--        android:text="NullFriend"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/chatButtonA"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/friendC"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/chatButtonA"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <Button
-        android:id="@+id/chatButtonA"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="59dp"
-        android:layout_marginBottom="50dp"
-        android:text="Chat"
-        app:layout_constraintBottom_toTopOf="@+id/friendB"
-        app:layout_constraintEnd_toStartOf="@+id/muteA"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/friendA" />
+<!--    <Button-->
+<!--        android:id="@+id/chatButtonA"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="36dp"-->
+<!--        android:layout_marginEnd="59dp"-->
+<!--        android:layout_marginBottom="50dp"-->
+<!--        android:text="Chat"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/friendB"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/muteA"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/friendA" />-->
 
-    <Button
-        android:id="@+id/chatButtonB"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="67dp"
-        android:text="Chat"
-        app:layout_constraintBottom_toTopOf="@+id/friendC"
-        app:layout_constraintEnd_toEndOf="@+id/friendC"
-        app:layout_constraintStart_toStartOf="@+id/friendB"
-        app:layout_constraintTop_toBottomOf="@+id/friendB" />
+<!--    <Button-->
+<!--        android:id="@+id/chatButtonB"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginEnd="2dp"-->
+<!--        android:layout_marginBottom="67dp"-->
+<!--        android:text="Chat"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/friendC"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/friendC"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/friendB"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/friendB" />-->
 
-    <Button
-        android:id="@+id/chatButtonC"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="65dp"
-        android:text="Chat"
-        app:layout_constraintBottom_toTopOf="@+id/groupButton"
-        app:layout_constraintEnd_toEndOf="@+id/groupButton"
-        app:layout_constraintStart_toStartOf="@+id/groupButton"
-        app:layout_constraintTop_toBottomOf="@+id/friendC" />
+<!--    <Button-->
+<!--        android:id="@+id/chatButtonC"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:layout_marginBottom="65dp"-->
+<!--        android:text="Chat"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/groupButton"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/groupButton"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/groupButton"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/friendC" />-->
 
-    <Button
-        android:id="@+id/reloadButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="160dp"
-        android:text="Reload"
-        app:backgroundTint="#FF9800"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/groupButton"
-        app:layout_constraintTop_toBottomOf="@+id/muteC" />
+<!--    <Button-->
+<!--        android:id="@+id/reloadButton"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginEnd="44dp"-->
+<!--        android:layout_marginBottom="160dp"-->
+<!--        android:text="Reload"-->
+<!--        app:backgroundTint="#FF9800"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/groupButton"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/muteC" />-->
 
-    <Button
-        android:id="@+id/groupButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="63dp"
-        android:layout_marginBottom="153dp"
-        android:text="GroupChat"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/reloadButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chatButtonC" />
+<!--    <Button-->
+<!--        android:id="@+id/groupButton"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_marginStart="28dp"-->
+<!--        android:layout_marginEnd="63dp"-->
+<!--        android:layout_marginBottom="153dp"-->
+<!--        android:text="GroupChat"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/reloadButton"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/chatButtonC" />-->
 
-    <Button
-        android:id="@+id/muteA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="94dp"
-        android:text="mute"
-        app:layout_constraintBottom_toTopOf="@+id/muteB"
-        app:layout_constraintEnd_toStartOf="@+id/blockA"
-        app:layout_constraintStart_toEndOf="@+id/chatButtonA"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/muteA"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="56dp"-->
+<!--        android:layout_marginEnd="1dp"-->
+<!--        android:layout_marginBottom="94dp"-->
+<!--        android:text="mute"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/muteB"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/blockA"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/chatButtonA"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <Button
-        android:id="@+id/blockA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="94dp"
-        android:text="Block"
-        app:backgroundTint="#ED3F3F"
-        app:layout_constraintBottom_toTopOf="@+id/blockB"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/muteA"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <Button-->
+<!--        android:id="@+id/blockA"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="56dp"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:layout_marginBottom="94dp"-->
+<!--        android:text="Block"-->
+<!--        app:backgroundTint="#ED3F3F"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/blockB"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/muteA"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <Button
-        android:id="@+id/blockC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="66dp"
-        android:text="Block"
-        app:backgroundTint="#ED3F3F"
-        app:layout_constraintBottom_toTopOf="@+id/reloadButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/muteC"
-        app:layout_constraintTop_toBottomOf="@+id/blockB" />
+<!--    <Button-->
+<!--        android:id="@+id/blockC"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:layout_marginBottom="66dp"-->
+<!--        android:text="Block"-->
+<!--        app:backgroundTint="#ED3F3F"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/reloadButton"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/muteC"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/blockB" />-->
 
-    <Button
-        android:id="@+id/blockB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="119dp"
-        android:text="Block"
-        app:backgroundTint="#ED3F3F"
-        app:layout_constraintBottom_toTopOf="@+id/blockC"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/muteB"
-        app:layout_constraintTop_toBottomOf="@+id/blockA" />
+<!--    <Button-->
+<!--        android:id="@+id/blockB"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="24dp"-->
+<!--        android:layout_marginBottom="119dp"-->
+<!--        android:text="Block"-->
+<!--        app:backgroundTint="#ED3F3F"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/blockC"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/muteB"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/blockA" />-->
 
-    <Button
-        android:id="@+id/muteB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="3dp"
-        android:layout_marginBottom="119dp"
-        android:text="mute"
-        app:layout_constraintBottom_toTopOf="@+id/muteC"
-        app:layout_constraintEnd_toStartOf="@+id/blockB"
-        app:layout_constraintStart_toEndOf="@+id/friendB"
-        app:layout_constraintTop_toBottomOf="@+id/muteA" />
+<!--    <Button-->
+<!--        android:id="@+id/muteB"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="3dp"-->
+<!--        android:layout_marginBottom="119dp"-->
+<!--        android:text="mute"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/muteC"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/blockB"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/friendB"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/muteA" />-->
 
-    <Button
-        android:id="@+id/muteC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="3dp"
-        android:layout_marginBottom="66dp"
-        android:text="mute"
-        app:layout_constraintBottom_toTopOf="@+id/reloadButton"
-        app:layout_constraintEnd_toStartOf="@+id/blockC"
-        app:layout_constraintStart_toEndOf="@+id/friendC"
-        app:layout_constraintTop_toBottomOf="@+id/muteB" />
+<!--    <Button-->
+<!--        android:id="@+id/muteC"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="3dp"-->
+<!--        android:layout_marginBottom="66dp"-->
+<!--        android:text="mute"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/reloadButton"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/blockC"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/friendC"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/muteB" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
