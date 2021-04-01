@@ -1,6 +1,7 @@
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.rmi.NoSuchObjectException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class User implements Serializable {
     // private transient Socket socket;
     private transient String password;
     private transient InetAddress inetAddress;
-    private transient List<User> waitingList;
+    private transient List<User> waitingList = new ArrayList<User>();
     private transient int port;
     private transient HashMap<Integer, User> friendList;
     private transient HashMap<Integer, User> blockedList;
@@ -35,6 +36,7 @@ public class User implements Serializable {
     {
         waitingList.add(user);
     }
+
     public void setUsername(String newUsername)
     {
         this.username = newUsername;
