@@ -5,13 +5,11 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
@@ -25,25 +23,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cs307group9.privatechatchat.MainActivity;
 import com.cs307group9.privatechatchat.MainScreenActivity;
-import com.cs307group9.privatechatchat.OutputInputHandler;
-import com.cs307group9.privatechatchat.PrefManager;
 import com.cs307group9.privatechatchat.R;
-import com.cs307group9.privatechatchat.SocketHandler;
 import com.cs307group9.privatechatchat.entity.User;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Type;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class LoginActivity extends AppCompatActivity {
 

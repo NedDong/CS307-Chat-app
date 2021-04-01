@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_contact"
-        android:name="com.cs307group9.privatechatchat.ui.dashboard.ContactFragment"
+        android:name="com.cs307group9.privatechatchat.ui.dashboard.Contacts"
         android:label="@string/title_contacts"
-        tools:layout="@layout/fragment_contact" />
+        tools:layout="@layout/fragment_contacts" />
 
     <fragment
         android:id="@+id/navigation_profile"
