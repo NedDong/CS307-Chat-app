@@ -82,8 +82,6 @@ public class Contacts extends Fragment {
 
         Gson gson = new Gson();
 
-        HashMap<String, User> friendList = new HashMap<>();
-
         String jsonName = sharedPreferences.getString(KEY_PREF_FRIENDLIST_NAME, "");
         String jsonPsw  = sharedPreferences.getString(KEY_PREF_FRIENDLIST_PSW, "");
         String jsonUid  = sharedPreferences.getString(KEY_PREF_FRIENDLIST_UID, "");
