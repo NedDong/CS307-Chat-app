@@ -2,26 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3d9fee5-3237-47b0-b827-6696398af8fa" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ChatAppNew/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ChatAppNew/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/ChatClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/ChatClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/ChatServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/ChatServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/Message.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/ReadThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/ReadThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/UserThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/UserThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/WriteThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/net/codejava/networking/chat/server/WriteThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chat_demo/ChatClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chat_demo/ChatClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chat_demo/ChatServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chat_demo/ChatServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chat_demo/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chat_demo/Message.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chat_demo/ReadThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chat_demo/ReadThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chat_demo/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chat_demo/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chat_demo/UserInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chat_demo/UserInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chat_demo/UserThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chat_demo/UserThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Chat_demo/WriteThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Chat_demo/WriteThread.class" afterDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,6 +31,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="159" />
+    <option name="y" value="25" />
+    <option name="width" value="1440" />
+    <option name="height" value="985" />
+  </component>
   <component name="ProjectId" id="1pdXTJyXPylbvOwLHzzShXobaIy" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -62,6 +54,18 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="project.propDebugger" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager" selected="Application.ChatClient">
     <configuration name="ChatClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -97,8 +101,46 @@
       <updated>1615513947854</updated>
       <workItem from="1615513949377" duration="4429000" />
       <workItem from="1615532419749" duration="5842000" />
+      <workItem from="1617257817854" duration="48000" />
     </task>
     <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="48000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="159" y="25" width="1440" height="985" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="UI Designer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Maven" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
