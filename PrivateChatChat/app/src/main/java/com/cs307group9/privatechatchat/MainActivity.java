@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference myDatabase;
 
     //static String hostname = "cs307-chat-app.webredirect.org";
-    static String hostname = "10.0.2.2";
-    static int port = 11111;
+    static String hostname = "cs307-chat-app.webredirect.org";
+    static int port = 12345;
 
     Button sendButton;
     EditText sendText;

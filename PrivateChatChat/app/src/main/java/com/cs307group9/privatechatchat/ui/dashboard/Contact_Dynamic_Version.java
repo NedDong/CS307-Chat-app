@@ -36,7 +36,7 @@
 //import java.util.HashSet;
 //import java.util.Map;
 //
-//public class ContactFragment extends Fragment {
+//public class Contact_Dynamic_Version extends Fragment {
 //
 //    private ContactViewModel dashboardViewModel;
 //
@@ -79,124 +79,9 @@
 //
 //        HashMap<String, User> friendList = gson.fromJson(json, type);
 //
-//        nameA = view.findViewById(R.id.friendA);
-//        nameB = view.findViewById(R.id.friendB);
-//        nameC = view.findViewById(R.id.friendC);
-//
-//        buttonA = view.findViewById(R.id.chatButtonA);
-//        buttonB = view.findViewById(R.id.chatButtonB);
-//        buttonC = view.findViewById(R.id.chatButtonC);
-//        groupButton = view.findViewById(R.id.groupButton);
-//
-//        User userList[] = new User[3];
-//        String nameList[] = new String[3];
-//
-//        buttonA.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), MainActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intent);
-//            }
-//        });
-//        buttonB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), MainActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intent);
-//            }
-//        });
-//        buttonC.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), MainActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intent);
-//            }
-//        });
-//        groupButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), MainActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intent);
-//            }
-//        });
 //
 //
-//        reloadButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                new Thread(new ReloadThread()).start();
-//            }
-//        });
 //
-//        int i = 0;
-//
-//        for(Map.Entry<String, User> entry : friendList.entrySet()) {
-//            nameList[i] = entry.getKey();
-//            userList[i] = friendList.get(nameList[i]);
-//            i++;
-//            if (i == 3) break;
-//        }
-//
-//        if (i > 0) nameA.setText(nameList[0]);
-//        if (i > 1) nameB.setText(nameList[1]);
-//        if (i > 2) nameC.setText(nameList[2]);
-//
-//
-//        mA = view.findViewById(R.id.muteA);
-//        mA.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                editor.putString(KEY_PREF_MUTE, nameA.getText().toString());
-//                editor.commit();
-//            }
-//        });
-//
-//        mB = view.findViewById(R.id.muteB);
-//        mB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                editor.putString(KEY_PREF_MUTE, nameB.getText().toString());
-//                editor.commit();
-//            }
-//        });
-//
-//        mC = view.findViewById(R.id.muteC);
-//        mC.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                editor.putString(KEY_PREF_MUTE, nameC.getText().toString());
-//                editor.commit();
-//            }
-//        });
-//
-//        bA = view.findViewById(R.id.blockA);
-//        bA.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                editor.putString(KEY_PREF_BLOCK, nameA.getText().toString());
-//                editor.commit();
-//            }
-//        });
-//        bB = view.findViewById(R.id.blockB);
-//        bB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                editor.putString(KEY_PREF_BLOCK, nameB.getText().toString());
-//                editor.commit();
-//            }
-//        });
-//        bC = view.findViewById(R.id.blockC);
-//        bC.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                editor.putString(KEY_PREF_BLOCK, nameC.getText().toString());
-//                editor.commit();
-//            }
-//        });
 //
 //        return view;
 //    }

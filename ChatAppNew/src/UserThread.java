@@ -61,8 +61,6 @@ public class UserThread extends Thread implements Serializable{
                 } while (usernameDuplicated); //creates new users and add them to database, continues until no duplicate username
                 int tempUID = server.getUid();
                 List<User> temp = new ArrayList<User>();
-                server.getUserList().add(new User(initialHandshake.getUsername(), tempUID, socket.getInetAddress(), initialHandshake.getPassword(), temp));
-                String sql = "INSERT INTO Users(UID, UserName, Password) VALUES('" + tempUID + "','" + initialHandshake.getUsername() + "','" + initialHandshake.getPassword() + "')";
                 System.out.println(sql);
                 server.runSQLCommand(sql);
                 outputStream.writeObject("User Creation Successful.");
@@ -109,22 +107,12 @@ public class UserThread extends Thread implements Serializable{
                     }
                 }
                 return;
-            } else if (initialHandshake.getMessageType().equals("ADDFRIEND")) { //if the message is "ADDFRIEND" will add friend to the current user
-                String tempUID = initialHandshake.getUsername(); //uid of the user sending the request
-                String requser = initialHandshake.getPassword(); //uid of the user receving the request
-                //find the sender's information from database
-                String sql = "SELECT Username FROM Users WHERE UID =" + tempUID;
-                ResultSet resultset = server.runSQLQuery(sql);
-                if (resultset == null) {
-                    System.out.println("User with Specified UID cant be found");
-                }
-                //if cannot find the receiver
+
                 else {
                     for (User user : server.getUserList()) {
                         if (user.getUid() == Integer.parseInt(tempUID)) {
                             System.out.println("Useronline");
-                            for (User reqestuser : server.getUserList()) {
-                                if (reqestuser.getUsername().equals(requser)) {
+
                                     System.out.println(reqestuser.getUsername());
                                     user.addTowaitingList(reqestuser);
                                     System.out.println("added");

@@ -1,11 +1,6 @@
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.sql.SQLOutput;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -56,9 +51,10 @@ public class ChatClient {
         */
         Scanner scan = new Scanner(System.in);
         System.out.println("Hostname: ");
-        String hostname = scan.nextLine();
+        String hostname;
+        hostname = "localhost";
         System.out.println("port: ");
-        int port = scan.nextInt();
+        int port = 12345;
         ChatClient client = new ChatClient(hostname, port);
         client.execute();
     }
