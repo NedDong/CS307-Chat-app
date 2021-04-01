@@ -1,9 +1,9 @@
 import java.io.*;
 import java.net.Socket;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,9 +61,10 @@ public class UserThread extends Thread implements Serializable{
                     if(usernameDuplicated) initialHandshake = (Message)reader.readObject();
                 } while (usernameDuplicated);
                 int tempUID = server.getUid();
-                List<User> temp = null;
+                List<User> temp = new ArrayList<User>();
                 server.getUserList().add(new User(initialHandshake.getUsername(),tempUID, socket.getInetAddress(),initialHandshake.getPassword(), temp));
-                String sql = "INSERT INTO Users("+tempUID+","+initialHandshake.getUsername()+","+initialHandshake.getPassword();
+                String sql = "INSERT INTO Users(UID, UserName, Password) VALUES('"+tempUID+"','"+initialHandshake.getUsername()+"','"+initialHandshake.getPassword()+"')";
+                System.out.println(sql);
                 server.runSQLCommand(sql);
                 outputStream.writeObject("User Creation Successful.");
                 System.out.println("User Created:   "+initialHandshake.getUsername()+ "     @   "+getCurrentTime() );
@@ -122,18 +123,17 @@ public class UserThread extends Thread implements Serializable{
             else if (initialHandshake.getMessageType().equals("ADDFRIEND")) {
                 String tempUID = initialHandshake.getUsername();
                 String requser = initialHandshake.getPassword();
-                String sql = "SELECT Username FROM 'FriendList' WHERE UID ="+tempUID;
-                ResultSet resultset = server.runSQLCommand(sql);
-                int rowCount=0;
-                while(resultset.next()){
-                    //String username = resultset.getString("UID");
-                    rowCount++;
-                }
-                if(rowCount == 0)
+                String sql = "SELECT Username FROM Users WHERE UID ="+tempUID;
+                ResultSet resultset = server.runSQLQuery(sql);
+                //int rowCount=0;
+                if(resultset == null)
                 {
                     System.out.println("User with Specified UID cant be found" );
-
                 }
+//                while(resultset.next()){
+//                    //String username = resultset.getString("UID");
+//                    rowCount++;
+//                }
                 else {
                     for (User user : server.getUserList()) {
                         if (user.getUid() == Integer.parseInt(tempUID)) {
@@ -142,7 +142,9 @@ public class UserThread extends Thread implements Serializable{
                             {
                                 if(reqestuser.getUsername().equals(requser))
                                 {
+                                    System.out.println(reqestuser.getUsername());
                                     user.addTowaitingList(reqestuser);
+                                    System.out.println("added");
                                 }
                             }
 
@@ -168,7 +170,7 @@ public class UserThread extends Thread implements Serializable{
         } catch (IOException | ClassNotFoundException ex) {
             System.out.println("Error in UserThread: " + ex.getMessage()+ " @   "+getCurrentTime() ) ;
             ex.printStackTrace();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

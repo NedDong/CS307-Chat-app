@@ -69,7 +69,18 @@ public class ChatServer implements Serializable {
         }
     }
 
-    public ResultSet runSQLCommand(String sql){
+    public Boolean runSQLCommand(String sql){
+        try {
+            Boolean result = statement.execute(sql);
+            return result;
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public ResultSet runSQLQuery(String sql){
         try {
             ResultSet sqlResponse = statement.executeQuery(sql);
             return sqlResponse;
