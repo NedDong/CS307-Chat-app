@@ -1,7 +1,8 @@
-import java.io.*;
-import java.net.*;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.util.List;
 
 /**
  * This thread is responsible for reading server's input and printing it
@@ -54,7 +55,8 @@ public class ReadThread extends Thread {
                     int uid = (int) inputStream.readObject();
                     InetAddress inetAddress = (InetAddress) inputStream.readObject();
                     String psw = (String) inputStream.readObject();
-                    User friend = new User(name, uid, inetAddress, psw);
+                    List<User> temp = null;
+                    User friend = new User(name, uid, inetAddress, psw,  temp);
 
 
                     client.addFriends(name, friend);

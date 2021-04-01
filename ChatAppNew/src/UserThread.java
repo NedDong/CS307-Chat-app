@@ -1,11 +1,10 @@
-import com.sun.tools.javac.util.List;
-
 import java.io.*;
 import java.net.Socket;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * This thread handles connection for each connected client, so the server
@@ -62,7 +61,7 @@ public class UserThread extends Thread implements Serializable{
                     if(usernameDuplicated) initialHandshake = (Message)reader.readObject();
                 } while (usernameDuplicated);
                 int tempUID = server.getUid();
-                List temp = null;
+                List<User> temp = null;
                 server.getUserList().add(new User(initialHandshake.getUsername(),tempUID, socket.getInetAddress(),initialHandshake.getPassword(), temp));
                 String sql = "INSERT INTO Users("+tempUID+","+initialHandshake.getUsername()+","+initialHandshake.getPassword();
                 server.runSQLCommand(sql);
