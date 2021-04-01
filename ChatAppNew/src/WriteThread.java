@@ -66,6 +66,8 @@ public class WriteThread extends Thread {
 
         // Message send = new Message(type , username , password);
         try{
+            User newUser = new User(username, ChatServer.getUid(), password);
+            ChatServer.addUserData(newUser);
             outputStream.writeObject(type);
             outputStream.writeObject(username);
             outputStream.writeObject(password);

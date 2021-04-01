@@ -13,6 +13,7 @@ public class ChatClient {
     private String hostname;
     private int port;
     private String userName;
+    private String password;
     private HashMap< String, User> friendsMap = new HashMap<>();
     public ChatClient(String hostname, int port) {
         this.hostname = hostname;

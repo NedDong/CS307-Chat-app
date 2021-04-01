@@ -11,7 +11,7 @@ public class ChatServer implements Serializable {
     private transient int port;
     private transient Set<String> userNames = new HashSet<>();
     private transient Set<UserThread> userThreads = new HashSet<>();
-    int uid = 0;
+    static int uid = 0;
     public transient List<User> userList = new ArrayList<>();
     public ChatServer(int port) {
         this.port = port;
@@ -94,9 +94,13 @@ public class ChatServer implements Serializable {
         return userList;
     }
 
-    int getUid()
+    public static int getUid()
     {
         uid++;
         return uid;
+    }
+
+    public static void addUserData(User user) {
+        return;
     }
 }
