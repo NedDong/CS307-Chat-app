@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".FriendProfile">
 
     <Button
-        android:id="@+id/sendButton4"
+        android:id="@+id/friendChatButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -14,7 +15,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="200dp"
-        android:onClick="sendMessage"
         android:text="Start Chat"
         app:backgroundTint="#FF7384DF"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/sendButton2"
+        android:id="@+id/friendDeleteButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -30,17 +30,16 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="100dp"
-        android:onClick="sendMessage"
         android:text="Delete Friend"
         app:backgroundTint="#F44336"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sendButton4"
+        app:layout_constraintTop_toBottomOf="@+id/friendChatButton"
         app:layout_constraintVertical_bias="0.346" />
 
     <ImageButton
-        android:id="@+id/chatBackButton"
+        android:id="@+id/friendInfoBack"
         style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="60dp"
         android:layout_height="37dp"
@@ -49,7 +48,6 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="3dp"
         android:background="@drawable/button_round_shape"
-        android:onClick="backButton"
         android:scaleType="fitCenter"
         android:tint="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +58,7 @@
         android:id="@+id/FriendAvatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="135dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +66,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/FriendAlias"
+        android:id="@+id/friendName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -83,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/FriendAvatar" />
 
     <TextView
-        android:id="@+id/FriendAccount"
+        android:id="@+id/friendID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-thin"
@@ -96,7 +94,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FriendAlias" />
+        app:layout_constraintTop_toBottomOf="@+id/friendName" />
 
     <TextView
         android:id="@+id/FriendIntro"
@@ -111,6 +109,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FriendAccount" />
+        app:layout_constraintTop_toBottomOf="@+id/friendID" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

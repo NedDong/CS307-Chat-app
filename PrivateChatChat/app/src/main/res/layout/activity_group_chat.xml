@@ -23,7 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
-        android:id="@+id/chatBackButton2"
+        android:id="@+id/groupChatBack"
         android:layout_width="60dp"
         android:layout_height="37dp"
         android:layout_alignParentStart="true"
@@ -31,7 +31,6 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="3dp"
         android:background="@drawable/button_round_shape"
-        android:onClick="backButton"
         android:scaleType="fitCenter"
         android:tint="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +38,7 @@
         app:srcCompat="@drawable/left" />
 
     <ImageButton
-        android:id="@+id/chatMoreButton2"
+        android:id="@+id/groupChatMore"
         android:layout_width="60dp"
         android:layout_height="37dp"
         android:layout_alignParentTop="true"
@@ -54,7 +53,7 @@
         app:srcCompat="@drawable/more" />
 
     <TextView
-        android:id="@+id/topWindow2"
+        android:id="@+id/GroupName"
         android:layout_width="269dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -110,5 +109,5 @@
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topWindow2" />
+        app:layout_constraintTop_toBottomOf="@+id/GroupName" />
 </androidx.constraintlayout.widget.ConstraintLayout>
