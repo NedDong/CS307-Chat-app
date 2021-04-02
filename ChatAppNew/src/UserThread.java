@@ -113,7 +113,7 @@ public class UserThread extends Thread implements Serializable{
                 String tempUID = initialHandshake.getUsername(); //uid of the user sending the request
                 String requser = initialHandshake.getPassword(); //uid of the user receving the request
                 //find the sender's information from database
-                String sql = "SELECT Username FROM Users WHERE UID =" + tempUID;
+                String sql = "SELECT Username FROM Users WHERE UID ='" + tempUID + "'";
                 ResultSet resultset = server.runSQLQuery(sql);
                 if (resultset == null) {
                     System.out.println("User with Specified UID cant be found");
@@ -169,7 +169,7 @@ public class UserThread extends Thread implements Serializable{
                         resultset.last();
                         int n = resultset.getRow();
                         outputStream.writeObject(n);
-                        for(int i = 0; i < n; i++) {
+                        for(int i = 1; i <= n; i++) {
                             for (User user : server.getUserList()) {
                                 if (user.getUsername().equals(resultset.getString(i))) {
                                     outputStream.writeObject(user.getUsername());
@@ -206,7 +206,7 @@ public class UserThread extends Thread implements Serializable{
                         resultset.last();
                         int n = resultset.getRow();
                         outputStream.writeObject(n);
-                        for(int i = 0; i < n; i++) {
+                        for(int i = 1; i <= n; i++) {
                             for (User user : server.getUserList()) {
                                 if (user.getUsername().equals(resultset.getString(i))) {
                                     outputStream.writeObject(user.getUsername());
@@ -221,6 +221,164 @@ public class UserThread extends Thread implements Serializable{
                     }
                     return;
                 }
+            }
+            else if(initialHandshake.getMessageType().equals("Group")) { //creates a new group in database
+                ArrayList<User> member = new ArrayList<>();
+                String groupNmae = initialHandshake.getUsername();
+                int ownerUid = Integer.parseInt(initialHandshake.getPassword());
+                User owner = null;
+                for(GroupChat chat : server.getGroupList()) {
+                    if(chat.getGroupName().equals(groupNmae)) {
+                        outputStream.writeObject("DUPLICATED GROUP NAME");
+                        return;
+                    }
+                }
+                for(User user : server.getUserList()) {
+                    if (user.getUid() == ownerUid) owner = user;
+                    break;
+                }
+                member.add(owner);
+                int groupId = server.getGroupid();
+                GroupChat group = new GroupChat(groupId, owner, member, groupNmae);
+                server.addGroup(group);
+                String sql = "INSERT INTO Groups(GroupID, Member, MemberType) VALUES('" + groupId + "','" + ownerUid + "','owner')";
+                System.out.println(sql);
+                server.runSQLCommand(sql);
+                outputStream.writeObject("SUCCESS");
+                outputStream.writeObject(groupId);
+            }
+            else if(initialHandshake.getMessageType().equals("AddMember")) { //add a member to a group
+                String groupName = initialHandshake.getUsername();
+                int memberId = Integer.parseInt(initialHandshake.getPassword());
+                User member = null;
+                GroupChat group = null;
+                for(User user : server.getUserList()) {
+                    if(user.getUid() == memberId) {
+                        member = user;
+                        break;
+                    }
+                }
+                for(GroupChat chat : server.getGroupList()) {
+                    if(chat.getGroupName().equals(groupName)) {
+                        ArrayList<User> list = new ArrayList<>();
+                        list.add(member);
+                        chat.addGroupMembers(list);
+                        group = chat;
+                        break;
+                    }
+                }
+                int groupId = group.getGroupID();
+                String sql = "INSERT INTO Groups(GroupID, Member, MemberType) VALUES('" + groupId + "','" + memberId + "','member')";
+                System.out.println(sql);
+                server.runSQLCommand(sql);
+                outputStream.writeObject("SUCCESS");
+            }
+            else if (initialHandshake.getMessageType().equals("AddManager")) { //add a manager to a group
+                String groupName = initialHandshake.getUsername();
+                int memberId = Integer.parseInt(initialHandshake.getPassword());
+                User member = null;
+                GroupChat group = null;
+                for(User user : server.getUserList()) {
+                    if(user.getUid() == memberId) {
+                        member = user;
+                        break;
+                    }
+                }
+                for(GroupChat chat : server.getGroupList()) {
+                    if(chat.getGroupName().equals(groupName)) {
+                        ArrayList<User> list = new ArrayList<>();
+                        list.add(member);
+                        chat.addManager(list);
+                        group = chat;
+                        break;
+                    }
+                }
+                int groupId = group.getGroupID();
+                String sql = "INSERT INTO Groups(GroupID, Member, MemberType) VALUES('" + groupId + "','" + memberId + "','manager')";
+                System.out.println(sql);
+                server.runSQLCommand(sql);
+                outputStream.writeObject("SUCCESS");
+            }
+            else if(initialHandshake.getMessageType().equals("ChangeGroupName")) {
+                String newName = initialHandshake.getUsername();
+                int groupId = Integer.parseInt(initialHandshake.getPassword());
+                for(GroupChat chat : server.getGroupList()) {
+                    if(chat.getGroupName().equals(newName)) {
+                        outputStream.writeObject("DUPLICATE GROUP NAME");
+                        break;
+                    }
+                }
+                for(GroupChat chat : server.getGroupList()) {
+                    if(chat.getGroupID() == groupId) {
+                        chat.setGroupName(newName);
+                        outputStream.writeObject("SUCCESS");
+                    }
+                }
+            }
+            else if(initialHandshake.getMessageType().equals("ChangeGroupOwner")) {
+                int groupId = Integer.parseInt(initialHandshake.getUsername());
+                int ownerId = Integer.parseInt(initialHandshake.getPassword());
+                User owner = null;
+                GroupChat chat = null;
+                for(User user : server.getUserList()) {
+                    if(user.getUid() == ownerId) owner = user;
+                }
+                for(GroupChat group : server.getGroupList()) {
+                    if(group.getGroupID() == groupId) {
+                        User old = chat.getGroupOwner();
+                        chat.setGroupOwner(owner);
+                        chat.removeManager(old);
+                        ArrayList<User> own = new ArrayList<>();
+                        own.add(owner);
+                        chat.addManager(own);
+                        chat = group;
+                    }
+                }
+                String sql = "UPDATE Groups SET MemberType = 'member' WHERE MemberType = 'owner'";
+                System.out.println(sql);
+                server.runSQLCommand(sql);
+                String set = "UPDATE Groups SET MemberType = 'owner' WHERE Member = '" + ownerId + "'";
+                System.out.println(set);
+                server.runSQLCommand(sql);
+                outputStream.writeObject("SUCCESS");
+            }
+            else if(initialHandshake.getMessageType().equals("GetGroups")) {
+                if(server.getGroupList() == null) {
+                    outputStream.writeObject("NO GROUPS");
+                } else {
+                    outputStream.writeObject(server.getGroupList().size());
+                    for(GroupChat group : server.getGroupList()) {
+                        outputStream.writeObject(group.getGroupID());
+                    }
+                }
+            }
+            else if(initialHandshake.getMessageType().equals("GetGroupMembers")) {
+                int groupId = Integer.parseInt(initialHandshake.getUsername());
+                for(GroupChat group : server.getGroupList()) {
+                    if(group.getGroupID() == groupId) {
+                        ArrayList<User> users = group.getGroupMembers();
+                        outputStream.writeObject(users.size());
+                        for(int i = 0; i < users.size(); i++) {
+                            outputStream.writeObject(users.get(i).getUid());
+                        }
+                        return;
+                    }
+                }
+                outputStream.writeObject("NO SUCH GROUP");
+            }
+            else if(initialHandshake.getMessageType().equals("GetGroupManagers")) {
+                int groupId = Integer.parseInt(initialHandshake.getUsername());
+                for(GroupChat group : server.getGroupList()) {
+                    if(group.getGroupID() == groupId) {
+                        ArrayList<User> mana = group.getManagers();
+                        outputStream.writeObject(mana.size());
+                        for(int i = 0; i < mana.size(); i++) {
+                            outputStream.writeObject(mana.get(i).getUid());
+                        }
+                        return;
+                    }
+                }
+                outputStream.writeObject("NO SUCH GROUP");
             }
             printUsers();
         } catch (IOException | ClassNotFoundException ex) {
