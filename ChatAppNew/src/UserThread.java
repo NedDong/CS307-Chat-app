@@ -241,11 +241,16 @@ public class UserThread extends Thread implements Serializable{
                 int groupId = server.getGroupid();
                 GroupChat group = new GroupChat(groupId, owner, member, groupNmae);
                 server.addGroup(group);
-                String sql = "INSERT INTO Groups(GroupID, Member, MemberType) VALUES('" + groupId + "','" + ownerUid + "','owner')";
+                String sql = "INSERT INTO ChatGroup(GroupID, Member, MemberType) VALUES('" + groupId + "','" + ownerUid + "','owner')";
                 System.out.println(sql);
                 server.runSQLCommand(sql);
                 outputStream.writeObject("SUCCESS");
                 outputStream.writeObject(groupId);
+            }
+            else if(initialHandshake.getMessageType().equals("FED"))
+            {
+                System.out.println(initialHandshake.getUsername());
+                System.out.println(initialHandshake.getPassword());
             }
             else if(initialHandshake.getMessageType().equals("AddMember")) { //add a member to a group
                 String groupName = initialHandshake.getUsername();
@@ -268,7 +273,7 @@ public class UserThread extends Thread implements Serializable{
                     }
                 }
                 int groupId = group.getGroupID();
-                String sql = "INSERT INTO Groups(GroupID, Member, MemberType) VALUES('" + groupId + "','" + memberId + "','member')";
+                String sql = "INSERT INTO ChatGroup(GroupID, Member, MemberType) VALUES('" + groupId + "','" + memberId + "','member')";
                 System.out.println(sql);
                 server.runSQLCommand(sql);
                 outputStream.writeObject("SUCCESS");
@@ -294,7 +299,7 @@ public class UserThread extends Thread implements Serializable{
                     }
                 }
                 int groupId = group.getGroupID();
-                String sql = "INSERT INTO Groups(GroupID, Member, MemberType) VALUES('" + groupId + "','" + memberId + "','manager')";
+                String sql = "INSERT INTO ChatGroup(GroupID, Member, MemberType) VALUES('" + groupId + "','" + memberId + "','manager')";
                 System.out.println(sql);
                 server.runSQLCommand(sql);
                 outputStream.writeObject("SUCCESS");
@@ -334,10 +339,10 @@ public class UserThread extends Thread implements Serializable{
                         chat = group;
                     }
                 }
-                String sql = "UPDATE Groups SET MemberType = 'member' WHERE MemberType = 'owner'";
+                String sql = "UPDATE ChatGroup SET MemberType = 'member' WHERE MemberType = 'owner'";
                 System.out.println(sql);
                 server.runSQLCommand(sql);
-                String set = "UPDATE Groups SET MemberType = 'owner' WHERE Member = '" + ownerId + "'";
+                String set = "UPDATE ChatGroup SET MemberType = 'owner' WHERE Member = '" + ownerId + "'";
                 System.out.println(set);
                 server.runSQLCommand(sql);
                 outputStream.writeObject("SUCCESS");
