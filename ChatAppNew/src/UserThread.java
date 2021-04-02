@@ -61,13 +61,37 @@ public class UserThread extends Thread implements Serializable{
                 } while (usernameDuplicated); //creates new users and add them to database, continues until no duplicate username
                 int tempUID = server.getUid();
                 List<User> temp = new ArrayList<User>();
-                server.getUserList().add(new User(initialHandshake.getUsername(), tempUID, socket.getInetAddress(), initialHandshake.getPassword(), temp));
+                List<Integer> gidList = new ArrayList<Integer>();
+                server.getUserList().add(new User(initialHandshake.getUsername(), tempUID, socket.getInetAddress(), initialHandshake.getPassword(), temp, gidList));
                 String sql = "INSERT INTO Users(UID, UserName, Password) VALUES('" + tempUID + "','" + initialHandshake.getUsername() + "','" + initialHandshake.getPassword() + "')";
                 System.out.println(sql);
                 server.runSQLCommand(sql);
                 outputStream.writeObject("User Creation Successful.");
                 System.out.println("User Created:   " + initialHandshake.getUsername() + "     @   " + getCurrentTime());
-            } else if (initialHandshake.getMessageType().equals("LOG")) { //if message is "LOG" (log in), try to log in the user
+            }else if(initialHandshake.getMessageType().equals("GetGroupList")) {
+                String username = (String) inputStream.readObject();
+                User user = null;
+                System.out.println("TEST");
+                for (User user1 : server.getUserList()) {
+                    if (user1.getUsername().equals(username)) {
+                        user = user1; break;
+                    }
+                }
+                System.out.println("2");
+                if (user == null) outputStream.writeObject(-1);
+
+                List<Integer> groupList = user.getGidList();
+                int num = groupList.size();
+                System.out.println("2");
+                outputStream.writeObject(num);
+                System.out.println("2");
+                for (int i = 0; i < num; i++) {
+                    outputStream.writeObject(groupList.get(i));
+                    outputStream.writeObject(server.getGroupList().get(groupList.get(i)).getGroupName());
+                }
+                System.out.println("2");
+            }
+            else if (initialHandshake.getMessageType().equals("LOG")) { //if message is "LOG" (log in), try to log in the user
                 do {
                     successLogin = false;
                     for (User user : server.getUserList()) {
@@ -227,6 +251,7 @@ public class UserThread extends Thread implements Serializable{
                 String groupNmae = initialHandshake.getUsername();
                 int ownerUid = Integer.parseInt(initialHandshake.getPassword());
                 User owner = null;
+                User robot = new User("Bot",666,"Password");
                 for(GroupChat chat : server.getGroupList()) {
                     if(chat.getGroupName().equals(groupNmae)) {
                         outputStream.writeObject("DUPLICATED GROUP NAME");
@@ -238,6 +263,9 @@ public class UserThread extends Thread implements Serializable{
                     break;
                 }
                 member.add(owner);
+                member.add(robot);
+
+                outputStream.writeObject(robot.robotMessage());
                 int groupId = server.getGroupid();
                 GroupChat group = new GroupChat(groupId, owner, member, groupNmae);
                 server.addGroup(group);
