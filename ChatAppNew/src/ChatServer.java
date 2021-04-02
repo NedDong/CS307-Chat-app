@@ -18,17 +18,17 @@ public class ChatServer implements Serializable {
     private transient int port;
     private transient Set<String> userNames = new HashSet<>();
     private transient Set<UserThread> userThreads = new HashSet<>();
-    static int uid = 0;
-    static int groupid = 0;
+    static int uid = 100;
+    static int groupid = 100;
     public transient List<User> userList = new ArrayList<>();
     public transient List<GroupChat> chatList = new ArrayList<>();
     public ChatServer(int port) {
         this.port = port;
     }
 
-    private static String dbUrl = "jdbc:mysql://127.0.0.1:3306/CS307-Chat-Database";
+    private static String dbUrl = "jdbc:mysql://cs307-chat-app.webredirect.org:3306/CS307-Chat-Database";
     private static String dbUsername = "root";
-    private static String dbPassword = "12345678";
+    private static String dbPassword = "root";
 
     public void execute() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
@@ -96,11 +96,11 @@ public class ChatServer implements Serializable {
     public static void main(String[] args) throws SQLException {
         ChatServer server = new ChatServer(12345);
         server.dbConnect();
-        server.serverRestoration();
+        //server.serverRestoration();
         server.execute();
 
     }
-   public void serverRestoration() throws SQLException {
+    /*public void serverRestoration() throws SQLException {
         String sql = "DROP TABLE IF EXISTS Users;";
         statement.execute(sql);
         sql = "DROP TABLE IF EXISTS FriendList;";
@@ -136,7 +136,7 @@ public class ChatServer implements Serializable {
                 "MemberType VARCHAR( 8 )\n" +
                 ");";
         statement.execute(sql);
-    }
+    }*/
 
     public String getCurrentTime()
     {

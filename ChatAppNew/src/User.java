@@ -29,6 +29,17 @@ public class User implements Serializable {
         this.gidList = gidList;
     }
 
+    public User(String username, int uid, InetAddress inetAddress, String password, List<User> waitingList)
+    {
+        this.username = username;
+        this.password = password;
+        this.inetAddress = inetAddress;
+        this.password = password;
+        this.uid = uid;
+        this.waitingList = waitingList;
+    }
+
+
     public User(String username, int uid, String password) {
         this.username = username;
         this.uid = uid;
