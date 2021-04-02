@@ -31,10 +31,16 @@ import com.cs307group9.privatechatchat.entity.User;
 import com.cs307group9.privatechatchat.entity.UserAdapter;
 //import com.cs307group9.privatechatchat.group.GroupChat;
 import com.cs307group9.privatechatchat.group.GroupInfo;
+import com.cs307group9.privatechatchat.ui.login.LoginActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -78,6 +84,9 @@ public class MessageFragment extends Fragment {
     //= "10.0.2.2";
     int type = -1; // 0 means LogIn, 1 means Register
     static int port = 12345;
+
+    private ObjectOutputStream output;
+    private ObjectInputStream input;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -140,6 +149,87 @@ public class MessageFragment extends Fragment {
 
         Intent intent = new Intent(getActivity(), GroupInfo.class);
         startActivity(intent);
+    }
+
+    class ServerConnectThread implements Runnable {
+        public void run() {
+            System.out.println("==== I Am Currently Running Thread 1===");
+            Socket socket;
+            try {
+                socket = new Socket(hostname, port);
+                output = new ObjectOutputStream(socket.getOutputStream());
+                input  = new ObjectInputStream(socket.getInputStream());
+
+                new Thread(new getGroupUserList()).start();
+            } catch (UnknownHostException ex) {
+                System.out.println("Server not found: " + ex.getMessage());
+            } catch (IOException ex) {
+                System.out.println("I/O Error: " + ex.getMessage());
+            }
+        }
+    }
+
+    class RecieveGroupList implements Runnable {
+        @Override
+        public void run() {
+            try {
+                output.writeObject("GetGroups");
+                System.out.println("+++++++++++++++++++++++++++++++++++");
+
+//                output.writeObject(username);
+
+                // Receive the number of groups
+                Object numCheck = input.readObject();
+                int num = 0;
+
+                if (numCheck == null) {
+                    System.out.println("========THERE IS NO GROUP========");
+                    return;
+                }
+                else {
+                    num = (int) numCheck;
+                    System.out.printf("========THERE IS %d GROUPS========\n", num);
+                }
+
+                int[] groupList = new int[num];
+                String[] groupName = new String[num];
+
+                for (int i = 0; i < num; i++) {
+                    groupList[i] = (int) input.readObject();
+//                   groupName[i] = (String) input.readObject();
+                }
+
+                Gson gson = new Gson();
+                String json = gson.toJson(groupList);
+                editor.putString(KEY_PREF_GROUPLIST_GID, json);
+//                json = gson.toJson(groupName);
+//                editor.putString(KEY_PREF_GROUPLIST_NAME, json);
+                editor.commit();
+
+                Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                startActivity(intent);
+                finish();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class getGroupUserList implements Runnable {
+        @Override
+        public void run() {
+            try {
+                output
+            } catch (Exception e) {
+
+            }
+        }
     }
 
 

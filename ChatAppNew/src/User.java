@@ -13,11 +13,12 @@ public class User implements Serializable {
     private transient String password;
     private transient InetAddress inetAddress;
     private transient List<User> waitingList = new ArrayList<User>();
+    private transient List<Integer> gidList = new ArrayList<>();
     private transient int port;
     private transient HashMap<Integer, User> friendList;
     private transient HashMap<Integer, User> blockedList;
 
-    public User(String username, int uid, InetAddress inetAddress, String password, List<User> waitingList)
+    public User(String username, int uid, InetAddress inetAddress, String password, List<User> waitingList, List<Integer> gidList)
     {
         this.username = username;
         this.password = password;
@@ -25,6 +26,7 @@ public class User implements Serializable {
         this.password = password;
         this.uid = uid;
         this.waitingList = waitingList;
+        this.gidList = gidList;
     }
 
     public User(String username, int uid, String password) {
@@ -67,6 +69,14 @@ public class User implements Serializable {
     public void addFriend(User friend) {
         friendList.put(friend.getUid(),friend);
     }
+
+    public List<Integer> getGidList() { return gidList; }
+
+    public void addGidList(int gid) { gidList.add(gid); }
+
+    public void removeGidList(int gid) throws NoSuchObjectException
+    { if (gidList.contains(gid))    gidList.remove(gid);
+      else                          throw new NoSuchObjectException("No such user in group list"); }
 
     public void removeFriend(User friend) throws NoSuchObjectException {
         if(friendList.containsKey(friend.getUid())) {

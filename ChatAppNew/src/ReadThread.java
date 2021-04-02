@@ -56,7 +56,7 @@ public class ReadThread extends Thread {
                     InetAddress inetAddress = (InetAddress) inputStream.readObject();
                     String psw = (String) inputStream.readObject();
                     List<User> temp = null;
-                    User friend = new User(name, uid, inetAddress, psw,  temp);
+                    User friend = new User(name, uid, inetAddress, psw, temp, null);
 
 
                     client.addFriends(name, friend);

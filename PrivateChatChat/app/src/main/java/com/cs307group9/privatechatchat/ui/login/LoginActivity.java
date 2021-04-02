@@ -240,8 +240,8 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println(username);
                 System.out.println(feedback);
 
-                editor.putString(KEY_PREF_USERNAME, username);
-                editor.putString(KEY_PREF_FEEDBACK, feedback);
+//                editor.putString(KEY_PREF_USERNAME, username);
+//                editor.putString(KEY_PREF_FEEDBACK, feedback);
                 editor.commit();
 
                 try {
@@ -347,62 +347,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 editor.commit();
 
-                Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                startActivity(intent);
-                finish();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-            catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    class RecieveGroupList implements Runnable {
-        @Override
-        public void run() {
-            try {
-
-                output.writeObject("GroupList");
-
-                // Receive the number of groups
-                int num = (int) input.readObject();
-
-                String[] name = new String[num];
-                int[] uid = new int[num];
-                ArrayList<ArrayList<Integer>> userLists = new ArrayList<>();
-                for (int i = 0; i < num; i++) userLists.add(new ArrayList<Integer>());
-
-                // Record the number of groups
-                for (int i = 0; i < num; i++) {
-                    String response = (String) input.readObject();
-                    System.out.println(response);
-
-                    name[i] = (String) input.readObject();
-                    uid[i] = (int) input.readObject();
-
-                    int memberNum = (int) input.readObject();
-                    ArrayList<Integer> tempUserId = new ArrayList<>();
-                    for (int j = 0; j < memberNum; j++) tempUserId.add((int) input.read());
-
-                    userLists.set(i, tempUserId);
-                }
-
-
-                Gson gson = new Gson();
-
-                String json = gson.toJson(name);
-                editor.putString(KEY_PREF_GROUPLIST_NAME, json);
-                json = gson.toJson(uid);
-                editor.putString(KEY_PREF_GROUPLIST_GID, json);
-                json = gson.toJson(userLists);
-                editor.putString(KEY_PREF_GROUPLIST_USERS, json);
-
-                editor.commit();
+//                new Thread(new RecieveGroupList()).start();
 
                 Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

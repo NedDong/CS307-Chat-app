@@ -61,7 +61,8 @@ public class UserThread extends Thread implements Serializable{
                 } while (usernameDuplicated); //creates new users and add them to database, continues until no duplicate username
                 int tempUID = server.getUid();
                 List<User> temp = new ArrayList<User>();
-                server.getUserList().add(new User(initialHandshake.getUsername(), tempUID, socket.getInetAddress(), initialHandshake.getPassword(), temp));
+                List<Integer> gidList = new ArrayList<>();
+                server.getUserList().add(new User(initialHandshake.getUsername(), tempUID, socket.getInetAddress(), initialHandshake.getPassword(), temp, gidList));
                 String sql = "INSERT INTO Users(UID, UserName, Password) VALUES('" + tempUID + "','" + initialHandshake.getUsername() + "','" + initialHandshake.getPassword() + "')";
                 System.out.println(sql);
                 server.runSQLCommand(sql);
@@ -222,7 +223,11 @@ public class UserThread extends Thread implements Serializable{
                     return;
                 }
             }
-            else if(initialHandshake.getMessageType().equals("Group")) { //creates a new group in database
+            else if(initialHandshake.getMessageType().equals("FED")) {
+                System.out.println(initialHandshake.getUsername());
+                System.out.println(initialHandshake.getPassword());
+            }
+            else if(initialHandshake.getMessageType().equals("CreateGroup")) { //creates a new group in database
                 ArrayList<User> member = new ArrayList<>();
                 String groupNmae = initialHandshake.getUsername();
                 int ownerUid = Integer.parseInt(initialHandshake.getPassword());
@@ -234,11 +239,16 @@ public class UserThread extends Thread implements Serializable{
                     }
                 }
                 for(User user : server.getUserList()) {
-                    if (user.getUid() == ownerUid) owner = user;
-                    break;
+                    if (user.getUid() == ownerUid) {
+                        owner = user;
+                        break;
+                    }
                 }
                 member.add(owner);
                 int groupId = server.getGroupid();
+
+                owner.addGidList(groupId);
+
                 GroupChat group = new GroupChat(groupId, owner, member, groupNmae);
                 server.addGroup(group);
                 String sql = "INSERT INTO ChatGroup(GroupID, Member, MemberType) VALUES('" + groupId + "','" + ownerUid + "','owner')";
@@ -247,10 +257,26 @@ public class UserThread extends Thread implements Serializable{
                 outputStream.writeObject("SUCCESS");
                 outputStream.writeObject(groupId);
             }
-            else if(initialHandshake.getMessageType().equals("FED"))
-            {
-                System.out.println(initialHandshake.getUsername());
-                System.out.println(initialHandshake.getPassword());
+            else if(initialHandshake.getMessageType().equals("GetGroupList")) {
+                String username = (String) inputStream.readObject();
+                User user = null;
+                for (User user1 : server.getUserList()) {
+                    if (user1.getUsername().equals(username)) {
+                        user = user1; break;
+                    }
+                }
+
+                if (user == null) outputStream.writeObject(-1);
+
+                List<Integer> groupList = user.getGidList();
+                int num = groupList.size();
+
+                outputStream.writeObject(num);
+
+                for (int i = 0; i < num; i++) {
+                    outputStream.writeObject(groupList.get(i));
+                    outputStream.writeObject(server.getGroupList().get(groupList.get(i)).getGroupName());
+                }
             }
             else if(initialHandshake.getMessageType().equals("AddMember")) { //add a member to a group
                 String groupName = initialHandshake.getUsername();
