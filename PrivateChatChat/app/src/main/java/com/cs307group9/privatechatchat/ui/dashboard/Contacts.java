@@ -53,7 +53,6 @@ public class Contacts extends Fragment {
     final String KEY_PREF_FRIENDLIST_PSW  = "friendlist_psw";
 
     View view;
-    LinearLayout lin;
 
     private LinkedList<User> userData = null;
     private Context userContext;
@@ -74,8 +73,6 @@ public class Contacts extends Fragment {
         dashboardViewModel =
                 new ViewModelProvider(this).get(ContactViewModel.class);
         view = inflater.inflate(R.layout.fragment_contacts, container, false);
-
-        lin = new LinearLayout(getActivity());
 
         sharedPreferences = getContext().getSharedPreferences(KEY_PREF_APP, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
