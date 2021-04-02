@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     final String KEY_PREF_APP = "myPref";
     final String KEY_PREF_USERNAME = "username";
     final String KEY_PREF_PASSWORD = "password";
+    final String KEY_PREF_FEEDBACK = "feedback";
     final String KEY_PREF_FRIENDLIST_NAME = "friendlist_name";
     final String KEY_PREF_FRIENDLIST_UID  = "friendlist_uid";
     final String KEY_PREF_FRIENDLIST_ADDR = "friendlist_addr";
@@ -62,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
     String username;
     String password;
+    String feedback;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -80,8 +82,10 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
+        final EditText feedbackEditText = findViewById(R.id.feedback);
         final Button loginButton = findViewById(R.id.login);
         final Button registerButton = findViewById(R.id.register);
+        final Button feedbackButton = findViewById(R.id.sendFeedback);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -198,6 +202,23 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+        feedbackButton.setOnClickListener(new View.OnClickListener()  {
+            @Override
+            public void onClick(View v) {
+                username = usernameEditText.getText().toString();
+                feedback = feedbackEditText.getText().toString();
+
+                //loadingProgressBar.setVisibility(View.VISIBLE);
+
+                type = 0;
+                editor.putBoolean(KEY_PREF_ISLOGIN, false);
+                editor.commit();
+                new Thread(new feedbackThread()).start();
+
+
+            }
+        });
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
@@ -223,6 +244,44 @@ public class LoginActivity extends AppCompatActivity {
                 input  = new ObjectInputStream(socket.getInputStream());
 
                 new Thread(new LoginActivity.SendUserInfoThread()).start();
+            } catch (UnknownHostException ex) {
+                System.out.println("Server not found: " + ex.getMessage());
+            } catch (IOException ex) {
+                System.out.println("I/O Error: " + ex.getMessage());
+            }
+        }
+    }
+
+    class feedbackThread implements Runnable {
+        public void run() {
+            System.out.println("==== I Am Currently Running Thread feedback===");
+            Socket socket;
+            try {
+                socket = new Socket(hostname, port);
+                output = new ObjectOutputStream(socket.getOutputStream());
+                input  = new ObjectInputStream(socket.getInputStream());
+
+                //new Thread(new LoginActivity.SendUserInfoThread()).start();
+                String typeStr = "FED";
+
+
+                // Message msg = new Message(typeStr, username, password);
+
+                System.out.println(username);
+                System.out.println(feedback);
+
+                editor.putString(KEY_PREF_USERNAME, username);
+                editor.putString(KEY_PREF_FEEDBACK, feedback);
+                editor.commit();
+
+                try {
+                    output.writeObject(typeStr);
+                    output.writeObject(username);
+                    output.writeObject(feedback);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             } catch (UnknownHostException ex) {
                 System.out.println("Server not found: " + ex.getMessage());
             } catch (IOException ex) {
