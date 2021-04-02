@@ -294,7 +294,7 @@ public class UserThread extends Thread implements Serializable{
                     }
                 }
                 int groupId = group.getGroupID();
-                String sql = "INSERT INTO Groups(GroupID, Member, MemberType) VALUES('" + groupId + "','" + memberId + "','manager')";
+                String sql = "UPDATE Groups SET MemberType = 'manager' WHERE Member ='" + memberId + "'";
                 System.out.println(sql);
                 server.runSQLCommand(sql);
                 outputStream.writeObject("SUCCESS");
@@ -379,6 +379,21 @@ public class UserThread extends Thread implements Serializable{
                     }
                 }
                 outputStream.writeObject("NO SUCH GROUP");
+            }
+            else if(initialHandshake.getMessageType().equals("GetUserGroups")) {
+                int uid = Integer.parseInt(initialHandshake.getUsername());
+                String sql = "SELECT GroupID FROM GROUPS WHERE Member ='" + uid + "'";
+                ResultSet rs = server.runSQLQuery(sql);
+                if(rs == null) {
+                    outputStream.writeObject("NO GROUPS");
+                } else {
+                    rs.last();
+                    int n = rs.getRow();
+                    outputStream.writeObject(n);
+                    for(int i = 1; i <= n; i++) {
+                        outputStream.writeObject(rs.getString(i));
+                    }
+                }
             }
             printUsers();
         } catch (IOException | ClassNotFoundException ex) {

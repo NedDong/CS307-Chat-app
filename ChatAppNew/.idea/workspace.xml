@@ -20,9 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09035f45-fda3-4bcb-9c9b-d4645ddf74d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/color/list_color.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-
+      <change beforePath="$PROJECT_DIR$/src/UserThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,10 +105,10 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.ChatClient (1)" />
       <item itemvalue="Application.ChatClient" />
-      <item itemvalue="Application.ChatServer (1)" />
       <item itemvalue="Application.ChatServer" />
+      <item itemvalue="Application.ChatServer (1)" />
+      <item itemvalue="Application.ChatClient (1)" />
     </list>
     <recent_temporary>
       <list>
