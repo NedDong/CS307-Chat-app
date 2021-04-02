@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3d9fee5-3237-47b0-b827-6696398af8fa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatAppNew/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/message_adapter.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ChatAppNew/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/dashboard/Contact_Dynamic_Version.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/dashboard/Contacts.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/dashboard/Contacts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/fragment_contacts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/fragment_contacts.xml" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,28 +47,17 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1615592096994" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../PrivateChatChat" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ChatApp" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="project.propDebugger" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Application.ChatClient">
     <configuration name="ChatClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -89,6 +81,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -144,51 +137,5 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="320" y="94" width="811" height="669" key="#Project_Structure" timestamp="1615514092837">
-      <screen x="0" y="23" width="1440" height="814" />
-    </state>
-    <state x="320" y="94" width="811" height="669" key="#Project_Structure/0.23.1440.814@0.23.1440.814" timestamp="1615514092837" />
-    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1615595272963">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1615595272963" />
-    <state width="1900" height="282" key="GridCell.Tab.0.bottom" timestamp="1615595273042">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1900" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1615595273042" />
-    <state width="1398" height="209" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1615542072391" />
-    <state width="1398" height="209" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1615535466966" />
-    <state width="1398" height="209" key="GridCell.Tab.0.bottom/0.23.1440.822@0.23.1440.822" timestamp="1615532760717" />
-    <state width="1900" height="282" key="GridCell.Tab.0.center" timestamp="1615595273042">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1900" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1615595273042" />
-    <state width="1398" height="209" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1615542072390" />
-    <state width="1398" height="209" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1615535466961" />
-    <state width="1398" height="209" key="GridCell.Tab.0.center/0.23.1440.822@0.23.1440.822" timestamp="1615532760716" />
-    <state width="1900" height="282" key="GridCell.Tab.0.left" timestamp="1615595273042">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1900" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1615595273042" />
-    <state width="1398" height="209" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1615542072389" />
-    <state width="1398" height="209" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1615535466960" />
-    <state width="1398" height="209" key="GridCell.Tab.0.left/0.23.1440.822@0.23.1440.822" timestamp="1615532760715" />
-    <state width="1900" height="282" key="GridCell.Tab.0.right" timestamp="1615595273042">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1900" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1615595273042" />
-    <state width="1398" height="209" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1615542072391" />
-    <state width="1398" height="209" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1615535466965" />
-    <state width="1398" height="209" key="GridCell.Tab.0.right/0.23.1440.822@0.23.1440.822" timestamp="1615532760716" />
-    <state x="491" y="165" key="SettingsEditor" timestamp="1615594958759">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="491" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1615594958759" />
-    <state x="397" y="261" key="com.intellij.ide.util.TipDialog" timestamp="1615532422357">
-      <screen x="0" y="23" width="1440" height="821" />
-    </state>
-    <state x="397" y="261" key="com.intellij.ide.util.TipDialog/0.23.1440.821@0.23.1440.821" timestamp="1615532422357" />
   </component>
 </project>

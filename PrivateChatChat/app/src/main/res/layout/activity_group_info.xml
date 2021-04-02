@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/groupInfo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/groupInfoBack"
+        android:layout_width="60dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/button_round_shape"
+        android:scaleType="fitCenter"
+        android:tint="#FFFFFF"
+        tools:src="@drawable/left" />
+
+    <ImageView
+        android:id="@+id/GroupAvatar"
+        android:layout_width="105dp"
+        android:layout_height="109dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="153dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="155dp"
+        android:background="#FFFFFF"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/GroupInfoName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/GroupAvatar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="122dp"
+        android:fontFamily="sans-serif-thin"
+        android:text="Group Name"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:typeface="monospace" />
+
+    <TextView
+        android:id="@+id/GroupID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/GroupInfoName"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="179dp"
+        android:fontFamily="sans-serif-thin"
+        android:text="GroupID"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="411dp"
+        android:layout_height="396dp"
+        android:layout_below="@+id/GroupInfoName"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="0dp"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/GroupUserList"
+            android:layout_width="match_parent"
+            android:layout_height="468dp"
+            android:layout_marginBottom="318dp"
+            android:drawSelectorOnTop="false" />
+    </LinearLayout>
+
+</RelativeLayout>

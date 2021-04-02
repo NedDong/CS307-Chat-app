@@ -1,28 +1,30 @@
-package com.cs307group9.privatechatchat.ui.dashboard;
+package com.cs307group9.privatechatchat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import com.cs307group9.privatechatchat.entity.User;
+import com.cs307group9.privatechatchat.entity.UserAdapter;
+import com.cs307group9.privatechatchat.ui.dashboard.ContactViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
-
-import com.cs307group9.privatechatchat.R;
-import com.cs307group9.privatechatchat.entity.User;
-import com.cs307group9.privatechatchat.entity.UserAdapter;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -31,7 +33,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class Contacts extends Fragment {
+public class GroupInfo extends AppCompatActivity {
+
+    private ImageButton back;
 
     private ContactViewModel dashboardViewModel;
 
@@ -65,20 +69,21 @@ public class Contacts extends Fragment {
     private int[] uid;
     private InetAddress[] addr;
 
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        dashboardViewModel =
-                new ViewModelProvider(this).get(ContactViewModel.class);
-        view = inflater.inflate(R.layout.fragment_contacts, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        lin = new LinearLayout(getActivity());
-
-        sharedPreferences = getContext().getSharedPreferences(KEY_PREF_APP, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(KEY_PREF_APP, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
+        back = (ImageButton) findViewById(R.id.groupInfoBack);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Gson gson = new Gson();
 
@@ -108,19 +113,19 @@ public class Contacts extends Fragment {
             list_item.add(show_item);
         }
 
-        SimpleAdapter simpleAdapter = new SimpleAdapter(getContext(), list_item, R.layout.friend_list_adapter,
+        SimpleAdapter simpleAdapter = new SimpleAdapter(this, list_item, R.layout.friend_list_adapter,
                 new String[]{"name", "says", "image"}, new int[]{R.id.name, R.id.says, R.id.imgtou});
-        ListView listView = (ListView) view.findViewById(R.id.list_item);
+        ListView listView = (ListView) view.findViewById(R.id.GroupUserList);
         if (listView == null) Log.d("dubug", "ListView Null");
         listView.setAdapter(simpleAdapter);
 
         listView.setOnItemClickListener(this::onItemClick);
-
-        return view;
+        setContentView(R.layout.activity_group_info);
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getContext(), "You Click" + userName[position] + "~!", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(GroupInfo.this, FriendProfile.class);
+        startActivity(intent);
     }
 
 }
