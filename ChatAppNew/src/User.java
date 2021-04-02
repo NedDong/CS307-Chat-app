@@ -109,4 +109,8 @@ public class User implements Serializable {
             blockedList.put(user.getUid(), user);
         }
     }
+    public String robotMessage()
+    {
+        return "I am a funny robot!";
+    }
 }
