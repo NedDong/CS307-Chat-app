@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -87,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
     private LinkedList<String> textString = new LinkedList<>();
 
     List<Map<String, Object>> list_item = new ArrayList<Map<String, Object>>();
+
+    private int[] highlightNum = new int[100];
 
     boolean connectServer = true;
     String muteUser;
@@ -177,7 +181,11 @@ public class MainActivity extends AppCompatActivity {
 
                                     String uName = msg.split("\\[")[1].split("] ")[0];
 
-                                    if (msg_end.equals(uName)) {}
+                                    if (uName.equals("HIGHLIGHT")) {
+                                        highlightNum[Integer.parseInt(msg_end)] = 1;
+                                        return;
+                                    }
+                                    else if (msg_end.equals(uName)) {}
                                     else {
                                         currentSender = getUsers(uName);
                                         System.out.println("AHA");
@@ -210,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
         show_item.put("name", name);
         show_item.put("msg", msg);
         show_item.put("image", R.mipmap.ic_launcher);
+//        show_item.put("background", R.color.black);
         list_item.add(show_item);
 
         textString.add(msg);
@@ -220,12 +229,30 @@ public class MainActivity extends AppCompatActivity {
         if (listView == null) Log.d("dubug", "ListView Null");
         listView.setAdapter(simpleAdapter);
 
+        for (int i = 0; i < listView.getCount(); i++) {
+            if (listView.findViewWithTag(i) == null) continue;
+            if (listView.findViewWithTag(i).isSelected())
+            listView.findViewWithTag(i).setBackgroundColor(getResources().getColor(R.color.yellow));
+        }
+
         listView.setOnItemClickListener(this::onItemClick);
+//        listView.set
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this, "You Click" + textString.get(position) + "~!", Toast.LENGTH_LONG).show();
+        view.setSelected(true);
+        view.setTag(position);
+        if (highlightNum[position] == 1) {
+            highlightNum[position] = 0;
+            view.setBackgroundColor(getResources().getColor(R.color.white));
+
+            return;
+        }
+        view.setBackgroundColor(getResources().getColor(R.color.yellow));
+        highlightNum[position] = 1;
+//        new Thread(new ClientThread("[HIGHLIGHT] " + position)).start();
     }
+
 
     class ClientThread implements Runnable {
         private String msg;
@@ -233,6 +260,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             System.out.println(msg);
+
+            if (msg.contains("[HIGHLIGHT] ")) {
+                int pos = Integer.parseInt(msg.split("] ")[1]);
+                output.println("HIGHLIGHT");
+                output.println(pos);
+                return;
+            }
+
             output.println(username);
             if (msg.equals(username)) {
                 sendText.setText("");

@@ -104,44 +104,44 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
-            @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
-                    return;
-                }
-                loadingProgressBar.setVisibility(View.GONE);
-//                if (loginResult.getError() != null) {
-//                    showLoginFailed(loginResult.getError());
+//        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
+//            @Override
+//            public void onChanged(@Nullable LoginResult loginResult) {
+//                if (loginResult == null) {
+//                    return;
 //                }
-                if (!sharedPreferences.getBoolean(KEY_PREF_ISLOGIN, false)) {
-                    System.out.println("=====WRONG!!====");
-                    showLoginFailed("Wrong Username/Password");
-                }
-                else {
-                    updateUiWithUser(loginResult.getSuccess());
-                    Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                    editor.putBoolean(KEY_PREF_ISLOGIN, false);
-                    editor.commit();
-//                    try {
-//                        output.close();
-//                        input.close();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-
-                    startActivity(intent);
-
-                    //finish();
-                }
-                setResult(Activity.RESULT_OK);
-
-                //Complete and destroy login activity once successful
-                //finish();
-            }
-        });
+//                loadingProgressBar.setVisibility(View.GONE);
+////                if (loginResult.getError() != null) {
+////                    showLoginFailed(loginResult.getError());
+////                }
+//                if (!sharedPreferences.getBoolean(KEY_PREF_ISLOGIN, false)) {
+//                    System.out.println("=====WRONG!!====");
+//                    showLoginFailed("Wrong Username/Password");
+//                }
+//                else {
+//                    updateUiWithUser(loginResult.getSuccess());
+////                    Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
+////                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+////
+////                    editor.putBoolean(KEY_PREF_ISLOGIN, false);
+////                    editor.commit();
+////                    try {
+////                        output.close();
+////                        input.close();
+////                    } catch (IOException e) {
+////                        e.printStackTrace();
+////                    }
+//
+////                    startActivity(intent);
+//
+//                    //finish();
+//                }
+//                setResult(Activity.RESULT_OK);
+//
+//                //Complete and destroy login activity once successful
+//                //finish();
+//            }
+//        });
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override
@@ -324,13 +324,28 @@ public class LoginActivity extends AppCompatActivity {
         public void run() {
             try {
                 String result = (String) input.readObject();
+                System.out.printf("============RESULT: %s\n", result);
                 if (!result.contains("uccess")) {
                     editor.putBoolean(KEY_PREF_ISLOGIN, false);
                     editor.commit();
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            final Toast toast = Toast.makeText(LoginActivity.this, result, Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    });
                     return;
                 }
                 editor.putBoolean(KEY_PREF_ISLOGIN, true);
                 editor.commit();
+
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        final Toast toast = Toast.makeText(LoginActivity.this, "LOG IN SUCCESS, WELCOME" + username, Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                });
+
                 int num = (int) input.readObject();
 
                 String[] name = new String[num];
@@ -350,6 +365,7 @@ public class LoginActivity extends AppCompatActivity {
 //                    frindlist.put(name, friend);
 //                    System.out.println("add friend successfully" + friend.getUsername());
                 }
+
 
                 Gson gson = new Gson();
 
@@ -372,7 +388,7 @@ public class LoginActivity extends AppCompatActivity {
 
 //                editor.putString(KEY_PREF_FRIENDLIST, json);
 //                editor.commit();
-
+//
                 Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -382,6 +398,7 @@ public class LoginActivity extends AppCompatActivity {
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
+
 
                 startActivity(intent);
                 finish();

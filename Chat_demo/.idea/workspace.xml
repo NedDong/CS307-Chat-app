@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3d9fee5-3237-47b0-b827-6696398af8fa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/message_adapter.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/color/list_color.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ChatAppNew/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/dashboard/Contact_Dynamic_Version.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/dashboard/Contacts.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/dashboard/Contacts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/login/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/login/LoginActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/fragment_contacts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/fragment_contacts.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/values/colors.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,14 +51,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1615592096994" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ChatApp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ChatServer" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="project.propDebugger" />
   </component>
-  <component name="RunManager" selected="Application.ChatClient">
+  <component name="RunManager" selected="Application.ChatServer">
     <configuration name="ChatClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ChatClient" />
       <module name="Chat_demo" />
@@ -76,8 +75,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ChatClient" />
         <item itemvalue="Application.ChatServer" />
+        <item itemvalue="Application.ChatClient" />
       </list>
     </recent_temporary>
   </component>
