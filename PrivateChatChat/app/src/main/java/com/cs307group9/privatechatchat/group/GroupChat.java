@@ -1,13 +1,14 @@
-package com.cs307group9.privatechatchat;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.cs307group9.privatechatchat.group;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class GroupChat extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.cs307group9.privatechatchat.R;
+
+public class GroupChat extends AppCompatActivity {
     private ImageButton backButton;
     private ImageButton moreButton;
 
