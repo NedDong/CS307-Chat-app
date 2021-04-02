@@ -105,10 +105,10 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.ChatClient" />
-      <item itemvalue="Application.ChatServer" />
-      <item itemvalue="Application.ChatServer (1)" />
       <item itemvalue="Application.ChatClient (1)" />
+      <item itemvalue="Application.ChatClient" />
+      <item itemvalue="Application.ChatServer (1)" />
+      <item itemvalue="Application.ChatServer" />
     </list>
     <recent_temporary>
       <list>
