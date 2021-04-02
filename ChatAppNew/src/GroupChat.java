@@ -36,6 +36,10 @@ public class GroupChat implements Serializable{
         return groupName;
     }
 
+    public ArrayList<User> getManagers() {
+        return managers;
+    }
+
     public void removeMember(User user) {
         int uid = user.getUid();
         for(int i = 0; i < groupMembers.size(); i++) {

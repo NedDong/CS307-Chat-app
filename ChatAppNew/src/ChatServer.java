@@ -19,7 +19,9 @@ public class ChatServer implements Serializable {
     private transient Set<String> userNames = new HashSet<>();
     private transient Set<UserThread> userThreads = new HashSet<>();
     static int uid = 0;
+    static int groupid = 0;
     public transient List<User> userList = new ArrayList<>();
+    public transient List<GroupChat> chatList = new ArrayList<>();
     public ChatServer(int port) {
         this.port = port;
     }
@@ -152,6 +154,19 @@ public class ChatServer implements Serializable {
     {
         uid++;
         return uid;
+    }
+
+    public static int getGroupid() {
+        groupid++;
+        return groupid;
+    }
+
+    public void addGroup(GroupChat group) {
+        chatList.add(group);
+    }
+
+    public List<GroupChat> getGroupList() {
+        return chatList;
     }
 
     public static void addUserData(User user) {
