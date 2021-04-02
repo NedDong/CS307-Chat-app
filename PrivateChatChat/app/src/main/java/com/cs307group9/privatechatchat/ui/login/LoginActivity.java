@@ -17,6 +17,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -36,7 +37,9 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -46,10 +49,16 @@ public class LoginActivity extends AppCompatActivity {
     final String KEY_PREF_USERNAME = "username";
     final String KEY_PREF_PASSWORD = "password";
     final String KEY_PREF_FEEDBACK = "feedback";
+
     final String KEY_PREF_FRIENDLIST_NAME = "friendlist_name";
     final String KEY_PREF_FRIENDLIST_UID  = "friendlist_uid";
     final String KEY_PREF_FRIENDLIST_ADDR = "friendlist_addr";
     final String KEY_PREF_FRIENDLIST_PSW  = "friendlist_psw";
+
+    final String KEY_PREF_GROUPLIST_NAME = "grouplist_name";
+    final String KEY_PREF_GROUPLIST_GID = "grouplist_gid";
+    final String KEY_PREF_GROUPLIST_USERS = "grouplist_users";
+
     final String KEY_PREF_ISLOGIN = "islogin";
     final String KEY_PREF_SOCKET = "socket";
 
@@ -103,45 +112,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
-//            @Override
-//            public void onChanged(@Nullable LoginResult loginResult) {
-//                if (loginResult == null) {
-//                    return;
-//                }
-//                loadingProgressBar.setVisibility(View.GONE);
-////                if (loginResult.getError() != null) {
-////                    showLoginFailed(loginResult.getError());
-////                }
-//                if (!sharedPreferences.getBoolean(KEY_PREF_ISLOGIN, false)) {
-//                    System.out.println("=====WRONG!!====");
-//                    showLoginFailed("Wrong Username/Password");
-//                }
-//                else {
-//                    updateUiWithUser(loginResult.getSuccess());
-////                    Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
-////                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-////
-////                    editor.putBoolean(KEY_PREF_ISLOGIN, false);
-////                    editor.commit();
-////                    try {
-////                        output.close();
-////                        input.close();
-////                    } catch (IOException e) {
-////                        e.printStackTrace();
-////                    }
-//
-////                    startActivity(intent);
-//
-//                    //finish();
-//                }
-//                setResult(Activity.RESULT_OK);
-//
-//                //Complete and destroy login activity once successful
-//                //finish();
-//            }
-//        });
 
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override
@@ -270,8 +240,8 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println(username);
                 System.out.println(feedback);
 
-                editor.putString(KEY_PREF_USERNAME, username);
-                editor.putString(KEY_PREF_FEEDBACK, feedback);
+//                editor.putString(KEY_PREF_USERNAME, username);
+//                editor.putString(KEY_PREF_FEEDBACK, feedback);
                 editor.commit();
 
                 try {
@@ -361,9 +331,6 @@ public class LoginActivity extends AppCompatActivity {
                     uid[i] = (int) input.readObject();
                     inetAddress[i] = (InetAddress) input.readObject();
                     psw[i] = (String) input.readObject();
-//                    User friend = new User(name, uid, inetAddress, psw);
-//                    frindlist.put(name, friend);
-//                    System.out.println("add friend successfully" + friend.getUsername());
                 }
 
 
@@ -380,25 +347,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 editor.commit();
 
+//                new Thread(new RecieveGroupList()).start();
 
-//                Gson gson = new Gson();
-                //Type hashMapType = new TypeToken<HashMap<String, User>>() {}.getType();
-                //HashMap<String, User> frindMap = gson.fromJson(gson.toJson(frindlist), hashMapType);
-//                String json = gson.toJson(frindlist);
-
-//                editor.putString(KEY_PREF_FRIENDLIST, json);
-//                editor.commit();
-//
                 Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-//                try {
-//                    output.close();
-//                    input.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-
 
                 startActivity(intent);
                 finish();

@@ -93,13 +93,50 @@ public class ChatServer implements Serializable {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         ChatServer server = new ChatServer(12345);
         server.dbConnect();
+        server.serverRestoration();
         server.execute();
 
     }
+   public void serverRestoration() throws SQLException {
+        String sql = "DROP TABLE IF EXISTS Users;";
+        statement.execute(sql);
+        sql = "DROP TABLE IF EXISTS FriendList;";
+        statement.execute(sql);
+        sql = "DROP TABLE IF EXISTS UserInfo;";
+        statement.execute(sql);
+        sql = "DROP TABLE IF EXISTS ChatGroup;";
+        statement.execute(sql);
 
+        sql = "CREATE TABLE IF NOT EXISTS Users(\n" +
+                "    UID varchar(8) NOT NULL PRIMARY KEY,\n" +
+                "    UserName varchar(32),\n" +
+                "    Password varchar(32)\n" +
+                ");";
+        statement.execute(sql);
+        sql = "CREATE TABLE IF NOT EXISTS UserInfo(\n" +
+                "    UID varchar(8) NOT NULL PRIMARY KEY,\n" +
+                "    UserName varchar(32),\n" +
+                "    Birthday DATE,\n" +
+                "    Gender varchar(8)\n" +
+                ");";
+        statement.execute(sql);
+        sql = "CREATE TABLE IF NOT EXISTS FriendList(\n" +
+                "    UID varchar(8) NOT NULL,\n" +
+                "    UserName varchar(32),\n" +
+                "    FriendUID varchar(8) NOT NULL,\n" +
+                "    FriendUserName varchar(32),\n" +
+                "    Relationship varchar(16)\n" +
+                ");";
+        statement.execute(sql);
+        sql ="CREATE TABLE IF NOT EXISTS ChatGroup(GroupID VARCHAR( 8 ) NOT NULL PRIMARY KEY ,\n" +
+                "Member VARCHAR( 8 ) ,\n" +
+                "MemberType VARCHAR( 8 )\n" +
+                ");";
+        statement.execute(sql);
+    }
 
     public String getCurrentTime()
     {

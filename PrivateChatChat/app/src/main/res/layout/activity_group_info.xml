@@ -25,9 +25,10 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="153dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="155dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="152dp"
         android:background="#FFFFFF"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -65,20 +66,51 @@
         android:visibility="visible" />
 
     <LinearLayout
-        android:layout_width="411dp"
-        android:layout_height="396dp"
+        android:layout_width="match_parent"
+        android:layout_height="422dp"
         android:layout_below="@+id/GroupInfoName"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="85dp"
         android:layout_marginBottom="0dp"
         android:orientation="vertical">
 
         <ListView
             android:id="@+id/GroupUserList"
             android:layout_width="match_parent"
-            android:layout_height="468dp"
+            android:layout_height="412dp"
             android:layout_marginBottom="318dp"
             android:drawSelectorOnTop="false" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/members"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="250dp"
+        android:text="members" />
+
+    <Button
+        android:id="@+id/administrators"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="250dp"
+        android:text="administrators" />
+
+    <Button
+        android:id="@+id/groupSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="11dp"
+        android:text="setting" />
 
 </RelativeLayout>

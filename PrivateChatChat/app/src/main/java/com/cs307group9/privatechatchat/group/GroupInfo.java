@@ -1,13 +1,17 @@
-package com.cs307group9.privatechatchat;
+package com.cs307group9.privatechatchat.group;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.cs307group9.privatechatchat.FriendProfile;
+import com.cs307group9.privatechatchat.MainScreenActivity;
+import com.cs307group9.privatechatchat.R;
 import com.cs307group9.privatechatchat.entity.User;
 import com.cs307group9.privatechatchat.entity.UserAdapter;
 import com.cs307group9.privatechatchat.ui.dashboard.ContactViewModel;
+import com.cs307group9.privatechatchat.ui.login.LoginActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -20,6 +24,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -56,7 +61,6 @@ public class GroupInfo extends AppCompatActivity {
     final String KEY_PREF_FRIENDLIST_ADDR = "friendlist_addr";
     final String KEY_PREF_FRIENDLIST_PSW  = "friendlist_psw";
 
-    View view;
     LinearLayout lin;
 
     private LinkedList<User> userData = null;
@@ -72,6 +76,7 @@ public class GroupInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_group_info);
 
         sharedPreferences = getSharedPreferences(KEY_PREF_APP, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -81,6 +86,9 @@ public class GroupInfo extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(GroupInfo.this, GroupChat.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 finish();
             }
         });
@@ -115,16 +123,16 @@ public class GroupInfo extends AppCompatActivity {
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, list_item, R.layout.friend_list_adapter,
                 new String[]{"name", "says", "image"}, new int[]{R.id.name, R.id.says, R.id.imgtou});
-        ListView listView = (ListView) view.findViewById(R.id.GroupUserList);
+        ListView listView = (ListView) findViewById(R.id.GroupUserList);
         if (listView == null) Log.d("dubug", "ListView Null");
         listView.setAdapter(simpleAdapter);
 
         listView.setOnItemClickListener(this::onItemClick);
-        setContentView(R.layout.activity_group_info);
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(GroupInfo.this, FriendProfile.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

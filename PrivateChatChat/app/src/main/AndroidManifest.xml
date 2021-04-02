@@ -9,12 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PrivateChatChat">
-        <activity android:name=".FriendProfile"></activity>
-        <activity android:name=".GroupChat" />
         <activity
-            android:name=".GroupInfo"
-            android:label="@string/title_activity_group_info"
-            android:theme="@style/Theme.PrivateChatChat.NoActionBar" />
+            android:name=".FriendProfile"
+            android:label="FriendProfile"></activity>
+        <activity
+            android:name=".group.GroupInfo"
+            android:label="GroupInfo"/>
+        <activity
+            android:name=".group.GroupChat"
+            android:label="GroupChat" />
         <activity
             android:name=".MainScreenActivity"
             android:label="@string/title_activity_main__screen_" /> <!-- <activity -->
