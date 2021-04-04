@@ -237,8 +237,12 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Message msg = new Message(typeStr, username, password);
 
-                System.out.println(username);
-                System.out.println(feedback);
+                if (username.length() == 0) {
+                    System.out.println("Feedback from anonymous user: " + feedback);
+                } else {
+                    System.out.println(username);
+                    System.out.println(feedback);
+                }
 
 //                editor.putString(KEY_PREF_USERNAME, username);
 //                editor.putString(KEY_PREF_FEEDBACK, feedback);
