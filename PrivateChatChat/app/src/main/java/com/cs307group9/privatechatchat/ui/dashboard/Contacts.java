@@ -1,6 +1,7 @@
 package com.cs307group9.privatechatchat.ui.dashboard;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.cs307group9.privatechatchat.MainActivity;
 import com.cs307group9.privatechatchat.R;
 import com.cs307group9.privatechatchat.entity.User;
 import com.cs307group9.privatechatchat.entity.UserAdapter;
@@ -118,6 +120,9 @@ public class Contacts extends Fragment {
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getContext(), "You Click" + userName[position] + "~!", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+
     }
 
 }

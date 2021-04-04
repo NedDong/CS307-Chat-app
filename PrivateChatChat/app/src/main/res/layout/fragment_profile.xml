@@ -28,8 +28,10 @@
         android:layout_marginBottom="126dp"
         app:layout_constraintBottom_toTopOf="@+id/usernameText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_dashboard_black_24dp"
         tools:src="@drawable/ic_dashboard_black_24dp"
         tools:srcCompat="@drawable/ic_dashboard_black_24dp" />
@@ -83,17 +85,16 @@
 
     <EditText
         android:id="@+id/usernameText"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="149dp"
+        android:layout_height="66dp"
         android:layout_marginStart="90dp"
+        android:layout_marginTop="292dp"
         android:layout_marginEnd="21dp"
-        android:layout_marginBottom="33dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/UID"
         app:layout_constraintEnd_toStartOf="@+id/applyButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/avatar02" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/applyButton"
