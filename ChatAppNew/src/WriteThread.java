@@ -57,15 +57,17 @@ public class WriteThread extends Thread {
         }
          */
         Scanner scan = new Scanner(System.in);
-        System.out.print("Log in/New user: ");
+        System.out.print("Message Type: ");
         String type = scan.nextLine();
-        System.out.print("Username: ");
+        System.out.print("Input1: ");
         String username = scan.nextLine();
-        System.out.print("Password: ");
+        System.out.print("Input2: ");
         String password = scan.nextLine();
 
         // Message send = new Message(type , username , password);
         try{
+            User newUser = new User(username, ChatServer.getUid(), password);
+            ChatServer.addUserData(newUser);
             outputStream.writeObject(type);
             outputStream.writeObject(username);
             outputStream.writeObject(password);

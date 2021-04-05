@@ -1,7 +1,6 @@
-import java.io.*;
-import java.net.*;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.Socket;
 
 /**
  * This thread is responsible for reading server's input and printing it
@@ -31,8 +30,22 @@ public class ReadThread extends Thread {
     }
 
     public void run() {
-        while (true) {
+        while(true) {
             try {
+                System.out.println(inputStream.readObject());
+            } catch (IOException ex) {
+                System.out.println("Error reading from server: " + ex.getMessage());
+                ex.printStackTrace();
+                break;
+            } catch (ClassNotFoundException ex) {
+                System.out.println("Class Not Found reading from server: " + ex.getMessage());
+                ex.printStackTrace();
+                break;
+            }
+        }
+        return;
+        /*while (true) {
+            try {*/
                 /*
                 String response = reader.readLine();
                 System.out.println("\n" + response);
@@ -40,7 +53,7 @@ public class ReadThread extends Thread {
                 if (client.getUserName() != null) {
                     System.out.print("[" + client.getUserName() + "]: ");
                 }*/
-                String response = (String)inputStream.readObject(); //= inputStream.read();
+                /*String response = (String)inputStream.readObject(); //= inputStream.read();
                 System.out.println(response);
 
                 int num = (int) inputStream.readObject();
@@ -54,7 +67,8 @@ public class ReadThread extends Thread {
                     int uid = (int) inputStream.readObject();
                     InetAddress inetAddress = (InetAddress) inputStream.readObject();
                     String psw = (String) inputStream.readObject();
-                    User friend = new User(name, uid, inetAddress, psw);
+                    List<User> temp = null;
+                    User friend = new User(name, uid, inetAddress, psw, temp, null);
 
 
                     client.addFriends(name, friend);
@@ -81,6 +95,6 @@ public class ReadThread extends Thread {
                 ex.printStackTrace();
                 break;
             }
-        }
+        }*/
     }
 }

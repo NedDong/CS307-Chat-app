@@ -1,5 +1,8 @@
 package com.cs307group9.privatechatchat.entity;
 
+import android.view.View;
+import android.view.ViewGroup;
+
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -14,10 +17,9 @@ public class User implements Serializable {
     public User(String username, int uid, InetAddress inetAddress, String password)
     {
         this.username = username;
-        this.password = password;
-        this.password = password;
         this.uid = uid;
         this.inetAddress = inetAddress;
+        this.password = password;
     }
 
     public int getUid() {
@@ -34,5 +36,9 @@ public class User implements Serializable {
 
     public InetAddress getInetAddress() {
         return inetAddress;
+    }
+
+    public void printUser() {
+        System.out.printf(" NAME[%s] | ID[%d] | ADDR[%s] | PSW[%s]\n", username, uid, inetAddress, password);
     }
 }
