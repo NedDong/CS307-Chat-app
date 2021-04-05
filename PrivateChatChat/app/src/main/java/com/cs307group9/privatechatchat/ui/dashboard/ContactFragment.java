@@ -137,6 +137,7 @@ public class ContactFragment extends Fragment {
         for(Map.Entry<String, User> entry : friendList.entrySet()) {
             nameList[i] = entry.getKey();
             userList[i] = friendList.get(nameList[i]);
+            System.out.println(userList[i].getUsername());
             i++;
             if (i == 3) break;
         }
