@@ -124,12 +124,12 @@ public class LoginActivity extends AppCompatActivity {
 
                     editor.putBoolean(KEY_PREF_ISLOGIN, false);
                     editor.commit();
-                    try {
-                        output.close();
-                        input.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        output.close();
+//                        input.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
 
                     startActivity(intent);
 
@@ -291,9 +291,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 Gson gson = new Gson();
-                //Type hashMapType = new TypeToken<HashMap<String, User>>() {}.getType();
-                //HashMap<String, User> frindMap = gson.fromJson(gson.toJson(frindlist), hashMapType);
-                String json = gson.toJson(frindlist);
+                Type hashMapType = new TypeToken<HashMap<String, User>>() {}.getType();
+                HashMap<String, User> frindMap = gson.fromJson(gson.toJson(frindlist), hashMapType);
+                String json = gson.toJson(frindMap);
 
                 editor.putString(KEY_PREF_FRIENDLIST, json);
                 editor.commit();
