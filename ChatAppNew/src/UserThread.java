@@ -315,7 +315,7 @@ public class UserThread extends Thread implements Serializable{
                     }
                 }
                 int groupId = group.getGroupID();
-                String sql = "INSERT INTO ChatGroup(GroupID, Member, MemberType) VALUES('" + groupId + "','" + memberId + "','manager')";
+                String sql = "UPDATE ChatGroup SET MemberType = 'manager' WHERE Member ='" + memberId + "'" ;
                 System.out.println(sql);
                 server.runSQLCommand(sql);
                 outputStream.writeObject("SUCCESS");
@@ -338,25 +338,26 @@ public class UserThread extends Thread implements Serializable{
                 int groupId = Integer.parseInt(initialHandshake.getUsername());
                 int ownerId = Integer.parseInt(initialHandshake.getPassword());
                 User owner = null;
+                User old = null;
                 GroupChat chat = null;
                 for (User user : server.getUserList()) {
                     if (user.getUid() == ownerId) owner = user;
                 }
                 for (GroupChat group : server.getGroupList()) {
                     if (group.getGroupID() == groupId) {
-                        User old = chat.getGroupOwner();
-                        chat.setGroupOwner(owner);
-                        chat.removeManager(old);
+                        old = group.getGroupOwner();
+                        group.setGroupOwner(owner);
+                        group.removeManager(old);
                         ArrayList<User> own = new ArrayList<>();
                         own.add(owner);
-                        chat.addManager(own);
+                        group.addManager(own);
                         chat = group;
                     }
                 }
-                String sql = "UPDATE ChatGroup SET MemberType = 'member' WHERE MemberType = 'owner'";
+                String sql = "UPDATE ChatGroup SET MemberType = 'member' WHERE Member = '" + old.getUid() + "' AND GroupID = '" + groupId + "'";
                 System.out.println(sql);
                 server.runSQLCommand(sql);
-                String set = "UPDATE ChatGroup SET MemberType = 'owner' WHERE Member = '" + ownerId + "'";
+                String set = "UPDATE ChatGroup SET MemberType = 'owner' WHERE Member = '" + ownerId + "' AND GroupID = '" + groupId + "'";
                 System.out.println(set);
                 server.runSQLCommand(sql);
                 outputStream.writeObject("SUCCESS");
@@ -421,6 +422,13 @@ public class UserThread extends Thread implements Serializable{
                         }
                     }
                 }
+            }
+            else if(initialHandshake.getMessageType().equals("DeleteFromGroup")) {
+                int groupID = Integer.parseInt(initialHandshake.getUsername());
+                int memberID = Integer.parseInt(initialHandshake.getPassword());
+                String sql = "DELETE FROM ChatGroup WHERE Member = '" + memberID + "' AND GroupID ='" + groupID + "'";
+                server.runSQLQuery(sql);
+                outputStream.writeObject("SUCCESS");
             }
             // printUsers();
         } catch (IOException | ClassNotFoundException ex) {
