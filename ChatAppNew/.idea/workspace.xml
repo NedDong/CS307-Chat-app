@@ -21,9 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="09035f45-fda3-4bcb-9c9b-d4645ddf74d3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatApp/ChatServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatApp/ChatServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatApp/UserThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatApp/UserThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChatServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UserThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
