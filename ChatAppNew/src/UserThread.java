@@ -246,7 +246,7 @@ public class UserThread extends Thread implements Serializable{
                 server.runSQLCommand(sql);
                 outputStream.writeObject("SUCCESS");
                 outputStream.writeObject(groupId);
-            } else if (initialHandshake.getMessageType().equals("GetGroupList")) {
+            } else if (initialHandshake.getMessageType().equals("GetGroupList")) { //return groups that the user is in
                 String username = initialHandshake.getUsername();
                 String temp = initialHandshake.getPassword();
                 User user = null;
@@ -315,11 +315,11 @@ public class UserThread extends Thread implements Serializable{
                     }
                 }
                 int groupId = group.getGroupID();
-                String sql = "INSERT INTO ChatGroup(GroupID, Member, MemberType) VALUES('" + groupId + "','" + memberId + "','manager')";
+                String sql = "UPDATE ChatGroup SET MemberType = 'manager' WHERE Member ='" + memberId + "'" ;
                 System.out.println(sql);
                 server.runSQLCommand(sql);
                 outputStream.writeObject("SUCCESS");
-            } else if (initialHandshake.getMessageType().equals("ChangeGroupName")) {
+            } else if (initialHandshake.getMessageType().equals("ChangeGroupName")) { //Change the name of the group
                 String newName = initialHandshake.getUsername();
                 int groupId = Integer.parseInt(initialHandshake.getPassword());
                 for (GroupChat chat : server.getGroupList()) {
@@ -334,33 +334,34 @@ public class UserThread extends Thread implements Serializable{
                         outputStream.writeObject("SUCCESS");
                     }
                 }
-            } else if (initialHandshake.getMessageType().equals("ChangeGroupOwner")) {
+            } else if (initialHandshake.getMessageType().equals("ChangeGroupOwner")) { //change the owner of the group
                 int groupId = Integer.parseInt(initialHandshake.getUsername());
                 int ownerId = Integer.parseInt(initialHandshake.getPassword());
                 User owner = null;
+                User old = null;
                 GroupChat chat = null;
                 for (User user : server.getUserList()) {
                     if (user.getUid() == ownerId) owner = user;
                 }
                 for (GroupChat group : server.getGroupList()) {
                     if (group.getGroupID() == groupId) {
-                        User old = chat.getGroupOwner();
-                        chat.setGroupOwner(owner);
-                        chat.removeManager(old);
+                        old = group.getGroupOwner();
+                        group.setGroupOwner(owner);
+                        group.removeManager(old);
                         ArrayList<User> own = new ArrayList<>();
                         own.add(owner);
-                        chat.addManager(own);
+                        group.addManager(own);
                         chat = group;
                     }
                 }
-                String sql = "UPDATE ChatGroup SET MemberType = 'member' WHERE MemberType = 'owner'";
+                String sql = "UPDATE ChatGroup SET MemberType = 'member' WHERE Member = '" + old.getUid() + "' AND GroupID = '" + groupId + "'";
                 System.out.println(sql);
                 server.runSQLCommand(sql);
-                String set = "UPDATE ChatGroup SET MemberType = 'owner' WHERE Member = '" + ownerId + "'";
+                String set = "UPDATE ChatGroup SET MemberType = 'owner' WHERE Member = '" + ownerId + "' AND GroupID = '" + groupId + "'";
                 System.out.println(set);
                 server.runSQLCommand(sql);
                 outputStream.writeObject("SUCCESS");
-            } else if (initialHandshake.getMessageType().equals("GetGroups")) {
+            } else if (initialHandshake.getMessageType().equals("GetGroups")) { //return a list of groups
                 if (server.getGroupList() == null) {
                     outputStream.writeObject("NO GROUPS");
                 } else {
@@ -370,7 +371,7 @@ public class UserThread extends Thread implements Serializable{
                         outputStream.writeObject(group.getGroupName());
                     }
                 }
-            } else if (initialHandshake.getMessageType().equals("GetGroupMembers")) {
+            } else if (initialHandshake.getMessageType().equals("GetGroupMembers")) { //return all members of the group
                 String temp = initialHandshake.getUsername();
                 int groupId = Integer.parseInt(temp);
                 String temp2 = initialHandshake.getPassword();
@@ -386,7 +387,7 @@ public class UserThread extends Thread implements Serializable{
                     }
                 }
                 outputStream.writeObject("NO SUCH GROUP");
-            } else if (initialHandshake.getMessageType().equals("GetGroupManagers")) {
+            } else if (initialHandshake.getMessageType().equals("GetGroupManagers")) {//return managers of a group
                 int groupId = Integer.parseInt(initialHandshake.getUsername());
                 for (GroupChat group : server.getGroupList()) {
                     if (group.getGroupID() == groupId) {
@@ -400,7 +401,7 @@ public class UserThread extends Thread implements Serializable{
                 }
                 outputStream.writeObject("NO SUCH GROUP");
             }
-            else if(initialHandshake.getMessageType().equals("GetUserGroups")) {
+            else if(initialHandshake.getMessageType().equals("GetUserGroups")) { //return all groups of a user
                 int uid = Integer.parseInt(initialHandshake.getUsername());
                 String sql = "SELECT DISTINCT GroupID FROM ChatGroup WHERE Member ='" + uid + "'";
                 System.out.println(sql);
@@ -421,6 +422,13 @@ public class UserThread extends Thread implements Serializable{
                         }
                     }
                 }
+            }
+            else if(initialHandshake.getMessageType().equals("DeleteFromGroup")) { //delete user from a group
+                int groupID = Integer.parseInt(initialHandshake.getUsername());
+                int memberID = Integer.parseInt(initialHandshake.getPassword());
+                String sql = "DELETE FROM ChatGroup WHERE Member = '" + memberID + "' AND GroupID ='" + groupID + "'";
+                server.runSQLQuery(sql);
+                outputStream.writeObject("SUCCESS");
             }
             // printUsers();
         } catch (IOException | ClassNotFoundException ex) {
