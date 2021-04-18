@@ -144,11 +144,43 @@ public class UserThread extends Thread implements Serializable {
                 }
                 //if found the receiver will add the sender to the waiting list of friend requests
                 else if (initialHandshake.getMessageType().equals("DEREGISTER")) {//if message is "DEREGISTER" will remove the user;
-                    server.removeUser(initialHandshake.getUsername());
+                    String name = initialHandshake.getUsername();
+                    boolean found = false;
+                    for(User user : server.getUserList()) {
+                        if(user.getUsername().equals(name)) {
+                            found = true;
+                            int id = user.getUid();
+                            String sql = "DELETE FROM Users WHERE UID ='" + id + "'";
+                            server.runSQLCommand(sql);
+                            //server.removeUser(initialHandshake.getUsername());
+                            outputStream.writeObject("SUCCESS");
+                            break;
+                        }
+                    }
+                    if(!found) {
+                        outputStream.writeObject("NO SUCH USER");
+                    }
                     return;
                 } else if (initialHandshake.getMessageType().equals("UpdateUserName")) {//if message is "UpdateUserName" will change the uesrname of the user.
-                    server.changeUsername(initialHandshake.getUsername(), initialHandshake.getPassword());
+                    String name = initialHandshake.getUsername();
+                    boolean found = false;
+                    for(User user : server.getUserList()) {
+                        if(user.getUsername().equals(name)) {
+                            found = true;
+                            int id = user.getUid();
+                            String sql = "UPDATE Users SET UserName = '" + name + "' WHERE UID ='" + id + "'";
+                            server.runSQLCommand(sql);
+                            //server.removeUser(initialHandshake.getUsername());
+                            outputStream.writeObject("SUCCESS");
+                            break;
+                        }
+                    }
+                    if(!found) {
+                        outputStream.writeObject("NO SUCH USER");
+                    }
                     return;
+                    /*server.changeUsername(initialHandshake.getUsername(), initialHandshake.getPassword());
+                    return;*/
                 } else if (initialHandshake.getMessageType().equals("block")) {//if message is "block" will find add the user to blocked list.
                     blockedUser = initialHandshake.getUsername();
                     return;
@@ -283,18 +315,21 @@ public class UserThread extends Thread implements Serializable {
                     }
                     for (GroupChat chat : server.getGroupList()) {
                         if (chat.getGroupName().equals(groupName)) {
-                            ArrayList<User> list = new ArrayList<>();
-                            list.add(member);
-                            chat.addGroupMembers(list);
                             group = chat;
                             break;
                         }
                     }
-                    int groupId = group.getGroupID();
-                    String sql = "INSERT INTO ChatGroup(GroupID, Member, MemberType) VALUES('" + groupId + "','" + memberId + "','member')";
-                    System.out.println(sql);
-                    server.runSQLCommand(sql);
-                    outputStream.writeObject("SUCCESS");
+                    if(!group.addMember(member)) {
+                        System.out.println("Max num exceeded");
+                        outputStream.writeObject("Max num exceeded");
+                    } else {
+                        int groupId = group.getGroupID();
+                        String sql = "INSERT INTO ChatGroup(GroupID, Member, MemberType) VALUES('" + groupId + "','" + memberId + "','member')";
+                        System.out.println(sql);
+                        server.runSQLCommand(sql);
+                        System.out.println("Success");
+                        outputStream.writeObject("Success");
+                    }
                 } else if (initialHandshake.getMessageType().equals("AddManager")) { //add a manager to a group
                     String groupName = initialHandshake.getUsername();
                     int memberId = Integer.parseInt(initialHandshake.getPassword());
