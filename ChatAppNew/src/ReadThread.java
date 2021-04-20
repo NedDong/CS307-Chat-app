@@ -1,8 +1,6 @@
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.util.List;
 
 /**
  * This thread is responsible for reading server's input and printing it
@@ -32,8 +30,22 @@ public class ReadThread extends Thread {
     }
 
     public void run() {
-        while (true) {
+        while(true) {
             try {
+                System.out.println(inputStream.readObject());
+            } catch (IOException ex) {
+                System.out.println("Error reading from server: " + ex.getMessage());
+                ex.printStackTrace();
+                break;
+            } catch (ClassNotFoundException ex) {
+                System.out.println("Class Not Found reading from server: " + ex.getMessage());
+                ex.printStackTrace();
+                break;
+            }
+        }
+        return;
+        /*while (true) {
+            try {*/
                 /*
                 String response = reader.readLine();
                 System.out.println("\n" + response);
@@ -41,7 +53,7 @@ public class ReadThread extends Thread {
                 if (client.getUserName() != null) {
                     System.out.print("[" + client.getUserName() + "]: ");
                 }*/
-                String response = (String)inputStream.readObject(); //= inputStream.read();
+                /*String response = (String)inputStream.readObject(); //= inputStream.read();
                 System.out.println(response);
 
                 int num = (int) inputStream.readObject();
@@ -83,6 +95,6 @@ public class ReadThread extends Thread {
                 ex.printStackTrace();
                 break;
             }
-        }
+        }*/
     }
 }

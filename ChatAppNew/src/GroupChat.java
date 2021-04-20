@@ -8,12 +8,25 @@ public class GroupChat implements Serializable{
     private transient ArrayList<User> managers = new ArrayList<>();
     private transient String groupName;
 
-    public GroupChat(int id, User owner, ArrayList<User> members, String name) {
-        groupID = id;
-        groupOwner = owner;
-        groupMembers = members;
-        managers.add(owner);
-        groupName = name;
+    public GroupChat(int id, User owner, ArrayList<User> members, String name) throws Exception{
+        if(members.size() > 8) {
+            throw new Exception();
+        } else {
+            groupID = id;
+            groupOwner = owner;
+            groupMembers = members;
+            managers.add(owner);
+            groupName = name;
+        }
+    }
+
+    public boolean addMember(User member) {
+        if(groupMembers.size() + 1 > 8) {
+            return false;
+        } else {
+            groupMembers.add(member);
+            return true;
+        }
     }
 
     public int getGroupID() {

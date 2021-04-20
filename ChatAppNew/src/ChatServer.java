@@ -18,17 +18,17 @@ public class ChatServer implements Serializable {
     private transient int port;
     private transient Set<String> userNames = new HashSet<>();
     private transient Set<UserThread> userThreads = new HashSet<>();
-    static int uid = 0;
-    static int groupid = 0;
+    static int uid = 100;
+    static int groupid = 100;
     public transient List<User> userList = new ArrayList<>();
     public transient List<GroupChat> chatList = new ArrayList<>();
     public ChatServer(int port) {
         this.port = port;
     }
 
-    private static String dbUrl = "jdbc:mysql://cs307-chat-app.webredirect.org:3306/CS307-Chat-Database";
+    private static String dbUrl = "jdbc:mysql://localhost:3306/chatapp01";
     private static String dbUsername = "root";
-    private static String dbPassword = "root";
+    private static String dbPassword = "12345678";
 
     public void execute() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
@@ -100,7 +100,46 @@ public class ChatServer implements Serializable {
         server.execute();
 
     }
-   public void serverRestoration() throws SQLException {
+
+    public void serverRestoration() throws SQLException {
+        String sql = "DROP TABLE IF EXISTS Users;";
+        statement.execute(sql);
+        sql = "DROP TABLE IF EXISTS FriendList;";
+        statement.execute(sql);
+        sql = "DROP TABLE IF EXISTS UserInfo;";
+        statement.execute(sql);
+        sql = "DROP TABLE IF EXISTS ChatGroup;";
+        statement.execute(sql);
+
+        sql = "CREATE TABLE IF NOT EXISTS Users(\n" +
+                "    UID varchar(8) NOT NULL PRIMARY KEY,\n" +
+                "    UserName varchar(32),\n" +
+                "    Password varchar(32)\n" +
+                ");";
+        statement.execute(sql);
+        sql = "CREATE TABLE IF NOT EXISTS UserInfo(\n" +
+                "    UID varchar(8) NOT NULL PRIMARY KEY,\n" +
+                "    UserName varchar(32),\n" +
+                "    Birthday DATE,\n" +
+                "    Gender varchar(8)\n" +
+                ");";
+        statement.execute(sql);
+        sql = "CREATE TABLE IF NOT EXISTS FriendList(\n" +
+                "    UID varchar(8) NOT NULL,\n" +
+                "    UserName varchar(32),\n" +
+                "    FriendUID varchar(8) NOT NULL,\n" +
+                "    FriendUserName varchar(32),\n" +
+                "    Relationship varchar(16)\n" +
+                ");";
+        statement.execute(sql);
+        sql ="CREATE TABLE IF NOT EXISTS ChatGroup(GroupID VARCHAR( 8 ) ,\n" +
+                "Member VARCHAR( 8 ) ,\n" +
+                "MemberType VARCHAR( 8 )\n" +
+                ");";
+        statement.execute(sql);
+    }
+
+    /*public void serverRestoration() throws SQLException {
         String sql = "DROP TABLE IF EXISTS Users;";
         statement.execute(sql);
         sql = "DROP TABLE IF EXISTS FriendList;";
@@ -136,7 +175,7 @@ public class ChatServer implements Serializable {
                 "MemberType VARCHAR( 8 )\n" +
                 ");";
         statement.execute(sql);
-    }
+    }*/
 
     public String getCurrentTime()
     {

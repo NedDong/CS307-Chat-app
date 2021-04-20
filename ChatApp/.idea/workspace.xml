@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="09035f45-fda3-4bcb-9c9b-d4645ddf74d3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Chat_demo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/ChatServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/ChatServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/UserThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/UserThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/src/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/src/ChatServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/src/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/src/UserThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/src/UserThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/notifications/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/notifications/ProfileFragment.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,51 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatClient.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="60" column="32" lean-forward="true" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
-              <folding>
-                <element signature="e#1054#1055#0" expanded="true" />
-                <element signature="e#1090#1091#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/WriteThread.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="50" column="32" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/ReadThread.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="39" column="38" lean-forward="true" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="50" column="24" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/UserThread.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="47" column="27" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
+            <state relative-caret-position="285">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
             </state>
           </provider>
         </entry>
@@ -102,28 +57,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="ChatApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ChatApp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ChatApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ChatApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ChatApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ChatApp" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
@@ -137,7 +71,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1615592097001" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1615592472673" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -224,7 +158,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1440" height="823" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25679544" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -235,7 +168,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31448275" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.31448275" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -338,8 +271,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/net/codejava/networking/chat/server/ChatServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="50" column="24" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
+        <state relative-caret-position="285">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
         </state>
       </provider>
     </entry>

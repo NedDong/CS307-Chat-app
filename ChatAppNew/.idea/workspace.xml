@@ -20,25 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="09035f45-fda3-4bcb-9c9b-d4645ddf74d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/group/GroupCreate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/create_group_page.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChatApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ChatApp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatApp/ChatServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatApp/ChatServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatApp/ReadThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatApp/ReadThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatApp/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatApp/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ChatApp/UserThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatApp/UserThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ChatServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GroupChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupChat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UserThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatServer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatServer/src/net/codejava/networking/chat/server/UserThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatServer/src/net/codejava/networking/chat/server/UserThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/dashboard/Contacts.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/dashboard/Contacts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/home/MessageFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/home/MessageFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/login/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/login/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/message_adapter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/message_adapter.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,8 +52,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1617263831771" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Documents/WeChat Files/wxid_3vem86qp417z21/FileStorage/File/2021-04/mysql-connector-java-8.0.23.jar" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1618710122291" />
+    <property name="last_opened_file_path" value="$USER_HOME$/WeChat Files/wxid_63vtk9d8mro21/FileStorage/File/2021-04/mysql-connector-java-8.0.23.jar" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -80,7 +64,7 @@
       <recent name="$PROJECT_DIR$/src/net/codejava/networking/chat/server" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ChatServer (1)">
+  <component name="RunManager" selected="Application.ChatClient (1)">
     <configuration name="ChatClient (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ChatClient" />
       <module name="ChatApp" />
@@ -122,17 +106,17 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.ChatClient" />
-      <item itemvalue="Application.ChatServer" />
-      <item itemvalue="Application.ChatServer (1)" />
       <item itemvalue="Application.ChatClient (1)" />
+      <item itemvalue="Application.ChatClient" />
+      <item itemvalue="Application.ChatServer (1)" />
+      <item itemvalue="Application.ChatServer" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ChatServer (1)" />
-        <item itemvalue="Application.ChatServer" />
         <item itemvalue="Application.ChatClient (1)" />
+        <item itemvalue="Application.ChatServer (1)" />
         <item itemvalue="Application.ChatClient" />
+        <item itemvalue="Application.ChatServer" />
       </list>
     </recent_temporary>
   </component>
@@ -152,11 +136,12 @@
       <workItem from="1615183473116" duration="1012000" />
       <workItem from="1615211197936" duration="59000" />
       <workItem from="1617257817599" duration="5042000" />
+      <workItem from="1618709718462" duration="289000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5042000" />
+    <option name="totallyTimeSpent" value="5519000" />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -171,81 +156,110 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>11</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>ChatApp</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>mysql-connector-java-8.0.23</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+  <component name="WindowStateProjectService">
+    <state x="320" y="100" width="811" height="669" key="#Project_Structure" timestamp="1615121587455">
+      <screen x="0" y="23" width="1440" height="823" />
+    </state>
+    <state x="320" y="100" width="811" height="669" key="#Project_Structure/0.23.1440.823@0.23.1440.823" timestamp="1615121587455" />
+    <state x="184" y="96" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1615123349654">
+      <screen x="0" y="23" width="1440" height="823" />
+    </state>
+    <state x="184" y="96" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.823@0.23.1440.823" timestamp="1615123349654" />
+    <state x="551" y="302" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1617380437598">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="551" y="302" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.824@0.0.1536.824" timestamp="1617380437598" />
+    <state x="592" y="217" key="FileChooserDialogImpl" timestamp="1617382364641">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="592" y="217" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1617382364641" />
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1615594929995" />
+    <state width="1222" height="196" key="GridCell.Tab.0.bottom" timestamp="1618127976918">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1222" height="196" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618127976918" />
+    <state width="1900" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1615594930101" />
+    <state width="1398" height="208" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1615210851570" />
+    <state width="1398" height="212" key="GridCell.Tab.0.bottom/0.23.1440.816@0.23.1440.816" timestamp="1615159792846" />
+    <state width="1398" height="208" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1615183844469" />
+    <state width="1398" height="212" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1615123519073" />
+    <state width="1398" height="212" key="GridCell.Tab.0.bottom/0.23.1440.825@0.23.1440.825" timestamp="1615124537651" />
+    <state width="1222" height="196" key="GridCell.Tab.0.center" timestamp="1618127976918">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1222" height="196" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1618127976918" />
+    <state width="1900" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1615594930101" />
+    <state width="1398" height="208" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1615210851569" />
+    <state width="1398" height="212" key="GridCell.Tab.0.center/0.23.1440.816@0.23.1440.816" timestamp="1615159792845" />
+    <state width="1398" height="208" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1615183844467" />
+    <state width="1398" height="212" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1615123519071" />
+    <state width="1398" height="212" key="GridCell.Tab.0.center/0.23.1440.825@0.23.1440.825" timestamp="1615124537650" />
+    <state width="1222" height="196" key="GridCell.Tab.0.left" timestamp="1618127976918">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1222" height="196" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1618127976918" />
+    <state width="1900" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1615594930100" />
+    <state width="1398" height="208" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1615210851569" />
+    <state width="1398" height="212" key="GridCell.Tab.0.left/0.23.1440.816@0.23.1440.816" timestamp="1615159792845" />
+    <state width="1398" height="208" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1615183844466" />
+    <state width="1398" height="212" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1615123519070" />
+    <state width="1398" height="212" key="GridCell.Tab.0.left/0.23.1440.825@0.23.1440.825" timestamp="1615124537649" />
+    <state width="1222" height="196" key="GridCell.Tab.0.right" timestamp="1618127976918">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1222" height="196" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1618127976918" />
+    <state width="1900" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1615594930101" />
+    <state width="1398" height="208" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1615210851570" />
+    <state width="1398" height="212" key="GridCell.Tab.0.right/0.23.1440.816@0.23.1440.816" timestamp="1615159792846" />
+    <state width="1398" height="208" key="GridCell.Tab.0.right/0.23.1440.821@0.23.1440.821" timestamp="1615183844468" />
+    <state width="1398" height="212" key="GridCell.Tab.0.right/0.23.1440.823@0.23.1440.823" timestamp="1615123519072" />
+    <state width="1398" height="212" key="GridCell.Tab.0.right/0.23.1440.825@0.23.1440.825" timestamp="1615124537651" />
+    <state x="393" y="0" key="SettingsEditor" timestamp="1617382366306">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="393" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1617382366306" />
+    <state x="491" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1615594791199" />
+    <state x="397" y="267" key="com.intellij.ide.util.TipDialog" timestamp="1615121215476">
+      <screen x="0" y="23" width="1440" height="823" />
+    </state>
+    <state x="397" y="267" key="com.intellij.ide.util.TipDialog/0.23.1440.823@0.23.1440.823" timestamp="1615121215476" />
+    <state x="438" y="153" width="866" height="629" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1617387430901">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="438" y="153" width="866" height="629" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1617387430901" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.sql.SQLException" package="java.sql" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ChatServer.java</url>
+          <line>16</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ChatAppNew$ChatClient__1_.ic" NAME="ChatClient (1) Coverage Results" MODIFIED="1617380445361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

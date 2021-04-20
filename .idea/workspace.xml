@@ -19,11 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bd482b7a-aad2-4c8e-8980-dc0b8c4a0420" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/login/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/login/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PrivateChatChat/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PrivateChatChat/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-    </list>
+    <list default="true" id="bd482b7a-aad2-4c8e-8980-dc0b8c4a0420" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
