@@ -1,0 +1,20 @@
+//Return list of friends of the given user
+SELECT FriendUserName
+FROM `FriendList` 
+WHERE UID = "00000000" AND Relationship = "friend"
+
+//Return list of blocked people of the given user
+SELECT FriendUserName
+FROM `FriendList` 
+WHERE UID = "00000000" AND Relationship = "blacklist"
+
+//Return password of the user given username
+SELECT Password
+FROM `Users` 
+WHERE UserName = "name"
+
+//Return password of the user given the UID
+SELECT Password
+FROM `Users` 
+WHERE UID = "00000000"
+

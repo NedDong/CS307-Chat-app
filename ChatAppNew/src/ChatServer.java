@@ -26,9 +26,9 @@ public class ChatServer implements Serializable {
         this.port = port;
     }
 
-    private static String dbUrl = "jdbc:mysql://127.0.0.1:3306/CS307-Chat-Database";
+    private static String dbUrl = "jdbc:mysql://cs307-chat-app.webredirect.org:3306/CS307-Chat-Database";
     private static String dbUsername = "root";
-    private static String dbPassword = "12345678";
+    private static String dbPassword = "root";
 
     public void execute() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {

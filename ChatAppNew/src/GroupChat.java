@@ -4,8 +4,8 @@ import java.util.ArrayList;
 public class GroupChat implements Serializable{
     private transient int groupID;
     private transient User groupOwner;
-    private transient ArrayList<User> groupMembers;
-    private transient ArrayList<User> managers;
+    private transient ArrayList<User> groupMembers = new ArrayList<>();
+    private transient ArrayList<User> managers = new ArrayList<>();
     private transient String groupName;
 
     public GroupChat(int id, User owner, ArrayList<User> members, String name) {

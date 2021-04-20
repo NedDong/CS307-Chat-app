@@ -2,23 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="09035f45-fda3-4bcb-9c9b-d4645ddf74d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/color/list_color.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/group/GroupCreate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/create_group_page.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ChatAppNew/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatAppNew/src/ReadThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/src/ReadThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ChatAppNew/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/src/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChatAppNew/ChatApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/ChatApp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/ChatServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/ChatServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/ReadThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/ReadThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/UserThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/out/production/ChatApp/UserThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChatAppNew/src/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/src/ChatServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ChatAppNew/src/GroupChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/src/GroupChat.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ChatAppNew/src/UserThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ChatAppNew/src/UserThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/net/codejava/networking/chat/server/UserThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/net/codejava/networking/chat/server/UserThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Chat_demo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/ChatClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/ChatClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/ChatServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/ChatServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/ReadThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/ReadThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/UserThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/UserThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/WriteThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Chat_demo/out/production/Chat_demo/WriteThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/dashboard/Contacts.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/dashboard/Contacts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/home/MessageFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/home/MessageFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/login/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/login/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/message_adapter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/message_adapter.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

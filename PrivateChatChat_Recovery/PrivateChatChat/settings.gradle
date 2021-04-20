@@ -1,0 +1,3 @@
+include ':ClientServer'
+include ':app'
+rootProject.name = "PrivateChatChat"
