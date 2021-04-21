@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
     final String KEY_PREF_APP = "myPref";
     final String KEY_PREF_USERNAME = "username";
+    final String KEY_PREF_USERID   = "userid";
     final String KEY_PREF_PASSWORD = "password";
     final String KEY_PREF_FEEDBACK = "feedback";
 
@@ -62,9 +63,12 @@ public class LoginActivity extends AppCompatActivity {
     final String KEY_PREF_ISLOGIN = "islogin";
     final String KEY_PREF_SOCKET = "socket";
 
+    private boolean requestGroup = false;
+
     static String hostname = "cs307-chat-app.webredirect.org";
     //="cs307-chat-app.webredirect.org";
-            //= "10.0.2.2";
+            //=
+//    "10.0.2.2";
     int type = -1; // 0 means LogIn, 1 means Register
     static int port = 12345;
 
@@ -214,7 +218,8 @@ public class LoginActivity extends AppCompatActivity {
                 output = new ObjectOutputStream(socket.getOutputStream());
                 input  = new ObjectInputStream(socket.getInputStream());
 
-                new Thread(new LoginActivity.SendUserInfoThread()).start();
+                if (!requestGroup)
+                    new Thread(new LoginActivity.SendUserInfoThread()).start();
             } catch (UnknownHostException ex) {
                 System.out.println("Server not found: " + ex.getMessage());
             } catch (IOException ex) {
@@ -222,11 +227,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-
+    Socket socket;
     class feedbackThread implements Runnable {
         public void run() {
             System.out.println("==== I Am Currently Running Thread feedback===");
-            Socket socket;
+
             try {
                 socket = new Socket(hostname, port);
                 output = new ObjectOutputStream(socket.getOutputStream());
@@ -238,12 +243,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Message msg = new Message(typeStr, username, password);
 
-                if (username.length() == 0) {
-                    System.out.println("Feedback from anonymous user: " + feedback);
-                } else {
-                    System.out.println(username);
-                    System.out.println(feedback);
-                }
+                System.out.println(username);
+                System.out.println(feedback);
 
 //                editor.putString(KEY_PREF_USERNAME, username);
 //                editor.putString(KEY_PREF_FEEDBACK, feedback);
@@ -336,6 +337,12 @@ public class LoginActivity extends AppCompatActivity {
                     uid[i] = (int) input.readObject();
                     inetAddress[i] = (InetAddress) input.readObject();
                     psw[i] = (String) input.readObject();
+
+                    if (name[i].contains(username)) {
+
+                        editor.putInt(KEY_PREF_USERID, uid[i]);
+                        editor.commit();
+                    }
                 }
 
 
@@ -368,4 +375,51 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
+//    class RecieveGroupList implements Runnable {
+//        @Override
+//        public void run() {
+//            try {
+//                requestGroup = true;
+//
+//                output.writeObject("GetGroupList");
+//                System.out.println("+++++++++++++++++++++++++++++++++++");
+//
+//                output.writeObject(username);
+//
+//                // Receive the number of groups
+//                int num = (int) input.readObject();
+//
+//                if (num <= 0) {
+//                    System.out.println("========THERE IS NO GROUP========");
+//                    return;
+//                }
+//                else {
+//                    System.out.printf("========THERE IS %d GROUPS========\n", num);
+//                }
+//
+//                int[] groupList = new int[num];
+//                String[] groupName = new String[num];
+//
+//                for (int i = 0; i < num; i++) {
+//                    groupList[i] = (int) input.readObject();
+//                    groupName[i] = (String) input.readObject();
+//                }
+//
+//                Gson gson = new Gson();
+//                String json = gson.toJson(groupList);
+//                editor.putString(KEY_PREF_GROUPLIST_GID, json);
+//                json = gson.toJson(groupName);
+//                editor.putString(KEY_PREF_GROUPLIST_NAME, json);
+//                editor.commit();
+//            }
+//            catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
 }

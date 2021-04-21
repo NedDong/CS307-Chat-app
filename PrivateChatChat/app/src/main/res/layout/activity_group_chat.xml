@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConnectServer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/list_color"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/g_send_list"
+        android:layout_width="match_parent"
+        android:layout_height="519dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="80dp" />
+
+    <EditText
+        android:id="@+id/g_editText"
+        android:layout_width="316dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:ems="10"
+        android:hint="Type Here..."
+        android:inputType="textPersonName" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -14,53 +35,23 @@
         tools:src="@color/white" />
 
     <Button
-        android:id="@+id/sendButton3"
+        android:id="@+id/g_sendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="317dp"
+        android:layout_marginLeft="317dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="3dp"
         android:onClick="sendMessage"
         android:text="Send"
-        app:backgroundTint="#FF7384DF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageButton
-        android:id="@+id/groupChatBack"
-        android:layout_width="60dp"
-        android:layout_height="37dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/button_round_shape"
-        android:scaleType="fitCenter"
-        android:tint="#FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/left" />
-
-    <ImageButton
-        android:id="@+id/groupChatMore"
-        android:layout_width="60dp"
-        android:layout_height="37dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="5dp"
-        android:background="@drawable/button_round_shape"
-        android:scaleType="fitCenter"
-        android:tint="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/more" />
+        app:backgroundTint="#FF7384DF" />
 
     <TextView
-        android:id="@+id/GroupName"
+        android:id="@+id/g_TopWindow"
         android:layout_width="269dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -76,45 +67,30 @@
         android:textColor="#1A1263"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:typeface="normal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:typeface="normal" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="128dp"
-        app:layout_constraintBottom_toTopOf="@+id/textInputEditText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditText"
-        android:layout_width="313dp"
-        android:layout_height="50dp"
+    <ImageButton
+        android:id="@+id/g_ChatBackButton"
+        android:layout_width="60dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
-        android:layout_marginBottom="3dp"
-        android:hint="Type Here..."
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/sendButton3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="3dp"
+        android:background="@drawable/button_round_shape"
+        android:onClick="backButton"
+        android:scaleType="fitCenter"
+        android:tint="#FFFFFF"
+        app:srcCompat="@drawable/left" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="412dp"
-        android:layout_height="459dp"
-        android:layout_marginTop="35dp"
-        android:gravity="bottom"
-        android:hint="Chat messages will appear here"
-        android:textAlignment="gravity"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GroupName" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/infoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="6dp"
+        android:text="info" />
+
+</RelativeLayout>

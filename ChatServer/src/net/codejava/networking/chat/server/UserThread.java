@@ -34,7 +34,7 @@ public class UserThread extends Thread {
 
             String serverMessage = "New user connected: " + userName;
             server.broadcast(serverMessage, this);
-
+789
             String clientMessage;
 
             do {
