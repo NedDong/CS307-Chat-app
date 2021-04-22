@@ -21,7 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="09035f45-fda3-4bcb-9c9b-d4645ddf74d3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GroupChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupChat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChatApp/GroupChat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatApp/GroupChat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ChatApp/UserThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatApp/UserThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UserThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +65,7 @@
       <recent name="$PROJECT_DIR$/src/net/codejava/networking/chat/server" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ChatClient (1)">
+  <component name="RunManager" selected="Application.ChatServer (1)">
     <configuration name="ChatClient (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ChatClient" />
       <module name="ChatApp" />
@@ -113,8 +114,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ChatClient (1)" />
         <item itemvalue="Application.ChatServer (1)" />
+        <item itemvalue="Application.ChatClient (1)" />
         <item itemvalue="Application.ChatClient" />
         <item itemvalue="Application.ChatServer" />
       </list>
@@ -190,40 +191,40 @@
     </state>
     <state x="592" y="217" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1617382364641" />
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1615594929995" />
-    <state width="1222" height="196" key="GridCell.Tab.0.bottom" timestamp="1618127976918">
+    <state width="1302" height="197" key="GridCell.Tab.0.bottom" timestamp="1619106252770">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1222" height="196" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1618127976918" />
+    <state width="1302" height="197" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619106252770" />
     <state width="1900" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1615594930101" />
     <state width="1398" height="208" key="GridCell.Tab.0.bottom/0.23.1440.814@0.23.1440.814" timestamp="1615210851570" />
     <state width="1398" height="212" key="GridCell.Tab.0.bottom/0.23.1440.816@0.23.1440.816" timestamp="1615159792846" />
     <state width="1398" height="208" key="GridCell.Tab.0.bottom/0.23.1440.821@0.23.1440.821" timestamp="1615183844469" />
     <state width="1398" height="212" key="GridCell.Tab.0.bottom/0.23.1440.823@0.23.1440.823" timestamp="1615123519073" />
     <state width="1398" height="212" key="GridCell.Tab.0.bottom/0.23.1440.825@0.23.1440.825" timestamp="1615124537651" />
-    <state width="1222" height="196" key="GridCell.Tab.0.center" timestamp="1618127976918">
+    <state width="1302" height="197" key="GridCell.Tab.0.center" timestamp="1619106252770">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1222" height="196" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1618127976918" />
+    <state width="1302" height="197" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1619106252770" />
     <state width="1900" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1615594930101" />
     <state width="1398" height="208" key="GridCell.Tab.0.center/0.23.1440.814@0.23.1440.814" timestamp="1615210851569" />
     <state width="1398" height="212" key="GridCell.Tab.0.center/0.23.1440.816@0.23.1440.816" timestamp="1615159792845" />
     <state width="1398" height="208" key="GridCell.Tab.0.center/0.23.1440.821@0.23.1440.821" timestamp="1615183844467" />
     <state width="1398" height="212" key="GridCell.Tab.0.center/0.23.1440.823@0.23.1440.823" timestamp="1615123519071" />
     <state width="1398" height="212" key="GridCell.Tab.0.center/0.23.1440.825@0.23.1440.825" timestamp="1615124537650" />
-    <state width="1222" height="196" key="GridCell.Tab.0.left" timestamp="1618127976918">
+    <state width="1302" height="197" key="GridCell.Tab.0.left" timestamp="1619106252770">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1222" height="196" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1618127976918" />
+    <state width="1302" height="197" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1619106252770" />
     <state width="1900" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1615594930100" />
     <state width="1398" height="208" key="GridCell.Tab.0.left/0.23.1440.814@0.23.1440.814" timestamp="1615210851569" />
     <state width="1398" height="212" key="GridCell.Tab.0.left/0.23.1440.816@0.23.1440.816" timestamp="1615159792845" />
     <state width="1398" height="208" key="GridCell.Tab.0.left/0.23.1440.821@0.23.1440.821" timestamp="1615183844466" />
     <state width="1398" height="212" key="GridCell.Tab.0.left/0.23.1440.823@0.23.1440.823" timestamp="1615123519070" />
     <state width="1398" height="212" key="GridCell.Tab.0.left/0.23.1440.825@0.23.1440.825" timestamp="1615124537649" />
-    <state width="1222" height="196" key="GridCell.Tab.0.right" timestamp="1618127976918">
+    <state width="1302" height="197" key="GridCell.Tab.0.right" timestamp="1619106252770">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1222" height="196" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1618127976918" />
+    <state width="1302" height="197" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1619106252770" />
     <state width="1900" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1615594930101" />
     <state width="1398" height="208" key="GridCell.Tab.0.right/0.23.1440.814@0.23.1440.814" timestamp="1615210851570" />
     <state width="1398" height="212" key="GridCell.Tab.0.right/0.23.1440.816@0.23.1440.816" timestamp="1615159792846" />
@@ -243,6 +244,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="438" y="153" width="866" height="629" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1536.824@0.0.1536.824" timestamp="1617387430901" />
+    <state x="430" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1619106145071">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="430" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1619106145071" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -251,11 +256,6 @@
           <properties class="java.sql.SQLException" package="java.sql" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/ChatServer.java</url>
-          <line>16</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
