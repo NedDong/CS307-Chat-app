@@ -2,6 +2,7 @@ package com.cs307group9.privatechatchat.ui.notifications;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,8 +34,8 @@ public class UserSettings extends AppCompatActivity {
         appNote = (Switch) findViewById(R.id.appNotification);
         changeBG = (Button) findViewById(R.id.changeBG);
         deleteHist = (Button) findViewById(R.id.deleteChatHist);
-        viewHist = (Button) findViewById(R.id.viewChatHist);
         back = (ImageButton) findViewById(R.id.userSettingBack);
+        viewHist = (Button) findViewById(R.id.viewChatHist);
         chatT = (EditText) findViewById(R.id.chatText);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -43,13 +44,16 @@ public class UserSettings extends AppCompatActivity {
                 finish();
             }
         });
-        /*
+
         changeBG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(UserSettings.this, UserChangeBackground.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
             }
-        });*/
+        });
 
         deleteHist.setOnClickListener(new View.OnClickListener() {
             @Override
