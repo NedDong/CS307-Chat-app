@@ -133,4 +133,8 @@ public class User implements Serializable {
     public int getReportCount() {
         return reportCount;
     }
+
+    public boolean isBan() {
+        return ban;
+    }
 }
