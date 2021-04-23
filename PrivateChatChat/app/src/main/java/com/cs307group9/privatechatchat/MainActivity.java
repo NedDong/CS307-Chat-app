@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void writeToFile(String chat) {
+    public void writeToFile(String chat, String name) {
         /*try {
             OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(
                     "/PrivateChatChat/app/src/main/java/com/cs307group9/privatechat/chatchathistory.txt",
@@ -169,12 +169,15 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("Error");
             e.printStackTrace();
         }*/
-        String filename = "myfile";
-        String fileContents = "Hello world!";
-        Context context = this.getApplicationContext();
-        try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
-            fos.write(fileContents.getBytes());
-            fos.flush();
+        String filename = "chathistory.txt";
+        //String fileContents = "Hello world!";
+        FileOutputStream fos = null;
+
+        try {
+            fos = openFileOutput(filename, MODE_APPEND);
+            chat = name + ": " + chat + "\n";
+            fos.write(chat.getBytes());
+            //Toast.makeText(this, "Saved to " + getFilesDir() + "/" + filename, Toast.LENGTH_SHORT).show();
             fos.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -279,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
 
         textString.add(msg);
 
-        //writeToFile(msg, getBaseContext());
+        writeToFile(msg, name);
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, list_item, R.layout.message_adapter,
                 new String[]{"name", "msg", "image"}, new int[]{R.id.name, R.id.msg, R.id.imgtou});
@@ -318,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             System.out.println(msg);
-            writeToFile(msg);
+            //writeToFile(msg);
 
             if (msg.contains("[HIGHLIGHT] ")) {
                 int pos = Integer.parseInt(msg.split("] ")[1]);
