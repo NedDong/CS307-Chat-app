@@ -48,7 +48,7 @@ public class UserThread extends Thread implements Serializable {
 
                 initialHandshake = new Message(type, userName, password);
                 if (initialHandshake.getMessageType().equals("REG")) { //if "REG"(resgister) creates a new user
-                    do {
+                    //do {
                         //checks if the username is taken
                         usernameDuplicated = false;
                         for (User user : server.getUserList()) {
@@ -60,8 +60,8 @@ public class UserThread extends Thread implements Serializable {
                             }
                         }
                         //wait for further input
-                        if (usernameDuplicated) initialHandshake = (Message) reader.readObject();
-                    } while (usernameDuplicated); //creates new users and add them to database, continues until no duplicate username
+                        //if (usernameDuplicated) initialHandshake = (Message) reader.readObject();
+                    //} while (usernameDuplicated); //creates new users and add them to database, continues until no duplicate username
                     int tempUID = server.getUid();
                     List<User> temp = new ArrayList<User>();
                     List<Integer> gidList = new ArrayList<>();
@@ -74,7 +74,7 @@ public class UserThread extends Thread implements Serializable {
                     System.out.println("User Created:   " + initialHandshake.getUsername() + "     @   " + getCurrentTime());
                     continue;
                 } else if (initialHandshake.getMessageType().equals("LOG")) { //if message is "LOG" (log in), try to log in the user
-                    do {
+                    //do {
                         successLogin = false;
                         for (User user : server.getUserList()) {
                             //checks login credentials of the user login if correct repeat if not
@@ -86,8 +86,9 @@ public class UserThread extends Thread implements Serializable {
                                 printUsers();
                                 break;
                             }
-                            outputStream.writeObject("Incorrect username or password, Please try again");
+
                         }
+                        outputStream.writeObject("Incorrect username or password, Please try again");
                         if (!successLogin) {
                             type = (String) reader.readObject();
                             userName = (String) reader.readObject();
@@ -95,7 +96,7 @@ public class UserThread extends Thread implements Serializable {
 
                             initialHandshake = new Message(type, userName, password);
                         }
-                    } while (!successLogin);
+                    //} while (!successLogin);
                 } else if (initialHandshake.getMessageType().equals("LIST")) { //if message is "LIST" will check and return list of blocked users
                     //return number of users
                     outputStream.writeObject(server.getUserList().size());
