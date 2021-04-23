@@ -140,6 +140,7 @@ public class UserThread extends Thread implements Serializable {
                             }
                         }
                     }
+                    outputStream.writeObject("**FINISHED**");
                     return;
                 }
                 //if found the receiver will add the sender to the waiting list of friend requests
@@ -160,6 +161,7 @@ public class UserThread extends Thread implements Serializable {
                     if(!found) {
                         outputStream.writeObject("NO SUCH USER");
                     }
+                    outputStream.writeObject("**FINISHED**");
                     return;
                 } else if (initialHandshake.getMessageType().equals("UpdateUserName")) {//if message is "UpdateUserName" will change the uesrname of the user.
                     String name = initialHandshake.getUsername();
@@ -178,6 +180,7 @@ public class UserThread extends Thread implements Serializable {
                     if(!found) {
                         outputStream.writeObject("NO SUCH USER");
                     }
+                    outputStream.writeObject("**FINISHED**");
                     return;
                     /*server.changeUsername(initialHandshake.getUsername(), initialHandshake.getPassword());
                     return;*/
@@ -214,6 +217,7 @@ public class UserThread extends Thread implements Serializable {
                                 }
                             }
                         }
+                        outputStream.writeObject("**FINISHED**");
                         return;
                     }
                 } else if (initialHandshake.getMessageType().equals("Blocked")) {//if message is"Blocked" will return blocked list of the user
@@ -260,6 +264,7 @@ public class UserThread extends Thread implements Serializable {
                     for (GroupChat chat : server.getGroupList()) {
                         if (chat.getGroupName().equals(groupNmae)) {
                             outputStream.writeObject("DUPLICATED GROUP NAME");
+                            outputStream.writeObject("**FINISHED**");
                             return;
                         }
                     }
@@ -279,6 +284,8 @@ public class UserThread extends Thread implements Serializable {
                     server.runSQLCommand(sql);
                     outputStream.writeObject("SUCCESS");
                     outputStream.writeObject(groupId);
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 } else if (initialHandshake.getMessageType().equals("GetGroupList")) { //return groups that the user is in
                     String username = initialHandshake.getUsername();
                     String temp = initialHandshake.getPassword();
@@ -290,7 +297,10 @@ public class UserThread extends Thread implements Serializable {
                         }
                     }
 
-                    if (user == null) outputStream.writeObject(-1);
+                    if (user == null) {
+                        outputStream.writeObject(-1);
+                        break;
+                    }
 
                     List<Integer> groupList = user.getGidList();
                     int num = groupList.size();
@@ -302,6 +312,9 @@ public class UserThread extends Thread implements Serializable {
                         outputStream.writeObject(server.getGroupList().get(groupList.get(i)).getGroupName());
                         System.out.println(server.getGroupList().get(groupList.get(i)).getGroupName());
                     }
+
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 } else if (initialHandshake.getMessageType().equals("AddMember")) { //add a member to a group
                     String groupName = initialHandshake.getUsername();
                     int memberId = Integer.parseInt(initialHandshake.getPassword());
@@ -330,6 +343,8 @@ public class UserThread extends Thread implements Serializable {
                         System.out.println("Success");
                         outputStream.writeObject("Success");
                     }
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 } else if (initialHandshake.getMessageType().equals("AddManager")) { //add a manager to a group
                     String groupName = initialHandshake.getUsername();
                     int memberId = Integer.parseInt(initialHandshake.getPassword());
@@ -356,12 +371,15 @@ public class UserThread extends Thread implements Serializable {
                     System.out.println(sql);
                     server.runSQLCommand(sql);
                     outputStream.writeObject("SUCCESS");
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 } else if (initialHandshake.getMessageType().equals("ChangeGroupName")) { //Change the name of the group
                     String newName = initialHandshake.getUsername();
                     int groupId = Integer.parseInt(initialHandshake.getPassword());
                     for (GroupChat chat : server.getGroupList()) {
                         if (chat.getGroupName().equals(newName)) {
                             outputStream.writeObject("DUPLICATE GROUP NAME");
+                            System.out.println("DUPLICATE GROUP NAME");
                             break;
                         }
                     }
@@ -371,6 +389,8 @@ public class UserThread extends Thread implements Serializable {
                             outputStream.writeObject("SUCCESS");
                         }
                     }
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 } else if (initialHandshake.getMessageType().equals("ChangeGroupOwner")) { //change the owner of the group
                     int groupId = Integer.parseInt(initialHandshake.getUsername());
                     int ownerId = Integer.parseInt(initialHandshake.getPassword());
@@ -398,6 +418,8 @@ public class UserThread extends Thread implements Serializable {
                     System.out.println(set);
                     server.runSQLCommand(sql);
                     outputStream.writeObject("SUCCESS");
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 } else if (initialHandshake.getMessageType().equals("GetGroups")) { //return a list of groups
                     if (server.getGroupList() == null) {
                         outputStream.writeObject("NO GROUPS");
@@ -408,6 +430,8 @@ public class UserThread extends Thread implements Serializable {
                             outputStream.writeObject(group.getGroupName());
                         }
                     }
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 } else if (initialHandshake.getMessageType().equals("GetGroupMembers")) { //return all members of the group
                     String temp = initialHandshake.getUsername();
                     int groupId = Integer.parseInt(temp);
@@ -420,10 +444,13 @@ public class UserThread extends Thread implements Serializable {
                                 outputStream.writeObject(users.get(i).getUid());
                                 outputStream.writeObject(users.get(i).getUsername());
                             }
+                            outputStream.writeObject("**FINISHED**");
                             return;
                         }
                     }
                     outputStream.writeObject("NO SUCH GROUP");
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 } else if (initialHandshake.getMessageType().equals("GetGroupManagers")) {//return managers of a group
                     int groupId = Integer.parseInt(initialHandshake.getUsername());
                     for (GroupChat group : server.getGroupList()) {
@@ -433,10 +460,13 @@ public class UserThread extends Thread implements Serializable {
                             for (int i = 0; i < mana.size(); i++) {
                                 outputStream.writeObject(mana.get(i).getUid());
                             }
+                            outputStream.writeObject("**FINISHED**");
                             return;
                         }
                     }
                     outputStream.writeObject("NO SUCH GROUP");
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 } else if (initialHandshake.getMessageType().equals("GetUserGroups")) { //return all groups of a user
                     int uid = Integer.parseInt(initialHandshake.getUsername());
                     String sql = "SELECT DISTINCT GroupID FROM ChatGroup WHERE Member ='" + uid + "'";
@@ -458,12 +488,16 @@ public class UserThread extends Thread implements Serializable {
                             }
                         }
                     }
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 } else if (initialHandshake.getMessageType().equals("DeleteFromGroup")) { //delete user from a group
                     int groupID = Integer.parseInt(initialHandshake.getUsername());
                     int memberID = Integer.parseInt(initialHandshake.getPassword());
                     String sql = "DELETE FROM ChatGroup WHERE Member = '" + memberID + "' AND GroupID ='" + groupID + "'";
                     server.runSQLQuery(sql);
                     outputStream.writeObject("SUCCESS");
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 }
             }
             // printUsers();
