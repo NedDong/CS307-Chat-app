@@ -67,8 +67,8 @@ public class GroupCreate extends AppCompatActivity {
     private String username;
 
     static String hostname = //"cs307-chat-app.webredirect.org";
-            //="cs307-chat-app.webredirect.org";
-            "10.0.2.2";
+            "cs307-chat-app.webredirect.org";
+//            "10.0.2.2";
     int type = -1; // 0 means LogIn, 1 means Register
     static int port = 12345;
 
@@ -122,7 +122,7 @@ public class GroupCreate extends AppCompatActivity {
 
     class ServerConnectThread implements Runnable {
         public void run() {
-            System.out.println("==== I Am Currently Running Thread 1===");
+            System.out.println("==== I Am Currently Creating Group===");
 
             try {
                 Socket socket = new Socket(hostname, port);
@@ -142,11 +142,14 @@ public class GroupCreate extends AppCompatActivity {
         @Override
         public void run() {
             try {
+                System.out.println("CREATING GROUP ...");
                 output.writeObject("CreateGroup");
                 output.writeObject(groupName.getText().toString());
                 output.writeObject("" + cur_uid);
 
                 String result = (String) input.readObject();
+
+                System.out.printf("RESULT: %s\n", result);
 
                 if (result.contains("DUPLICATED")) {
                     runOnUiThread(new Runnable() {

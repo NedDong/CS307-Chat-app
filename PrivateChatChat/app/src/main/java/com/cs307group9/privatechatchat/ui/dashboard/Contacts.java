@@ -123,10 +123,10 @@ public class Contacts extends Fragment {
         Intent intent = new Intent(getActivity(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                // output.println("bye");
+        // output.println("bye");
 
         startActivity(intent);
-                //finish();
+        //finish();
     }
 
 }
