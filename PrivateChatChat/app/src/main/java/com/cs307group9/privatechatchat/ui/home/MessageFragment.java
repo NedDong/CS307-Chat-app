@@ -248,7 +248,7 @@ public class MessageFragment extends Fragment {
         @Override
         public void run() {
             try {
-                output.writeObject("GetGroupList");
+                output.writeObject("GetUserGroups");
                 output.writeObject("" + cur_uid);
                 output.writeObject("-1");
 
@@ -257,16 +257,17 @@ public class MessageFragment extends Fragment {
                 ArrayList<Integer> arr_groupList = new ArrayList<>();
                 ArrayList<String>  arr_groupName = new ArrayList<>();
 
-                int num = (int)input.readObject();
-                if (num == -1) input.readObject();
+                int i = 0;
+                while (true) {
+                    String get_gid = (String) input.readObject();
+                    if (get_gid.equals("NO GROUPS")) return;
+                    if (get_gid.equals("**FINISHED**")) break;
 
-                System.out.println(num);
-
-                for (int i = 0; i < num; i++) {
-                    arr_groupList.add((int)input.readObject());
+                    arr_groupList.add(Integer.parseInt(get_gid));
                     System.out.printf("========%s\n", arr_groupList.get(i));
                     arr_groupName.add((String) input.readObject());
                     System.out.printf("========%s\n", arr_groupName.get(i));
+                    i++;
                 }
 
                 groupList = new int[arr_groupList.size()];
