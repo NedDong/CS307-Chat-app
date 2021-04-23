@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
     static String hostname = "cs307-chat-app.webredirect.org";
     //="cs307-chat-app.webredirect.org";
-            //=
+    //=
 //    "10.0.2.2";
 
     static int port = 12345;
