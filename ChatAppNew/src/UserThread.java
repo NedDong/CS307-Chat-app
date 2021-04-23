@@ -63,9 +63,6 @@ public class UserThread extends Thread implements Serializable {
                         //wait for further inputPrime x570
                         //if (usernameDuplicated) initialHandshake = (Message) reader.readObject();
                     //} while (usernameDuplicated); //creates new users and add them to database, continues until no duplicate username
-//<<<<<<< Updated upstream
-
-//=======
                     if(failed!=1) {
                         int tempUID = server.getUid();
                         List<User> temp = new ArrayList<User>();
@@ -378,7 +375,12 @@ public class UserThread extends Thread implements Serializable {
                         if (chat.getGroupName().equals(groupName)) {
                             ArrayList<User> list = new ArrayList<>();
                             list.add(member);
-                            chat.addManager(list);
+                            boolean pos = chat.addManager(list);
+                            if(!pos) {
+                                outputStream.writeObject("MAX NUMBER EXCEEDED");
+                                outputStream.writeObject("**FINISHED**");
+                                return;
+                            }
                             group = chat;
                             break;
                         }
@@ -517,6 +519,15 @@ public class UserThread extends Thread implements Serializable {
                     int memberID = Integer.parseInt(initialHandshake.getPassword());
                     String sql = "DELETE FROM ChatGroup WHERE Member = '" + memberID + "' AND GroupID ='" + groupID + "'";
                     server.runSQLQuery(sql);
+                    for(GroupChat group : server.getGroupList()) {
+                        if(group.getGroupID() == groupID) {
+                            for(int i = 0; i < group.getGroupMembers().size(); i++) {
+                                if(group.getGroupMembers().get(i).getUid() == memberID) {
+                                    group.removeMember(group.getGroupMembers().get(i));
+                                }
+                            }
+                        }
+                    }
                     outputStream.writeObject("SUCCESS");
                     outputStream.writeObject("**FINISHED**");
                     return;
@@ -636,6 +647,34 @@ public class UserThread extends Thread implements Serializable {
                             }
                             break;
                         }
+                    }
+                    outputStream.writeObject("**FINISHED**");
+                    return;
+                } else if(initialHandshake.getMessageType().equals("Post")) {
+                    int userId = Integer.parseInt(initialHandshake.getUsername());
+                    String post = initialHandshake.getPassword();
+                    if(post.length() >= 50) {
+                        outputStream.writeObject("POST TOO LONG");
+                        outputStream.writeObject("**FINISHED**");
+                        return;
+                    }
+                    String sql = "INSERT INTO Posts(UserID, Post) VALUES ('" + userId +
+                            "', '" + post + "');";
+                    server.runSQLCommand(sql);
+                    outputStream.writeObject("SUCCESS");
+                    outputStream.writeObject("**FINISHED**");
+                    return;
+                } else if(initialHandshake.getMessageType().equals("GetPosts")) {
+                    int userId = Integer.parseInt(initialHandshake.getUsername());
+                    String sql = "SELECT Post FROM Posts WHERE UserID = '" + userId + "';";
+                    ResultSet rs = server.runSQLQuery(sql);
+                    if(rs == null) {
+                        outputStream.writeObject("NO POSTS");
+                        outputStream.writeObject("**FINISHED**");
+                        return;
+                    }
+                    while (rs.next()) {
+                        outputStream.writeObject(rs.getString("Post"));
                     }
                     outputStream.writeObject("**FINISHED**");
                     return;
