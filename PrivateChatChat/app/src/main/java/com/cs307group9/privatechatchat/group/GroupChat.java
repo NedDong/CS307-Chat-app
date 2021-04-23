@@ -52,7 +52,7 @@ public class GroupChat extends AppCompatActivity {
     //"cs307-chat-app.webredirect.org";
     static int port = 1111;
 
-    Button sendButton, createButton;
+    Button sendButton;
     EditText sendText;
     TextView clientText;
     Button serverButton;
@@ -102,7 +102,8 @@ public class GroupChat extends AppCompatActivity {
         sendButton = findViewById(R.id.g_sendButton);
         sendText   = findViewById(R.id.g_editText);
 //        clientText = findViewById(R.id.text);
-        createButton = (Button) findViewById(R.id.infoButton);
+        moreButton = (ImageButton) findViewById(R.id.infoButton);
+        backButton = (ImageButton) findViewById(R.id.g_ChatBackButton);
 
         sharedPreferences = getSharedPreferences(KEY_PREF_APP, MODE_PRIVATE);
 
@@ -116,7 +117,7 @@ public class GroupChat extends AppCompatActivity {
             ServerThread.start();
         }
 
-        createButton.setOnClickListener(new View.OnClickListener() {
+        moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GroupChat.this, GroupInfo.class);

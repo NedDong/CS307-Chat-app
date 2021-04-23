@@ -2,14 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cs307group9.privatechatchat">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.PERMISSIONS_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.PrivateChatChat">
+        <activity android:name=".ui.notifications.ChangeBackgroundDefault"></activity>
+        <activity android:name=".ui.notifications.UserChangeBackground" />
+        <activity android:name=".ui.notifications.UserSettings" />
+        <activity android:name=".group.GroupChangeAvatar" />
+        <activity android:name=".group.GroupChangeName" />
+        <activity
+            android:name=".group.GroupSettings"
+            android:label="@string/title_activity_group_settings"
+            android:theme="@style/Theme.PrivateChatChat.NoActionBar" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -21,13 +34,12 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-
         <activity
             android:name=".FriendProfile"
             android:label="FriendProfile" />
         <activity
             android:name=".group.GroupInfo"
-            android:label="GroupInfo"/>
+            android:label="GroupInfo" />
         <activity
             android:name=".group.GroupChat"
             android:label="GroupChat" />
@@ -54,12 +66,5 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.PERMISSIONS_STORAGE"/>
-
-
-
 
 </manifest>

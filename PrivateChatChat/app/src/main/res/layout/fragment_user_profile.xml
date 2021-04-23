@@ -54,21 +54,21 @@
         app:backgroundTint="@color/MainCo" />
 
     <Button
-        android:id="@+id/changeBackground"
+        android:id="@+id/changeSetting"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_below="@+id/editTextPersonName"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="45dp"
         android:layout_marginEnd="131dp"
-        android:text="Change Chat Background"
+        android:text="Change APP Settings"
         app:backgroundTint="@color/MainCo" />
 
     <Button
         android:id="@+id/deleteAccount"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_below="@+id/changeBackground"
+        android:layout_below="@+id/changeSetting"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="131dp"

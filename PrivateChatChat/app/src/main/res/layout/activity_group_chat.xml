@@ -83,14 +83,18 @@
         android:tint="#FFFFFF"
         app:srcCompat="@drawable/left" />
 
-    <Button
+    <ImageButton
         android:id="@+id/infoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="37dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="6dp"
-        android:text="info" />
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/button_round_shape"
+        android:onClick="backButton"
+        android:scaleType="fitCenter"
+        android:tint="#FFFFFF"
+        app:srcCompat="@drawable/more" />
 
 </RelativeLayout>

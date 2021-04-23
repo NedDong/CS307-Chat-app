@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -26,6 +28,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -35,6 +40,7 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -58,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     EditText sendText;
     TextView clientText;
     Button serverButton;
+    ImageView bg;
 
     String username;
 
@@ -106,6 +113,28 @@ public class MainActivity extends AppCompatActivity {
         sendButton = findViewById(R.id.sendButton);
         sendText   = findViewById(R.id.editText);
 //        clientText = findViewById(R.id.text);
+        bg = (ImageView) findViewById(R.id.chatBackground);
+
+        File f = new File("\\notifications\\backgroundURI.txt");
+        StringBuilder txt = new StringBuilder();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                txt.append(line);
+                txt.append('\n');
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (!txt.toString().isEmpty())
+            bg.setImageURI(Uri.parse(txt.toString()));
 
         sharedPreferences = getSharedPreferences(KEY_PREF_APP, MODE_PRIVATE);
         editor = sharedPreferences.edit();

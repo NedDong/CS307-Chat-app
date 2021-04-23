@@ -44,7 +44,7 @@ import java.util.HashMap;
 public class userProfile extends Fragment {
 
     private ImageButton userAvatar;
-    private Button changeAlias, changeBackground, deleteAccount, exitAccount;
+    private Button changeAlias, changeSetting, deleteAccount, exitAccount;
     private TextView userAlias;
     private EditText newAlias;
     private ImageView imageView;
@@ -80,7 +80,7 @@ public class userProfile extends Fragment {
 
         userAvatar = v.findViewById(R.id.userAvatar);
         changeAlias = v.findViewById(R.id.changeAlias);
-        changeBackground = v.findViewById(R.id.changeBackground);
+        changeSetting = v.findViewById(R.id.changeSetting);
         deleteAccount = v.findViewById(R.id.deleteAccount);
         exitAccount = v.findViewById(R.id.exitAccount);
         imageView = v.findViewById(R.id.imageView);
@@ -131,41 +131,13 @@ public class userProfile extends Fragment {
         });
 
 
-        changeBackground.setOnClickListener(new View.OnClickListener() {
+        changeSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-                dialog.setItems(new String[]{"Take Photo", "Album"},
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // 点击后，具体处理，
-                                Log.i("tag","which " + which);
-                                Log.i("tag","dialog " + dialog);
-                                // 判断 which 从而判断用户点击的是第几个
-                                if (which == 0) {
-                                    // 调用系统相机权限 弹出是否同意授权
-                                    requestPermissions(new String[]{
-                                            Manifest.permission.CAMERA,
-                                            Manifest.permission.WRITE_EXTERNAL_STORAGE
-                                    },10);// 动态申请权限
-                                } else if (which == 1) {
-                                    // 调用系统相机 直接打开
-                                    Intent intent;
-                                    if (Build.VERSION.SDK_INT < 19) {
-                                        intent = new Intent(Intent.ACTION_GET_CONTENT);
-                                        intent.setType("image/*");
-                                    } else {
-                                        intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                    }
+                Intent intent = new Intent(getActivity(), UserSettings.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-//                                    intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//                                            "image/*"); // 设置类型 选图片
-                                    startActivityForResult(intent,PHOTO_REQUEST);
-                                }
-                            }
-                        });
-                dialog.show();
+                startActivity(intent);
             }
         });
 
@@ -221,86 +193,4 @@ public class userProfile extends Fragment {
         }
     }
 
-    // 动态权限回调 requestCode:10 上面的requestCode
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // TODO 相机activity
-        if (requestCode == 10) { // 系统相机申请权限返回10
-            // 判断用户是否同意， PERMISSION_GRANTED = 0 : =>同意
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // 调用相机activity
-                Intent intent = new Intent();
-                intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE); // 参数="android.media.action.IMAGE_CAPTURE"
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "test.jpg")));
-                startActivityForResult(intent,CAMERA_REQUEST); // 相机获取的数据的返回值
-            }
-        }
-
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case CAMERA_REQUEST:
-                switch (resultCode) {
-                    case -1://-1表示拍照成功
-                        File file = new File(Environment.getExternalStorageDirectory()
-                                + "/test.jpg");
-                        if (file.exists()) {
-                            photoClip(Uri.fromFile(file));
-                        }
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case PHOTO_REQUEST:
-                if (data != null) {
-                    photoClip(data.getData());
-                }
-                break;
-            case PHOTO_CLIP:
-                if (data != null) {
-                    Toast toast = Toast.makeText(getContext(),"Image set", Toast.LENGTH_SHORT);
-                    toast.show();
-                    imageView.setImageURI(data.getData());
-//                    Bundle extras = data.getExtras();
-//                    if (extras != null) {
-//                        Log.w("test", "data");
-//                        Bitmap photo = extras.getParcelable("data");
-//                        imageView.setImageBitmap(photo);
-//                    }
-                }
-                break;
-            default:
-                break;
-        }
-
-    }
-
-    private void photoClip(Uri uri) {
-        // 调用系统中自带的图片剪裁
-        Intent intent = new Intent();
-        intent.setDataAndType(uri, "image/*");
-//        // 下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
-//        intent.putExtra("crop", "true");
-//        // aspectX aspectY 是宽高的比例
-//        intent.putExtra("aspectX", 1);
-//        intent.putExtra("aspectY", 1);
-//        // outputX outputY 是裁剪图片宽高
-//        intent.putExtra("outputX", 150);
-//        intent.putExtra("outputY", 150);
-//        intent.putExtra("return-data", true);
-        startActivityForResult(intent, PHOTO_CLIP);
-
-    }
-
-
-    public ImageView getImageView() {
-        return imageView;
-    }
-
-    //    版权声明：本文为CSDN博主「Zichen1016」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-//    原文链接：https://blog.csdn.net/weixin_48430685/article/details/110293040
 }
