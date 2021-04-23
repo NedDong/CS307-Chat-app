@@ -389,7 +389,7 @@ public class UserThread extends Thread implements Serializable {
                         if (chat.getGroupName().equals(newName)) {
                             outputStream.writeObject("DUPLICATE GROUP NAME");
                             System.out.println("DUPLICATE GROUP NAME");
-                            break;
+                            return;
                         }
                     }
                     for (GroupChat chat : server.getGroupList()) {
