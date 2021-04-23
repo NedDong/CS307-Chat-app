@@ -32,7 +32,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="154dp"
         android:background="#FFFFFF"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/GroupAddName"

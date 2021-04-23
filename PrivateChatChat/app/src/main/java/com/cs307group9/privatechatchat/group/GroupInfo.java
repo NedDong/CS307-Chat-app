@@ -61,10 +61,11 @@ public class GroupInfo extends AppCompatActivity {
     final String LIST = "LIST";
 
     final String KEY_PREF_FRIENDLIST_NAME = "friendlist_name";
-    final String KEY_PREF_FRIENDLIST_UID  = "friendlist_uid";
+    final String KEY_PREF_FRIENDLIST_UID = "friendlist_uid";
     final String KEY_PREF_FRIENDLIST_ADDR = "friendlist_addr";
-    final String KEY_PREF_FRIENDLIST_PSW  = "friendlist_psw";
+    final String KEY_PREF_FRIENDLIST_PSW = "friendlist_psw";
 
+    final String KEY_PREF_GROUP_AVATAR = "g_avatar";
     final String KEY_PREF_GROUPLIST_NAME = "grouplist_name";
     final String KEY_PREF_GROUPLIST_GID = "grouplist_gid";
     final String KEY_PREF_CURRENT_GROUP_USERS_ID = "grouplist_users_id";
@@ -90,8 +91,8 @@ public class GroupInfo extends AppCompatActivity {
     private ObjectInputStream input;
 
     static String hostname = "cs307-chat-app.webredirect.org";
-            //="cs307-chat-app.webredirect.org";
-            //"10.0.2.2";
+    //="cs307-chat-app.webredirect.org";
+    //"10.0.2.2";
     int type = -1; // 0 means LogIn, 1 means Register
     static int port = 12345;
 
@@ -114,77 +115,7 @@ public class GroupInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_info);
 
-        sharedPreferences = getSharedPreferences(KEY_PREF_APP, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-
-        back = (ImageButton) findViewById(R.id.groupInfoBack);
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        settings = (Button) findViewById(R.id.groupSettings);
-
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(GroupInfo.this, GroupSettings.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-            }
-        });
-
-        avatar = (ImageView) findViewById(R.id.GroupAvatar);
-
-        Gson gson = new Gson();
-
-        String jsonName = sharedPreferences.getString(KEY_PREF_FRIENDLIST_NAME, "");
-        String jsonPsw  = sharedPreferences.getString(KEY_PREF_FRIENDLIST_PSW, "");
-        String jsonUid  = sharedPreferences.getString(KEY_PREF_FRIENDLIST_UID, "");
-        String jsonAddr = sharedPreferences.getString(KEY_PREF_FRIENDLIST_ADDR, "");
-        String jsonGroupListName = sharedPreferences.getString(KEY_PREF_GROUPLIST_NAME, "");
-        String jsonGroupListID = sharedPreferences.getString(KEY_PREF_GROUPLIST_GID, "");
-
-        String jsonGroupUserId = sharedPreferences.getString(KEY_PREF_CURRENT_GROUP_USERS_ID, "");
-        String jsonGroupUserName = sharedPreferences.getString(KEY_PREF_CURRENT_GROUP_USERS_NAME, "");
-
-        userName = (String[]) gson.fromJson(jsonName, new TypeToken<String[]>(){}.getType());
-        psw = (String[]) gson.fromJson(jsonPsw, new TypeToken<String[]>(){}.getType());
-        uid = (int[]) gson.fromJson(jsonUid, new TypeToken<int[]>(){}.getType());
-        addr = (InetAddress[]) gson.fromJson(jsonAddr, new TypeToken<InetAddress[]>(){}.getType());
-        group_uid = (int[]) gson.fromJson(jsonGroupUserId, new TypeToken<int[]>(){}.getType());
-        group_username = (String[]) gson.fromJson(jsonGroupUserName, new TypeToken<String[]>(){}.getType());
-
-        groupListName = (String[]) gson.fromJson(jsonGroupListName, new TypeToken<String[]>(){}.getType());
-        groupListId = (int[]) gson.fromJson(jsonGroupListID, new TypeToken<int[]>(){}.getType());
-        cur_gid = sharedPreferences.getInt(KEY_PREF_CURRENT_GROUP_ID, -1);
-        Log.e("GroupInfo", "CURRENT GROUP ID = " + groupListId[cur_gid]);
-
-        for (int i = 0; i < groupListName.length; i++) {
-            Log.e("GroupInfo", "CURRENT GROUP NAME = " + groupListName[i]);
-        }
-
-        if (cur_gid != -1) cur_gName = groupListName[cur_gid];
-        else cur_gName = "null";
-
-        cur_gid = groupListId[cur_gid];
-
-        idText = findViewById(R.id.GroupID);
-        nameText = findViewById(R.id.GroupAddName);
-
-        idText.setText("" + cur_gid);
-        nameText.setText(cur_gName);
-
-        Log.e("GroupInfo","------In GROUP INFO ------");
-
-        if (!first_in) {
-            new Thread(new ServerConnectThreadMember()).start();
-            first_in = true;
-        }
+        init();
 
 //        users = new LinkedList<>();
 //
@@ -215,6 +146,100 @@ public class GroupInfo extends AppCompatActivity {
 //        listView.setOnItemClickListener(this::onItemClick);
     }
 
+    private void init() {
+        sharedPreferences = getSharedPreferences(KEY_PREF_APP, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        avatar = (ImageView) findViewById(R.id.GroupAvatar);
+
+        avatar.setImageURI(Uri.parse("android.resource://" + getPackageName()
+        + "/" + R.drawable.a1));
+        int avatarnum = sharedPreferences.getInt(KEY_PREF_GROUP_AVATAR, -1);
+        if (avatarnum > 0) {
+            avatar.setImageURI(Uri.parse("android.resource://" + getPackageName()
+                    + "/" + avatarnum));
+
+        }
+        Log.e("Group Avatar is ", "" + avatarnum);
+
+        back = (ImageButton) findViewById(R.id.groupInfoBack);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        settings = (Button) findViewById(R.id.groupSettings);
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GroupInfo.this, GroupSettings.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+                //finish();
+            }
+        });
+
+
+        Gson gson = new Gson();
+
+        String jsonName = sharedPreferences.getString(KEY_PREF_FRIENDLIST_NAME, "");
+        String jsonPsw = sharedPreferences.getString(KEY_PREF_FRIENDLIST_PSW, "");
+        String jsonUid = sharedPreferences.getString(KEY_PREF_FRIENDLIST_UID, "");
+        String jsonAddr = sharedPreferences.getString(KEY_PREF_FRIENDLIST_ADDR, "");
+        String jsonGroupListName = sharedPreferences.getString(KEY_PREF_GROUPLIST_NAME, "");
+        String jsonGroupListID = sharedPreferences.getString(KEY_PREF_GROUPLIST_GID, "");
+
+        String jsonGroupUserId = sharedPreferences.getString(KEY_PREF_CURRENT_GROUP_USERS_ID, "");
+        String jsonGroupUserName = sharedPreferences.getString(KEY_PREF_CURRENT_GROUP_USERS_NAME, "");
+
+        userName = (String[]) gson.fromJson(jsonName, new TypeToken<String[]>() {
+        }.getType());
+        psw = (String[]) gson.fromJson(jsonPsw, new TypeToken<String[]>() {
+        }.getType());
+        uid = (int[]) gson.fromJson(jsonUid, new TypeToken<int[]>() {
+        }.getType());
+        addr = (InetAddress[]) gson.fromJson(jsonAddr, new TypeToken<InetAddress[]>() {
+        }.getType());
+        group_uid = (int[]) gson.fromJson(jsonGroupUserId, new TypeToken<int[]>() {
+        }.getType());
+        group_username = (String[]) gson.fromJson(jsonGroupUserName, new TypeToken<String[]>() {
+        }.getType());
+
+        groupListName = (String[]) gson.fromJson(jsonGroupListName, new TypeToken<String[]>() {
+        }.getType());
+        groupListId = (int[]) gson.fromJson(jsonGroupListID, new TypeToken<int[]>() {
+        }.getType());
+        cur_gid = sharedPreferences.getInt(KEY_PREF_CURRENT_GROUP_ID, -1);
+        Log.e("GroupInfo", "CURRENT GROUP ID = " + groupListId[cur_gid]);
+
+        for (int i = 0; i < groupListName.length; i++) {
+            Log.e("GroupInfo", "CURRENT GROUP NAME = " + groupListName[i]);
+        }
+
+        if (cur_gid != -1) cur_gName = groupListName[cur_gid];
+        else cur_gName = "null";
+
+        cur_gid = groupListId[cur_gid];
+
+        idText = findViewById(R.id.GroupID);
+        nameText = findViewById(R.id.GroupAddName);
+
+        idText.setText("" + cur_gid);
+        nameText.setText(cur_gName);
+
+        Log.e("GroupInfo", "------In GROUP INFO ------");
+
+        if (!first_in) {
+            new Thread(new ServerConnectThreadMember()).start();
+            first_in = true;
+        }
+    }
+
     public void checkAdministrators(View view) {
         list_item = new ArrayList<Map<String, Object>>();
         new Thread(new ServerConnectThreadManager()).start();
@@ -234,11 +259,11 @@ public class GroupInfo extends AppCompatActivity {
 
     class ServerConnectThreadMember implements Runnable {
         public void run() {
-            Log.e("GroupInfo","===== Find User Thread ====");
+            Log.e("GroupInfo", "===== Find User Thread ====");
             try {
                 socket = new Socket(hostname, port);
                 output = new ObjectOutputStream(socket.getOutputStream());
-                input  = new ObjectInputStream(socket.getInputStream());
+                input = new ObjectInputStream(socket.getInputStream());
 
                 new Thread(new getGroupUserList()).start();
             } catch (UnknownHostException ex) {
@@ -251,12 +276,12 @@ public class GroupInfo extends AppCompatActivity {
 
     class ServerConnectThreadManager implements Runnable {
         public void run() {
-            Log.e("GroupInfo","===== Find Administrator Thread ====");
+            Log.e("GroupInfo", "===== Find Administrator Thread ====");
 
             try {
                 socket = new Socket(hostname, port);
                 output = new ObjectOutputStream(socket.getOutputStream());
-                input  = new ObjectInputStream(socket.getInputStream());
+                input = new ObjectInputStream(socket.getInputStream());
 
                 new Thread(new getGroupAdministratorList()).start();
             } catch (UnknownHostException ex) {
@@ -321,7 +346,7 @@ public class GroupInfo extends AppCompatActivity {
                 int k = 0;
                 while (!(read_user = "" + input.readObject()).equals("**FINISHED**")) {
                     if (read_user.equals("NO SUCH GROUP")) {
-                        Log.e("GroupInfo","NO GROUP");
+                        Log.e("GroupInfo", "NO GROUP");
                         input.readObject();
                         return;
                     }
@@ -359,7 +384,7 @@ public class GroupInfo extends AppCompatActivity {
 
                 while (!(read_user = "" + input.readObject()).equals("**FINISHED**")) {
                     if (read_user.equals("NO SUCH GROUP")) {
-                        Log.e("GroupInfo","NO GROUP");
+                        Log.e("GroupInfo", "NO GROUP");
                         input.readObject();
                         return;
                     }
@@ -373,7 +398,7 @@ public class GroupInfo extends AppCompatActivity {
                 groupUserID = new int[num];
                 group_username = new String[num];
 
-                Log.e("GroupInfo","GROUP MEMBER NUM = " + num);
+                Log.e("GroupInfo", "GROUP MEMBER NUM = " + num);
 
                 for (int i = 0; i < num; i++) {
                     groupUserID[i] = temp_groupUserId.get(i);
@@ -396,7 +421,23 @@ public class GroupInfo extends AppCompatActivity {
         }
     }
 
-//    void UpdateGroupList(int id, String name) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setContentView(R.layout.activity_group_info);
+
+        init();
+
+        int avatarnum = sharedPreferences.getInt(KEY_PREF_GROUP_AVATAR, -1);
+        if (avatarnum > 0) {
+            avatar.setImageURI(Uri.parse("android.resource://" + getPackageName()
+                    + "/" + avatarnum));
+
+        }
+        Log.e("Group Avatar Changed to", "" + avatarnum);
+    }
+
+    //    void UpdateGroupList(int id, String name) {
 //        runOnUiThread(new Runnable() {
 //
 //            @Override
@@ -438,15 +479,15 @@ public class GroupInfo extends AppCompatActivity {
 //
 //    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 110 && resultCode == 2) {
-            if (data != null) {
-                avatar.setImageURI(Uri.parse(getIntent().getStringExtra("GroupAvatar")));
-
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 110 && resultCode == 2) {
+//            if (data != null) {
+//                avatar.setImageURI(Uri.parse(getIntent().getStringExtra("GroupAvatar")));
+//
+//            }
+//        }
+//    }
 
 }
