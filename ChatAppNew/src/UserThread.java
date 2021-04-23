@@ -70,7 +70,7 @@ public class UserThread extends Thread implements Serializable {
                         int tempUID = server.getUid();
                         List<User> temp = new ArrayList<User>();
                         List<Integer> gidList = new ArrayList<>();
-                        server.getUserList().add(new User(initialHandshake.getUsername(), tempUID, socket.getInetAddress(), initialHandshake.getPassword(), temp, gidList, 0));
+                        server.getUserList().add(new User(initialHandshake.getUsername(), tempUID, socket.getInetAddress(), initialHandshake.getPassword(), temp, gidList, "0"));
                         String sql = "INSERT INTO Users(UID, UserName, Password) VALUES('" + tempUID + "','" + initialHandshake.getUsername() + "','" + initialHandshake.getPassword() + "')";
                         System.out.println(sql);
                         server.runSQLCommand(sql);
@@ -286,7 +286,7 @@ public class UserThread extends Thread implements Serializable {
                     member.add(owner);
                     int groupId = server.getGroupid();
                     owner.addGidList(groupId);
-                    GroupChat group = new GroupChat(groupId, owner, member, groupNmae, 0);
+                    GroupChat group = new GroupChat(groupId, owner, member, groupNmae, "0");
                     server.addGroup(group);
                     String sql = "INSERT INTO ChatGroup(GroupID, Member, MemberType) VALUES('" + groupId + "','" + ownerUid + "','owner')";
                     System.out.println(sql);
@@ -514,7 +514,7 @@ public class UserThread extends Thread implements Serializable {
                     return;
                 } else if (initialHandshake.getMessageType().equals("ChangeUserAvatar")) {//return managers of a group
                     int userId = Integer.parseInt(initialHandshake.getUsername());
-                    int avatarId = Integer.parseInt(initialHandshake.getPassword());
+                    String avatarId = initialHandshake.getPassword();
                     for (User user : server.getUserList()) {
                         if (user.getUid() == userId) {
                             user.setAvatarId(avatarId);
@@ -527,7 +527,7 @@ public class UserThread extends Thread implements Serializable {
                     return;
                 } else if (initialHandshake.getMessageType().equals("ChangeGroupAvatar")) {//return managers of a group
                     int groupId = Integer.parseInt(initialHandshake.getUsername());
-                    int avatarId = Integer.parseInt(initialHandshake.getPassword());
+                    String avatarId = initialHandshake.getPassword();
                     for (GroupChat group : server.getGroupList()) {
                         if (group.getGroupID() == groupId) {
                             group.setAvatarID(avatarId);
@@ -543,7 +543,7 @@ public class UserThread extends Thread implements Serializable {
                     //int avatarId = Integer.parseInt(initialHandshake.getPassword());
                     for (GroupChat group : server.getGroupList()) {
                         if (group.getGroupID() == groupId) {
-                            outputStream.writeObject(String.valueOf(group.getAvatarID()));
+                            outputStream.writeObject(group.getAvatarID());
                             outputStream.writeObject("**FINISHED**");
                             return;
                         }
@@ -556,7 +556,7 @@ public class UserThread extends Thread implements Serializable {
                     //int avatarId = Integer.parseInt(initialHandshake.getPassword());
                     for (User user : server.getUserList()) {
                         if (user.getUid() == userId) {
-                            outputStream.writeObject(String.valueOf(user.getAvatarId()));
+                            outputStream.writeObject(user.getAvatarId());
                             outputStream.writeObject("**FINISHED**");
                             return;
                         }
