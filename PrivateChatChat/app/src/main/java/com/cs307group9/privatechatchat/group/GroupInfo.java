@@ -1,6 +1,5 @@
 package com.cs307group9.privatechatchat.group;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,25 +7,18 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.cs307group9.privatechatchat.FriendProfile;
-import com.cs307group9.privatechatchat.MainScreenActivity;
 import com.cs307group9.privatechatchat.R;
 import com.cs307group9.privatechatchat.entity.User;
 import com.cs307group9.privatechatchat.entity.UserAdapter;
 import com.cs307group9.privatechatchat.ui.dashboard.ContactViewModel;
-import com.cs307group9.privatechatchat.ui.home.MessageFragment;
-import com.cs307group9.privatechatchat.ui.login.LoginActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -183,7 +174,7 @@ public class GroupInfo extends AppCompatActivity {
         cur_gid = groupListId[cur_gid];
 
         idText = findViewById(R.id.GroupID);
-        nameText = findViewById(R.id.GroupInfoName);
+        nameText = findViewById(R.id.GroupAddName);
 
         idText.setText("" + cur_gid);
         nameText.setText(cur_gName);
@@ -289,7 +280,7 @@ public class GroupInfo extends AppCompatActivity {
 
                 SimpleAdapter simpleAdapter = new SimpleAdapter(GroupInfo.this, list_item, R.layout.friend_list_adapter,
                         new String[]{"name", "says", "image"}, new int[]{R.id.name, R.id.says, R.id.imgtou});
-                ListView listView = (ListView) findViewById(R.id.GroupUserList);
+                ListView listView = (ListView) findViewById(R.id.AddMemberList);
                 if (listView == null) Log.d("dubug", "ListView Null");
                 listView.setAdapter(simpleAdapter);
 
@@ -398,6 +389,7 @@ public class GroupInfo extends AppCompatActivity {
                 editor.putString(KEY_PREF_CURRENT_GROUP_USERS_ID, json);
                 json = gson.toJson(group_username);
                 editor.putString(KEY_PREF_CURRENT_GROUP_USERS_NAME, json);
+                editor.commit();
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -19,6 +19,10 @@
         <activity android:name=".ui.notifications.UserSettings" />
         <activity android:name=".group.GroupChangeAvatar" />
         <activity android:name=".group.GroupChangeName" />
+        <activity android:name=".group.GroupAddMember" />
+        <activity android:name=".group.GroupDeleteMember"/>
+        <activity android:name=".group.GroupAddAdministrator"/>
+
         <activity
             android:name=".group.GroupSettings"
             android:label="@string/title_activity_group_settings"

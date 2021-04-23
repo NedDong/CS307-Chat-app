@@ -8,14 +8,14 @@
 
 
     <Button
-        android:id="@+id/ManageGroupMember"
+        android:id="@+id/AddMemeber"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/g_ChangeAvatar"
         android:layout_alignParentStart="true"
         android:layout_marginStart="85dp"
         android:layout_marginTop="50dp"
-        android:text="Manage Group Members"
+        android:text="Add Member"
         app:backgroundTint="@color/MainCo" />
 
     <ImageButton
@@ -53,5 +53,29 @@
         android:layout_marginStart="85dp"
         android:layout_marginTop="50dp"
         android:text="Change Group Avatar"
+        app:backgroundTint="@color/MainCo" />
+
+    <Button
+        android:id="@+id/DeleteMember"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/AddMemeber"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="48dp"
+        android:text="Delete Member"
+        app:backgroundTint="@color/MainCo" />
+
+    <Button
+        android:id="@+id/AdministratorManager"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/DeleteMember"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="52dp"
+        android:text="Manage Administrator"
         app:backgroundTint="@color/MainCo" />
 </RelativeLayout>

@@ -21,6 +21,8 @@ public class GroupChangeAvatar extends AppCompatActivity {
     private RadioGroup radioAvatars;
     private Button applyButton;
 
+//    final String KEY_PREF_
+
     private ImageButton back;
     Uri uri;
 

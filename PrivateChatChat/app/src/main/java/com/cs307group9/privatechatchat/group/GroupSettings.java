@@ -31,7 +31,7 @@ public class GroupSettings extends AppCompatActivity {
 
     private ImageButton backButton;
 
-    private Button changeName, changeAvatar, manageMember;
+    private Button changeName, changeAvatar, addMember, deleteMember, addManager;
 
     private Uri image;
 
@@ -48,7 +48,9 @@ public class GroupSettings extends AppCompatActivity {
         backButton = (ImageButton) findViewById(R.id.g_SettingBack);
         changeName = (Button) findViewById(R.id.g_ChangeName);
         changeAvatar = (Button) findViewById(R.id.g_ChangeAvatar);
-        manageMember = (Button) findViewById(R.id.ManageGroupMember);
+        addMember = (Button) findViewById(R.id.AddMemeber);
+        deleteMember = (Button) findViewById(R.id.DeleteMember);
+        addManager = (Button) findViewById(R.id.AdministratorManager);
 
         sharedPreferences = getSharedPreferences(KEY_PREF_APP, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -73,6 +75,16 @@ public class GroupSettings extends AppCompatActivity {
             }
         });
 
+        addMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GroupSettings.this, GroupAddMember.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityForResult(intent, 110);
+
+            }
+        });
+
         changeAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +94,26 @@ public class GroupSettings extends AppCompatActivity {
 
             }
         });
+
+        deleteMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GroupSettings.this, GroupDeleteMember.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
+        addManager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GroupSettings.this, GroupAddAdministrator.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
+
 
 
     }
