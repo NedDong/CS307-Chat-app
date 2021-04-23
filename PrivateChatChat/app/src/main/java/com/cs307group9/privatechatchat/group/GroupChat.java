@@ -126,7 +126,7 @@ public class GroupChat extends AppCompatActivity {
                 // output.println("bye");
 
                 startActivity(intent);
-                //finish();
+                //finish()
             }
         });
     }

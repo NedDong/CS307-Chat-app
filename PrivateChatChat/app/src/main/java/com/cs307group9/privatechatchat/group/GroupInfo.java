@@ -91,7 +91,7 @@ public class GroupInfo extends AppCompatActivity {
 
     private String[] userName, group_username;
     private String[] psw;
-    private int[] uid, group_uid, groupUserID;
+    private int[] uid, group_uid, groupUserID, groupListId;
     private InetAddress[] addr;
 
     Socket socket;
@@ -115,6 +115,8 @@ public class GroupInfo extends AppCompatActivity {
 
     LinkedList<User> users;
     List<Map<String, Object>> list_item = new ArrayList<Map<String, Object>>();
+
+    boolean first_in = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +155,7 @@ public class GroupInfo extends AppCompatActivity {
         String jsonUid  = sharedPreferences.getString(KEY_PREF_FRIENDLIST_UID, "");
         String jsonAddr = sharedPreferences.getString(KEY_PREF_FRIENDLIST_ADDR, "");
         String jsonGroupListName = sharedPreferences.getString(KEY_PREF_GROUPLIST_NAME, "");
+        String jsonGroupListID = sharedPreferences.getString(KEY_PREF_GROUPLIST_GID, "");
 
         String jsonGroupUserId = sharedPreferences.getString(KEY_PREF_CURRENT_GROUP_USERS_ID, "");
         String jsonGroupUserName = sharedPreferences.getString(KEY_PREF_CURRENT_GROUP_USERS_NAME, "");
@@ -165,10 +168,18 @@ public class GroupInfo extends AppCompatActivity {
         group_username = (String[]) gson.fromJson(jsonGroupUserName, new TypeToken<String[]>(){}.getType());
 
         groupListName = (String[]) gson.fromJson(jsonGroupListName, new TypeToken<String[]>(){}.getType());
-
+        groupListId = (int[]) gson.fromJson(jsonGroupListID, new TypeToken<int[]>(){}.getType());
         cur_gid = sharedPreferences.getInt(KEY_PREF_CURRENT_GROUP_ID, -1);
-        if (cur_gid != -1) cur_gName = groupListName[cur_gid - 1 - 100];
+        Log.e("GroupInfo", "CURRENT GROUP ID = " + groupListId[cur_gid]);
+
+        for (int i = 0; i < groupListName.length; i++) {
+            Log.e("GroupInfo", "CURRENT GROUP NAME = " + groupListName[i]);
+        }
+
+        if (cur_gid != -1) cur_gName = groupListName[cur_gid];
         else cur_gName = "null";
+
+        cur_gid = groupListId[cur_gid];
 
         idText = findViewById(R.id.GroupID);
         nameText = findViewById(R.id.GroupInfoName);
@@ -178,9 +189,11 @@ public class GroupInfo extends AppCompatActivity {
 
         Log.e("GroupInfo","------In GROUP INFO ------");
 
-        new Thread(new ServerConnectThreadMember()).start();
+        if (!first_in) {
+            new Thread(new ServerConnectThreadMember()).start();
+            first_in = true;
+        }
 
-        ;
 //        users = new LinkedList<>();
 //
 //        if (group_uid == null) {
@@ -211,10 +224,12 @@ public class GroupInfo extends AppCompatActivity {
     }
 
     public void checkAdministrators(View view) {
-        new Thread(new ServerConnectThreadAdministrator()).start();
+        list_item = new ArrayList<Map<String, Object>>();
+        new Thread(new ServerConnectThreadManager()).start();
     }
 
     public void checkMembers(View view) {
+        list_item = new ArrayList<Map<String, Object>>();
         new Thread(new ServerConnectThreadMember()).start();
     }
 
@@ -227,7 +242,6 @@ public class GroupInfo extends AppCompatActivity {
     class ServerConnectThreadMember implements Runnable {
         public void run() {
             Log.e("GroupInfo","===== Find User Thread ====");
-
             try {
                 socket = new Socket(hostname, port);
                 output = new ObjectOutputStream(socket.getOutputStream());
@@ -242,7 +256,7 @@ public class GroupInfo extends AppCompatActivity {
         }
     }
 
-    class ServerConnectThreadAdministrator implements Runnable {
+    class ServerConnectThreadManager implements Runnable {
         public void run() {
             Log.e("GroupInfo","===== Find Administrator Thread ====");
 
@@ -251,7 +265,7 @@ public class GroupInfo extends AppCompatActivity {
                 output = new ObjectOutputStream(socket.getOutputStream());
                 input  = new ObjectInputStream(socket.getInputStream());
 
-                new Thread(new ServerConnectThreadAdministrator()).start();
+                new Thread(new getGroupAdministratorList()).start();
             } catch (UnknownHostException ex) {
                 System.out.println("Server not found: " + ex.getMessage());
             } catch (IOException ex) {
@@ -289,8 +303,6 @@ public class GroupInfo extends AppCompatActivity {
 
                 System.out.printf("CURRENT GROUP ID: %d\n", cur_gid);
 
-//                new Thread(new ServerConnectThread()).start();
-
                 Intent intent = new Intent(GroupInfo.this, GroupChat.class);
                 startActivity(intent);
             }
@@ -301,11 +313,35 @@ public class GroupInfo extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                output.writeObject("GetGroupManager");
+                output.writeObject("GetGroupManagers");
                 output.writeObject("" + cur_gid);
                 output.writeObject("-1");
 
-                ArrayList<Integer> 
+                String read_user;
+
+                ArrayList<Integer> temp_groupUserId = new ArrayList<>();
+                ArrayList<String> temp_groupUserName = new ArrayList<>();
+                ArrayList<String> temp_groupUserAvatar = new ArrayList<>();
+
+                Log.e("GroupInfo", "START SEARCHING MANAGER IN GROUP[" + cur_gName + "]");
+
+                int k = 0;
+                while (!(read_user = "" + input.readObject()).equals("**FINISHED**")) {
+                    if (read_user.equals("NO SUCH GROUP")) {
+                        Log.e("GroupInfo","NO GROUP");
+                        input.readObject();
+                        return;
+                    }
+                    temp_groupUserId.add(Integer.parseInt(read_user));
+                    temp_groupUserName.add("" + input.readObject());
+                    temp_groupUserAvatar.add("" + input.readObject());
+
+                    Log.e("GroupInfo", "GROUP LIST: USERID[" + temp_groupUserId.get(k)
+                            + "] USERNAME[" + temp_groupUserName.get(k)
+                            + "] AVATAR[" + temp_groupUserAvatar.get(k) + "]");
+                    UpdateGroupList(temp_groupUserId.get(k), temp_groupUserName.get(k));
+                    k++;
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -324,6 +360,7 @@ public class GroupInfo extends AppCompatActivity {
 
                 ArrayList<Integer> temp_groupUserId = new ArrayList<>();
                 ArrayList<String> temp_groupUserName = new ArrayList<>();
+                ArrayList<String> temp_groupUserAvatar = new ArrayList<>();
 
                 Log.e("GroupInfo", "Start Searching With ID = " + cur_gid);
 
@@ -335,6 +372,7 @@ public class GroupInfo extends AppCompatActivity {
                     }
                     temp_groupUserId.add(Integer.parseInt(read_user));
                     temp_groupUserName.add("" + input.readObject());
+                    temp_groupUserAvatar.add("" + input.readObject());
                 }
 
                 int num = temp_groupUserId.size();
@@ -347,7 +385,9 @@ public class GroupInfo extends AppCompatActivity {
                 for (int i = 0; i < num; i++) {
                     groupUserID[i] = temp_groupUserId.get(i);
                     group_username[i] = temp_groupUserName.get(i);
-                    Log.e("GroupInfo", "GROUP LIST: USERID[" + groupUserID[i] + "] USERNAME[" + group_username[i] + "]");
+                    Log.e("GroupInfo", "GROUP LIST: USERID[" + groupUserID[i]
+                            + "] USERNAME[" + group_username[i] + "]"
+                            + "] AVATAR[" + temp_groupUserAvatar.get(i) + "]");
                     UpdateGroupList(groupUserID[i], group_username[i]);
                 }
 
@@ -356,9 +396,6 @@ public class GroupInfo extends AppCompatActivity {
                 editor.putString(KEY_PREF_CURRENT_GROUP_USERS_ID, json);
                 json = gson.toJson(group_username);
                 editor.putString(KEY_PREF_CURRENT_GROUP_USERS_NAME, json);
-
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }

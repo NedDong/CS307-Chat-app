@@ -193,7 +193,7 @@ public class MessageFragment extends Fragment {
             private void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Gson gson = new Gson();
                 String json = gson.toJson(groupList[position]);
-                cur_gid = groupList[position];
+                cur_gid = position;
                 editor.putInt(KEY_PREF_CURRENT_GROUP_ID, cur_gid);
                 editor.commit();
 
@@ -256,41 +256,44 @@ public class MessageFragment extends Fragment {
 
                 ArrayList<Integer> arr_groupList = new ArrayList<>();
                 ArrayList<String>  arr_groupName = new ArrayList<>();
+                ArrayList<String>  arr_groupAvatar = new ArrayList<>();
 
                 int i = 0;
                 while (true) {
                     String get_gid = (String) input.readObject();
-                    if (get_gid.equals("NO GROUPS")) return;
+                    if (get_gid.equals("NO GROUPS")) {
+                        input.readObject();
+                        return;
+                    }
                     if (get_gid.equals("**FINISHED**")) break;
 
                     arr_groupList.add(Integer.parseInt(get_gid));
-                    System.out.printf("========%s\n", arr_groupList.get(i));
+                    Log.e("GroupList", "GROUP ID : " + arr_groupList.get(i));
                     arr_groupName.add((String) input.readObject());
-                    System.out.printf("========%s\n", arr_groupName.get(i));
+                    Log.e("GroupList", "GROUP NAME : " + arr_groupName.get(i));
+                    arr_groupAvatar.add((String) input.readObject());
+                    Log.e("GroupList", "GROUP AVATAR: " + arr_groupAvatar.get(i));
                     i++;
                 }
 
 
-                int[] prev_groupList = groupList;
-                for (int j = 0; j < prev_groupList.length; j++) {
-                    prev_groupList[j] = groupList[j];
-                }
+                int prev_size = groupList.length;
+
                 groupList = new int[arr_groupList.size()];
                 groupName = new String[arr_groupList.size()];
+
+                Gson gson = new Gson();
+                String json = gson.toJson(arr_groupList.toArray());
+                editor.putString(KEY_PREF_GROUPLIST_GID, json);
+                json = gson.toJson(arr_groupName.toArray());
+                editor.putString(KEY_PREF_GROUPLIST_NAME, json);
+                editor.commit();
 
                 for (int j = 0; j < arr_groupList.size(); j++) {
                     groupList[j] = arr_groupList.get(j);
                     groupName[j] = arr_groupName.get(j);
-
-                    if (prev_groupList.length > j)
-                        UpdateGroupList(groupList[j], groupName[j]);
+                    UpdateGroupList(arr_groupList.get(j), arr_groupName.get(j));
                 }
-                Gson gson = new Gson();
-                String json = gson.toJson(groupList);
-                editor.putString(KEY_PREF_GROUPLIST_GID, json);
-                json = gson.toJson(groupName);
-                editor.putString(KEY_PREF_GROUPLIST_NAME, json);
-                editor.commit();
 
 //                new Thread(new getUserList()).start();
             }

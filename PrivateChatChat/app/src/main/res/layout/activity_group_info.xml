@@ -57,8 +57,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/GroupInfoName"
         android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
-        android:layout_marginEnd="179dp"
+        android:layout_marginEnd="183dp"
         android:fontFamily="sans-serif-thin"
         android:text="GroupID"
         android:textAlignment="center"
@@ -93,6 +94,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="120dp"
         android:layout_marginTop="181dp"
+        android:onClick="checkAdministrators"
         android:text="administrators" />
 
     <Button
@@ -113,6 +115,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
         android:layout_marginTop="180dp"
+        android:onClick="checkMembers"
         android:text="members" />
 
 </RelativeLayout>
