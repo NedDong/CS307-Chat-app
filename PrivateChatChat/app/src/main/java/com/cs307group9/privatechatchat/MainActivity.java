@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -28,19 +26,17 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.io.File;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -56,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference myDatabase;
 
     static String hostname = "10.0.2.2"; //"cs307-chat-app.webredirect.org";
-//    static String hostname = "10.0.2.2";
+    //    static String hostname = "10.0.2.2";
     //"cs307-chat-app.webredirect.org";
     static int port = 1111;
 
@@ -64,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
     EditText sendText;
     TextView clientText;
     Button serverButton;
-    ImageView bg;
 
     String username;
 
@@ -113,28 +108,6 @@ public class MainActivity extends AppCompatActivity {
         sendButton = findViewById(R.id.sendButton);
         sendText   = findViewById(R.id.editText);
 //        clientText = findViewById(R.id.text);
-        bg = (ImageView) findViewById(R.id.chatBackground);
-
-        File f = new File("\\notifications\\backgroundURI.txt");
-        StringBuilder txt = new StringBuilder();
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(f));
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                txt.append(line);
-                txt.append('\n');
-            }
-            br.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (!txt.toString().isEmpty())
-            bg.setImageURI(Uri.parse(txt.toString()));
 
         sharedPreferences = getSharedPreferences(KEY_PREF_APP, MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -156,6 +129,18 @@ public class MainActivity extends AppCompatActivity {
         String sendMsg = sendText.getText().toString().trim();
         if (!sendMsg.isEmpty()) {
             new Thread(new ClientThread(sendMsg)).start();
+        }
+    }
+
+    public void writeToFile(String chat, Context context) {
+        try {
+            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput("chathistory.txt", Context.MODE_PRIVATE));
+            System.out.println("Inside write to file!");
+            osw.write(chat);
+            osw.close();
+        }
+        catch (IOException e) {
+            System.out.println("File write failed!");
         }
     }
 
@@ -257,6 +242,8 @@ public class MainActivity extends AppCompatActivity {
 
         textString.add(msg);
 
+        //writeToFile(msg, getBaseContext());
+
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, list_item, R.layout.message_adapter,
                 new String[]{"name", "msg", "image"}, new int[]{R.id.name, R.id.msg, R.id.imgtou});
         ListView listView = (ListView) findViewById(R.id.send_list);
@@ -266,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < listView.getCount(); i++) {
             if (listView.findViewWithTag(i) == null) continue;
             if (listView.findViewWithTag(i).isSelected())
-            listView.findViewWithTag(i).setBackgroundColor(getResources().getColor(R.color.yellow));
+                listView.findViewWithTag(i).setBackgroundColor(getResources().getColor(R.color.yellow));
         }
 
         listView.setOnItemClickListener(this::onItemClick);
@@ -294,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             System.out.println(msg);
+            writeToFile(msg, getBaseContext());
 
             if (msg.contains("[HIGHLIGHT] ")) {
                 int pos = Integer.parseInt(msg.split("] ")[1]);
