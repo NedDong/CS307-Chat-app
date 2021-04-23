@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="09035f45-fda3-4bcb-9c9b-d4645ddf74d3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/notifications/UserSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/ui/notifications/UserSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/activity_user_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PrivateChatChat/app/src/main/res/layout/activity_user_settings.xml" afterDir="false" />
-    </list>
+    <list default="true" id="09035f45-fda3-4bcb-9c9b-d4645ddf74d3" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

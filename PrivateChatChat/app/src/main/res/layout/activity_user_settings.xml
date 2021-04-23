@@ -62,6 +62,21 @@
         android:hint="Type Here..."
         android:inputType="textPersonName" />
 
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="317dp"
+        android:layout_marginLeft="317dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="3dp"
+        android:text="Search"
+        app:backgroundTint="#FF7384DF" />
+
     <Switch
         android:id="@+id/appNotification"
         android:layout_width="291dp"
