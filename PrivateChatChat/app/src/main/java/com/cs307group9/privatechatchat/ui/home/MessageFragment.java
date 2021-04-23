@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +86,7 @@ public class MessageFragment extends Fragment {
 
     static String hostname = "cs307-chat-app.webredirect.org";
     //="cs307-chat-app.webredirect.org";
-    //"10.0.2.2";
+    //= "10.0.2.2";
     int type = -1; // 0 means LogIn, 1 means Register
     static int port = 12345;
 
@@ -258,16 +257,17 @@ public class MessageFragment extends Fragment {
                 ArrayList<Integer> arr_groupList = new ArrayList<>();
                 ArrayList<String>  arr_groupName = new ArrayList<>();
 
-                int num = (int)input.readObject();
-                if (num == -1) input.readObject();
+                int i = 0;
+                while (true) {
+                    String get_gid = (String) input.readObject();
+                    if (get_gid.equals("NO GROUPS")) return;
+                    if (get_gid.equals("**FINISHED**")) break;
 
-                System.out.println(num);
-
-                for (int i = 0; i < num; i++) {
-                    arr_groupList.add((int)input.readObject());
+                    arr_groupList.add(Integer.parseInt(get_gid));
                     System.out.printf("========%s\n", arr_groupList.get(i));
                     arr_groupName.add((String) input.readObject());
                     System.out.printf("========%s\n", arr_groupName.get(i));
+                    i++;
                 }
 
                 groupList = new int[arr_groupList.size()];
