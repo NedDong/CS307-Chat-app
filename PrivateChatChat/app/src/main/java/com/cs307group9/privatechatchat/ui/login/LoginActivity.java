@@ -155,6 +155,7 @@ public class LoginActivity extends AppCompatActivity {
                 password = passwordEditText.getText().toString();
                 type = 1;
                 new Thread(new ServerConnectThread()).start();
+
             }
         });
 
