@@ -143,6 +143,7 @@ public class GroupInfo extends AppCompatActivity {
                 Intent intent = new Intent(GroupInfo.this, GroupSettings.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -237,6 +238,7 @@ public class GroupInfo extends AppCompatActivity {
         Intent intent = new Intent(GroupInfo.this, FriendProfile.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
     }
 
     class ServerConnectThreadMember implements Runnable {

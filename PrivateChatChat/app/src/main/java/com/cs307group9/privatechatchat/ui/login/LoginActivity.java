@@ -85,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     boolean connectServer = false;
+    ProgressBar loadingProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -102,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = findViewById(R.id.login);
         final Button registerButton = findViewById(R.id.register);
         final Button feedbackButton = findViewById(R.id.sendFeedback);
-        final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+        loadingProgressBar = findViewById(R.id.loading);
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -157,6 +158,8 @@ public class LoginActivity extends AppCompatActivity {
                 username = usernameEditText.getText().toString();
                 password = passwordEditText.getText().toString();
                 type = 1;
+
+                loadingProgressBar.setVisibility(View.VISIBLE);
                 new Thread(new ServerConnectThread()).start();
 
             }
@@ -193,8 +196,6 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putBoolean(KEY_PREF_ISLOGIN, false);
                 editor.commit();
                 new Thread(new feedbackThread()).start();
-
-
             }
         });
     }
@@ -312,8 +313,10 @@ public class LoginActivity extends AppCompatActivity {
                         public void run() {
                             final Toast toast = Toast.makeText(LoginActivity.this, result, Toast.LENGTH_SHORT);
                             toast.show();
+                            loadingProgressBar.setVisibility(View.INVISIBLE);
                         }
                     });
+
                     return;
                 }
                 editor.putBoolean(KEY_PREF_ISLOGIN, true);

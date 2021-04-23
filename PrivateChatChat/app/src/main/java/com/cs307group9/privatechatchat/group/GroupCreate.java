@@ -98,6 +98,7 @@ public class GroupCreate extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -171,6 +172,13 @@ public class GroupCreate extends AppCompatActivity {
                         toast.show();
                     }
                 });
+
+                Intent intent = new Intent(GroupCreate.this, MainScreenActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                startActivity(intent);
+
+                finish();
 
                 return;
             } catch (Exception e) {

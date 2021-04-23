@@ -32,7 +32,7 @@ public class GroupChangeAvatar extends AppCompatActivity {
         radioAvatars = (RadioGroup) findViewById(R.id.groupRadioAvatar);
         applyButton = (Button) findViewById(R.id.g_ApplyAvatar);
 
-        back = (ImageButton) findViewById(R.id.groupChangeNameBack);
+        back = (ImageButton) findViewById(R.id.groupChangeAvatarBack);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
