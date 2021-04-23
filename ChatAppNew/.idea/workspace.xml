@@ -21,7 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="09035f45-fda3-4bcb-9c9b-d4645ddf74d3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-
+      <change beforePath="$PROJECT_DIR$/out/production/ChatApp/UserThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ChatApp/UserThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GroupChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GroupChat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UserThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserThread.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +66,7 @@
       <recent name="$PROJECT_DIR$/src/net/codejava/networking/chat/server" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ChatServer (1)">
+  <component name="RunManager" selected="Application.ChatClient (1)">
     <configuration name="ChatClient (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ChatClient" />
       <module name="ChatApp" />
@@ -112,8 +115,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ChatServer (1)" />
         <item itemvalue="Application.ChatClient (1)" />
+        <item itemvalue="Application.ChatServer (1)" />
         <item itemvalue="Application.ChatClient" />
         <item itemvalue="Application.ChatServer" />
       </list>
@@ -171,7 +174,6 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
-
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>

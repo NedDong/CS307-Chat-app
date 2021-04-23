@@ -65,7 +65,7 @@ public class UserThread extends Thread implements Serializable {
                     int tempUID = server.getUid();
                     List<User> temp = new ArrayList<User>();
                     List<Integer> gidList = new ArrayList<>();
-                    server.getUserList().add(new User(initialHandshake.getUsername(), tempUID, socket.getInetAddress(), initialHandshake.getPassword(), temp, gidList));
+                    server.getUserList().add(new User(initialHandshake.getUsername(), tempUID, socket.getInetAddress(), initialHandshake.getPassword(), temp, gidList, 0));
                     String sql = "INSERT INTO Users(UID, UserName, Password) VALUES('" + tempUID + "','" + initialHandshake.getUsername() + "','" + initialHandshake.getPassword() + "')";
                     System.out.println(sql);
                     server.runSQLCommand(sql);
@@ -170,6 +170,7 @@ public class UserThread extends Thread implements Serializable {
                         if(user.getUsername().equals(name)) {
                             found = true;
                             int id = user.getUid();
+                            user.setUsername(name);
                             String sql = "UPDATE Users SET UserName = '" + name + "' WHERE UID ='" + id + "'";
                             server.runSQLCommand(sql);
                             //server.removeUser(initialHandshake.getUsername());
@@ -212,6 +213,7 @@ public class UserThread extends Thread implements Serializable {
                                         outputStream.writeObject(user.getUid());
                                         outputStream.writeObject(user.getInetAddress());
                                         outputStream.writeObject(user.getPassword());
+                                        outputStream.writeObject(user.getAvatarId());
                                         System.out.println("Friend: " + user.getUsername());
                                     }
                                 }
@@ -277,7 +279,7 @@ public class UserThread extends Thread implements Serializable {
                     member.add(owner);
                     int groupId = server.getGroupid();
                     owner.addGidList(groupId);
-                    GroupChat group = new GroupChat(groupId, owner, member, groupNmae);
+                    GroupChat group = new GroupChat(groupId, owner, member, groupNmae, 0);
                     server.addGroup(group);
                     String sql = "INSERT INTO ChatGroup(GroupID, Member, MemberType) VALUES('" + groupId + "','" + ownerUid + "','owner')";
                     System.out.println(sql);
@@ -428,6 +430,7 @@ public class UserThread extends Thread implements Serializable {
                         for (GroupChat group : server.getGroupList()) {
                             outputStream.writeObject(group.getGroupID());
                             outputStream.writeObject(group.getGroupName());
+                            outputStream.writeObject(group.getAvatarID());
                         }
                     }
                     outputStream.writeObject("**FINISHED**");
@@ -443,6 +446,7 @@ public class UserThread extends Thread implements Serializable {
                             for (int i = 0; i < users.size(); i++) {
                                 outputStream.writeObject(users.get(i).getUid());
                                 outputStream.writeObject(users.get(i).getUsername());
+                                outputStream.writeObject(users.get(i).getAvatarId());
                             }
                             outputStream.writeObject("**FINISHED**");
                             return;
@@ -459,6 +463,8 @@ public class UserThread extends Thread implements Serializable {
                             outputStream.writeObject(mana.size());
                             for (int i = 0; i < mana.size(); i++) {
                                 outputStream.writeObject(mana.get(i).getUid());
+                                outputStream.writeObject(mana.get(i).getUsername());
+                                outputStream.writeObject(mana.get(i).getAvatarId());
                             }
                             outputStream.writeObject("**FINISHED**");
                             return;
@@ -483,6 +489,7 @@ public class UserThread extends Thread implements Serializable {
                                 if (String.valueOf(chat.getGroupID()).equals(Id)) {
                                     System.out.println(chat.getGroupName());
                                     outputStream.writeObject(chat.getGroupName());
+                                    outputStream.writeObject(chat.getAvatarID());
                                     break;
                                 }
                             }
@@ -498,7 +505,34 @@ public class UserThread extends Thread implements Serializable {
                     outputStream.writeObject("SUCCESS");
                     outputStream.writeObject("**FINISHED**");
                     return;
+                } else if (initialHandshake.getMessageType().equals("ChangeUserAvatar")) {//return managers of a group
+                    int userId = Integer.parseInt(initialHandshake.getUsername());
+                    int avatarId = Integer.parseInt(initialHandshake.getPassword());
+                    for (User user : server.getUserList()) {
+                        if (user.getUid() == userId) {
+                            user.setAvatarId(avatarId);
+                            outputStream.writeObject("**FINISHED**");
+                            return;
+                        }
+                    }
+                    outputStream.writeObject("NO SUCH USER");
+                    outputStream.writeObject("**FINISHED**");
+                    return;
+                } else if (initialHandshake.getMessageType().equals("ChangeGroupAvatar")) {//return managers of a group
+                    int groupId = Integer.parseInt(initialHandshake.getUsername());
+                    int avatarId = Integer.parseInt(initialHandshake.getPassword());
+                    for (GroupChat group : server.getGroupList()) {
+                        if (group.getGroupID() == groupId) {
+                            group.setAvatarID(avatarId);
+                            outputStream.writeObject("**FINISHED**");
+                            return;
+                        }
+                    }
+                    outputStream.writeObject("NO SUCH GROUP");
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 }
+
             }
             // printUsers();
         } catch (IOException | ClassNotFoundException ex) {

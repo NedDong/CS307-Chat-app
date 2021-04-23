@@ -17,8 +17,9 @@ public class User implements Serializable {
     private transient int port;
     private transient HashMap<Integer, User> friendList;
     private transient HashMap<Integer, User> blockedList;
+    private transient int avatarId;
 
-    public User(String username, int uid, InetAddress inetAddress, String password, List<User> waitingList, List<Integer> gidList)
+    public User(String username, int uid, InetAddress inetAddress, String password, List<User> waitingList, List<Integer> gidList, int aid)
     {
         this.username = username;
         this.password = password;
@@ -27,6 +28,7 @@ public class User implements Serializable {
         this.uid = uid;
         this.waitingList = waitingList;
         this.gidList = gidList;
+        avatarId = aid;
     }
 
     public User(String username, int uid, InetAddress inetAddress, String password, List<User> waitingList)
@@ -39,12 +41,20 @@ public class User implements Serializable {
         this.waitingList = waitingList;
     }
 
-
     public User(String username, int uid, String password) {
         this.username = username;
         this.uid = uid;
         this.password = password;
     }
+
+    public int getAvatarId() {
+        return avatarId;
+    }
+
+    public void setAvatarId(int avatarId) {
+        this.avatarId = avatarId;
+    }
+
     public void addTowaitingList(User user)
     {
         waitingList.add(user);
