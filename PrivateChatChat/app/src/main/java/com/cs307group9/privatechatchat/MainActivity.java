@@ -5,15 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -27,9 +34,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -83,9 +93,11 @@ public class MainActivity extends AppCompatActivity {
     final String LIST = "LIST";
 
     final String KEY_PREF_FRIENDLIST_NAME = "friendlist_name";
-    final String KEY_PREF_FRIENDLIST_UID  = "friendlist_uid";
+    final String KEY_PREF_FRIENDLIST_UID = "friendlist_uid";
     final String KEY_PREF_FRIENDLIST_ADDR = "friendlist_addr";
-    final String KEY_PREF_FRIENDLIST_PSW  = "friendlist_psw";
+    final String KEY_PREF_FRIENDLIST_PSW = "friendlist_psw";
+    final String KEY_PREF_USER_AVATAR = "user_avatar";
+    final String KEY_PREF_USER_BG = "user_bg";
 
     private String[] userName;
     private String[] psw;
@@ -101,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
     String muteUser;
 
     boolean ban = false;
+    ImageView bg;
+    ImageButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,17 +122,57 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        init();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setContentView(R.layout.activity_main);
+
+        init();
+        String uri = sharedPreferences.getString(KEY_PREF_USER_BG, "");
+        if (uri.length() > 0) {
+            getIntent().addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                getContentResolver().takePersistableUriPermission(Uri.parse(uri), Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//            }
+            bg.setImageURI(Uri.parse(uri));
+        }
+        Log.e("Chat Background Now is ", uri);
+
+    }
+
+    private void init() {
         sendButton = findViewById(R.id.sendButton);
-        sendText   = findViewById(R.id.editText);
+        sendText = findViewById(R.id.editText);
+        bg = findViewById(R.id.chatBackground);
+        back = findViewById(R.id.ChatBackButton);
 //        clientText = findViewById(R.id.text);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         sharedPreferences = getSharedPreferences(KEY_PREF_APP, MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         ban = sharedPreferences.getBoolean("BAN", false);
 
+        String uri = sharedPreferences.getString(KEY_PREF_USER_BG, "");
+        if (uri.length() > 0) {
+            getIntent().addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                getContentResolver().takePersistableUriPermission(Uri.parse(uri), Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//            }
+            bg.setImageURI(Uri.parse(uri));
+        }
         username = sharedPreferences.getString(KEY_PREF_USERNAME, "");
-        muteUser = sharedPreferences.getString(KEY_PREF_MUTE,"_____");
+        muteUser = sharedPreferences.getString(KEY_PREF_MUTE, "_____");
 
         if (connectServer) {
             connectServer = false;
@@ -128,11 +182,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     public void sendMessage(View view) {
         String message = sendText.getText().toString().trim();
-        message = message.replaceAll("shit" , "****");
-        message = message.replaceAll("fuck" , "****");
-        message = message.replaceAll("bitch" , "****");
+        message = message.replaceAll("shit", "****");
+        message = message.replaceAll("fuck", "****");
+        message = message.replaceAll("bitch", "****");
         if (!message.isEmpty()) {
             new Thread(new ClientThread(message)).start();
         }
@@ -204,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 socket = new Socket(hostname, port);
                 output = new PrintWriter(socket.getOutputStream(), true);
-                input  = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 //                runOnUiThread(new Runnable() {
 //                    @Override
 //                    public void run() { clientText.setText("Connected\n"); }
@@ -231,8 +286,9 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 // Get Current User
                                 System.out.printf("MASSAGE: %s\n", msg);
-                                if (msg.contains("connected") || msg.contains(muteUser)) {System.out.println("connected\n");}
-                                else {
+                                if (msg.contains("connected") || msg.contains(muteUser)) {
+                                    System.out.println("connected\n");
+                                } else {
                                     System.out.println("HERE");
                                     User currentSender;
                                     String msg_end = msg.split("] ")[1];
@@ -243,9 +299,8 @@ public class MainActivity extends AppCompatActivity {
                                     if (uName.equals("HIGHLIGHT")) {
                                         highlightNum[Integer.parseInt(msg_end)] = 1;
                                         return;
-                                    }
-                                    else if (msg_end.equals(uName)) {}
-                                    else {
+                                    } else if (msg_end.equals(uName)) {
+                                    } else {
                                         currentSender = getUsers(uName);
                                         System.out.println("AHA");
                                         if (currentSender != null) {
@@ -257,8 +312,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         });
-                    }
-                    else {
+                    } else {
                         ServerThread = new Thread(new ServerConnectThread());
                         ServerThread.start();
                         return;
@@ -283,6 +337,7 @@ public class MainActivity extends AppCompatActivity {
         textString.add(msg);
 
         writeToFile(msg, name);
+        //deleteChathistory();
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, list_item, R.layout.message_adapter,
                 new String[]{"name", "msg", "image"}, new int[]{R.id.name, R.id.msg, R.id.imgtou});
@@ -317,7 +372,11 @@ public class MainActivity extends AppCompatActivity {
 
     class ClientThread implements Runnable {
         private String msg;
-        ClientThread(String msg) { this.msg = msg; }
+
+        ClientThread(String msg) {
+            this.msg = msg;
+        }
+
         @Override
         public void run() {
             System.out.println(msg);
@@ -360,14 +419,18 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
 
         String jsonName = sharedPreferences.getString(KEY_PREF_FRIENDLIST_NAME, "");
-        String jsonPsw  = sharedPreferences.getString(KEY_PREF_FRIENDLIST_PSW, "");
-        String jsonUid  = sharedPreferences.getString(KEY_PREF_FRIENDLIST_UID, "");
+        String jsonPsw = sharedPreferences.getString(KEY_PREF_FRIENDLIST_PSW, "");
+        String jsonUid = sharedPreferences.getString(KEY_PREF_FRIENDLIST_UID, "");
         String jsonAddr = sharedPreferences.getString(KEY_PREF_FRIENDLIST_ADDR, "");
 
-        userName = (String[]) gson.fromJson(jsonName, new TypeToken<String[]>(){}.getType());
-        psw = (String[]) gson.fromJson(jsonPsw, new TypeToken<String[]>(){}.getType());
-        uid = (int[]) gson.fromJson(jsonUid, new TypeToken<int[]>(){}.getType());
-        addr = (InetAddress[]) gson.fromJson(jsonAddr, new TypeToken<InetAddress[]>(){}.getType());
+        userName = (String[]) gson.fromJson(jsonName, new TypeToken<String[]>() {
+        }.getType());
+        psw = (String[]) gson.fromJson(jsonPsw, new TypeToken<String[]>() {
+        }.getType());
+        uid = (int[]) gson.fromJson(jsonUid, new TypeToken<int[]>() {
+        }.getType());
+        addr = (InetAddress[]) gson.fromJson(jsonAddr, new TypeToken<InetAddress[]>() {
+        }.getType());
 
         for (int i = 0; i < userName.length; i++) {
             System.out.printf("USER[%d] = %s\n", i, userName[i]);
@@ -388,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 socket = new Socket("cs307-chat-app.webredirect.org", 12345);
                 outputData = new ObjectOutputStream(socket.getOutputStream());
-                inputData  = new ObjectInputStream(socket.getInputStream());
+                inputData = new ObjectInputStream(socket.getInputStream());
 
                 new Thread(new RecieveFriendList()).start();
             } catch (UnknownHostException ex) {
@@ -434,11 +497,9 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString(KEY_PREF_FRIENDLIST_PSW, json);
 
                 editor.commit();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-            }
-            catch (ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }

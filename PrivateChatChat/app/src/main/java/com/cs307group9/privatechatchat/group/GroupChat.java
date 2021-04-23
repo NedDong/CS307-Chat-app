@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -70,6 +72,7 @@ public class GroupChat extends AppCompatActivity {
     final String KEY_PREF_FRIENDLIST = "friendlist";
     final String KEY_PREF_ISLOGIN = "islogin";
     final String KEY_PREF_MUTE = "mute";
+    final String KEY_PREF_CHANGE_IN_NAME = "Change_in_name";
 
     final String KEY_PREF_SOCKET = "socket";
     final String KEY_PREF_BLOCK = "block";
@@ -99,6 +102,33 @@ public class GroupChat extends AppCompatActivity {
 
         setContentView(R.layout.activity_group_chat);
 
+        init();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setContentView(R.layout.activity_group_chat);
+
+        init();
+
+        int change = sharedPreferences.getInt(KEY_PREF_CHANGE_IN_NAME, 0);
+        if (change > 0) {
+            ListView l = findViewById(R.id.g_send_list);
+            ArrayList<String> list = new ArrayList<>();
+            list.add("The group name has changed!");
+            ArrayAdapter ad = new ArrayAdapter(GroupChat.this, android.R.layout.simple_list_item_1, list);
+            l.setAdapter(ad);
+            Toast.makeText(this, "Group name has changed", Toast.LENGTH_LONG);
+            Log.e("Post announcement", "Group name changed");
+            editor.putInt(KEY_PREF_CHANGE_IN_NAME, 0);
+            editor.commit();
+        }
+
+
+    }
+
+    private void init() {
         sendButton = findViewById(R.id.g_sendButton);
         sendText   = findViewById(R.id.g_editText);
 //        clientText = findViewById(R.id.text);
@@ -106,9 +136,24 @@ public class GroupChat extends AppCompatActivity {
         backButton = (ImageButton) findViewById(R.id.g_ChatBackButton);
 
         sharedPreferences = getSharedPreferences(KEY_PREF_APP, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         username = sharedPreferences.getString(KEY_PREF_USERNAME, "");
         muteUser = sharedPreferences.getString(KEY_PREF_MUTE,"_____");
+
+
+        int change = sharedPreferences.getInt(KEY_PREF_CHANGE_IN_NAME, 0);
+        if (change > 0) {
+            ListView l = findViewById(R.id.g_send_list);
+            ArrayList<String> list = new ArrayList<>();
+            list.add("The group name has changed!");
+            ArrayAdapter ad = new ArrayAdapter(GroupChat.this, android.R.layout.simple_list_item_1, list);
+            l.setAdapter(ad);
+            Toast.makeText(this, "Group name has changed", Toast.LENGTH_LONG);
+            Log.e("Post announcement", "Group name changed");
+            editor.putInt(KEY_PREF_CHANGE_IN_NAME, 0);
+            editor.commit();
+        }
 
         if (connectServer) {
             connectServer = false;

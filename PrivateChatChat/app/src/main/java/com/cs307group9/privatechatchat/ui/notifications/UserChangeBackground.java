@@ -6,8 +6,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -31,7 +33,9 @@ import com.cs307group9.privatechatchat.group.GroupChangeName;
 import com.cs307group9.privatechatchat.group.GroupSettings;
 import com.cs307group9.privatechatchat.ui.login.LoginActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,6 +44,12 @@ public class UserChangeBackground extends AppCompatActivity {
 
     private ImageButton back;
     private Button toDefault, custom;
+
+    private SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
+    final String KEY_PREF_APP = "myPref";
+    final String KEY_PREF_USER_BG = "user_bg";
 
     private static final int PIC_HEIGHT = 200;
     String file_str = Environment.getExternalStorageDirectory().getPath();
@@ -63,6 +73,9 @@ public class UserChangeBackground extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_change_background);
+
+        sharedPreferences = getSharedPreferences(KEY_PREF_APP, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         back = (ImageButton) findViewById(R.id.changeBGBack);
         toDefault = (Button) findViewById(R.id.toDefaultBG);
@@ -92,19 +105,53 @@ public class UserChangeBackground extends AppCompatActivity {
                 showChoosePicDialog();
 
                 //write uri to local file
-                File f = new File("backgroundURI.txt");
-                try {
-                    FileWriter fw = new FileWriter(f, false);
-                    fw.write(imageUri.toString());
-                    fw.close();
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         });
 
 
+    }
+
+    private String getImageUrlWithAuthority(Uri uri)
+    {
+        InputStream is = null;
+
+        if (uri.getAuthority() != null)
+        {
+            try
+            {
+                is = getContentResolver().openInputStream(uri);
+                Bitmap bmp = BitmapFactory.decodeStream(is);
+                return writeToTempImageAndGetPathUri(bmp).toString();
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+            finally
+            {
+                try
+                {
+                    if (is != null)
+                    {
+                        is.close();
+                    }
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    private Uri writeToTempImageAndGetPathUri(Bitmap inImage)
+    {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
 
@@ -220,7 +267,7 @@ public class UserChangeBackground extends AppCompatActivity {
         /**
          * 打开选择图片的界面
          */
-        Intent intent = new Intent(Intent.ACTION_PICK);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("image/*");//相片类型
         startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
 
@@ -235,8 +282,16 @@ public class UserChangeBackground extends AppCompatActivity {
                 if (res == RESULT_OK) {
                     try {
                         //该uri就是照片文件夹对应的uri
-                        bg.setImageURI(imageUri);
+//                        bg.setImageURI(imageUri);
 
+                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                            getContentResolver().takePersistableUriPermission (imageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        }
+                        Log.e("Image Uri From Photo", imageUri.toString());
+
+                        editor.putString(KEY_PREF_USER_BG, imageUri.toString());
+                        editor.commit();
+                        Log.e("User chat bg changed", imageUri.toString());
                         Toast.makeText(this, "Changed", Toast.LENGTH_SHORT).show();
 
                     } catch (Exception e) {
@@ -258,7 +313,15 @@ public class UserChangeBackground extends AppCompatActivity {
                          * 该uri是上一个Activity返回的
                          */
                         imageUri = data.getData();
-                        bg.setImageURI(imageUri);
+
+                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                            getContentResolver().takePersistableUriPermission (imageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                        }
+
+                        Log.e("Image Uri From Gallery", imageUri.toString());
+                        editor.putString(KEY_PREF_USER_BG, imageUri.toString());
+                        editor.commit();
+                        Log.e("User chat bg changed", imageUri.toString());
                         Toast.makeText(this, "Changed", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         e.printStackTrace();
