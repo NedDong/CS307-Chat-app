@@ -277,9 +277,6 @@ public class MessageFragment extends Fragment {
                     i++;
                 }
 
-
-                int prev_size = groupList.length;
-
                 groupList = new int[arr_groupList.size()];
                 groupName = new String[arr_groupList.size()];
 
