@@ -39,6 +39,8 @@ public class GroupChangeName extends AppCompatActivity {
 
     String inputName;
 
+    int cur_id = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +74,11 @@ public class GroupChangeName extends AppCompatActivity {
             try {
                 System.out.println("==============");
 
-                Socket socket = new Socket("10.0.2.2", 1111);
+                Socket socket = new Socket("cs307-chat-app.webredirect.org", 12345);
                 oos = new ObjectOutputStream(socket.getOutputStream());
                 ois = new ObjectInputStream(socket.getInputStream());
+
+
 
                 oos.writeObject(KEY_PREF_CHANGE);
                 oos.writeObject(sharedPreferences.getString(KEY_PREF_CURRENT_GROUP_ID, ""));
