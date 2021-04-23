@@ -110,6 +110,8 @@ public class ChatServer implements Serializable {
         statement.execute(sql);
         sql = "DROP TABLE IF EXISTS ChatGroup;";
         statement.execute(sql);
+        sql = "DROP TABLE IF EXISTS Posts;";
+        statement.execute(sql);
 
         sql = "CREATE TABLE IF NOT EXISTS Users(\n" +
                 "    UID varchar(8) NOT NULL PRIMARY KEY,\n" +
@@ -135,6 +137,12 @@ public class ChatServer implements Serializable {
         sql ="CREATE TABLE IF NOT EXISTS ChatGroup(GroupID VARCHAR( 8 ) ,\n" +
                 "Member VARCHAR( 8 ) ,\n" +
                 "MemberType VARCHAR( 8 )\n" +
+                ");";
+        statement.execute(sql);
+
+        sql = "CREATE TABLE IF NOT EXISTS Posts (\n" +
+                "    UserID int,\n" +
+                "    Post varchar(50)\n" +
                 ");";
         statement.execute(sql);
     }

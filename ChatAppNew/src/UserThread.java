@@ -518,6 +518,7 @@ public class UserThread extends Thread implements Serializable {
                     int groupID = Integer.parseInt(initialHandshake.getUsername());
                     int memberID = Integer.parseInt(initialHandshake.getPassword());
                     String sql = "DELETE FROM ChatGroup WHERE Member = '" + memberID + "' AND GroupID ='" + groupID + "'";
+
                     server.runSQLQuery(sql);
                     for(GroupChat group : server.getGroupList()) {
                         if(group.getGroupID() == groupID) {
@@ -528,6 +529,9 @@ public class UserThread extends Thread implements Serializable {
                             }
                         }
                     }
+
+                    server.runSQLCommand(sql);
+
                     outputStream.writeObject("SUCCESS");
                     outputStream.writeObject("**FINISHED**");
                     return;
@@ -659,7 +663,7 @@ public class UserThread extends Thread implements Serializable {
                         return;
                     }
                     String sql = "INSERT INTO Posts(UserID, Post) VALUES ('" + userId +
-                            "', '" + post + "');";
+                            "', '" + post + "')";
                     server.runSQLCommand(sql);
                     outputStream.writeObject("SUCCESS");
                     outputStream.writeObject("**FINISHED**");
