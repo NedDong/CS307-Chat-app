@@ -39,6 +39,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -123,14 +124,11 @@ public class MessageFragment extends Fragment {
 
         Gson gson = new Gson();
 
-        String jsonGroupUserId = sharedPreferences.getString(KEY_PREF_CURRENT_GROUP_USERS_ID, "null");
-        String jsonGroupUserName = sharedPreferences.getString(KEY_PREF_CURRENT_GROUP_USERS_NAME, "null");
+        String jsonGroupId = sharedPreferences.getString(KEY_PREF_GROUPLIST_GID, "null");
+        String jsonGroupName = sharedPreferences.getString(KEY_PREF_GROUPLIST_NAME, "null");
 
-
-        groupList = (int[]) gson.fromJson(jsonGroupUserId, new TypeToken<int[]>(){}.getType());
-        groupName = (String[]) gson.fromJson(jsonGroupUserName, new TypeToken<String[]>(){}.getType());
-
-
+        groupList = (int[]) gson.fromJson(jsonGroupId, new TypeToken<int[]>(){}.getType());
+        groupName = (String[]) gson.fromJson(jsonGroupName, new TypeToken<String[]>(){}.getType());
 
         createGroup = view.findViewById(R.id.CreateGroup);
         createGroup.setOnClickListener(new View.OnClickListener() {
@@ -142,33 +140,37 @@ public class MessageFragment extends Fragment {
             }
         });
 
+//        if (!jsonGroupUserId.equals("null")) {
+//        if (groupList != null) {
+//            for (int i = 0; i < groupList.length; i++) {
+////                UpdateGroupList(groupList[i], groupName[i]);
+////                Map<String, Object> show_item = new HashMap<String, Object>();
+////                show_item.put("name", groupName[i]);
+////                System.out.printf("GROUP NAME: %s\n", groupName[i]);
+////                show_item.put("says", groupList[i]);
+////                System.out.printf("GROUP ID: %d\n", groupList[i]);
+////                show_item.put("image", R.mipmap.ic_launcher);
+////                list_item.add(show_item);
+////                System.out.println("ADD CURRENT LIST");
+//            }
+//        }
+//        else {
+//            System.out.println("NULL GROUP");
+//        }
 
-        if (!jsonGroupUserId.equals("null")) {
-            for (int i = 0; i < groupList.length; i++) {
-                Map<String, Object> show_item = new HashMap<String, Object>();
-                show_item.put("name", groupName[i]);
-                System.out.printf("GROUP NAME: %s\n", groupName[i]);
-                show_item.put("says", groupList[i]);
-                System.out.printf("GROUP ID: %d\n", groupList[i]);
-                show_item.put("image", R.mipmap.ic_launcher);
-                list_item.add(show_item);
-            }
-        }
-
-        SimpleAdapter simpleAdapter = new SimpleAdapter(getContext(), list_item, R.layout.friend_list_adapter,
-                new String[]{"name", "says", "image"}, new int[]{R.id.name, R.id.says, R.id.imgtou});
-        ListView listView = (ListView) view.findViewById(R.id.gg_list_item);
-        if (listView == null) Log.d("dubug", "ListView Null");
-        listView.setAdapter(simpleAdapter);
-
-        listView.setOnItemClickListener(this::onItemClick);
+//        SimpleAdapter simpleAdapter = new SimpleAdapter(getContext(), list_item, R.layout.friend_list_adapter,
+//                new String[]{"name", "says", "image"}, new int[]{R.id.name, R.id.says, R.id.imgtou});
+//        ListView listView = (ListView) view.findViewById(R.id.gg_list_item);
+//        if (listView == null) Log.d("dubug", "ListView Null");
+//        listView.setAdapter(simpleAdapter);
+//
+//        listView.setOnItemClickListener(this::onItemClick);
 
         return view;
     }
 
     void UpdateGroupList(int id, String name) {
         getActivity().runOnUiThread(new Runnable() {
-
             @Override
             public void run() {
                 Map<String, Object> show_item = new HashMap<>();
@@ -197,33 +199,13 @@ public class MessageFragment extends Fragment {
 
                 System.out.printf("CURRENT GROUP ID: %d\n", cur_gid);
 
-
-//                new Thread(new ServerConnectThread()).start();
-//                new Thread(new getGroupUserList()).start();
+                new Thread(new ServerConnectThreadCurrentId()).start();
 
                 Intent intent = new Intent(getActivity(), GroupChat.class);
                 startActivity(intent);
             }
         });
 
-    }
-
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // Toast.makeText(getContext(), "You Click" + userName[position] + "~!", Toast.LENGTH_LONG).show();\
-
-        Gson gson = new Gson();
-        String json = gson.toJson(groupList[position]);
-        cur_gid = groupList[position];
-        editor.putInt(KEY_PREF_CURRENT_GROUP_ID, cur_gid);
-        editor.commit();
-
-        System.out.printf("CURRENT GROUP ID: %d\n", cur_gid);
-
-//        new Thread(new ServerConnectThread()).start();
-//        new Thread(new getGroupUserList()).start();
-
-        Intent intent = new Intent(getActivity(), GroupChat.class);
-        startActivity(intent);
     }
 
     class ServerConnectThread implements Runnable {
@@ -236,6 +218,24 @@ public class MessageFragment extends Fragment {
                 input  = new ObjectInputStream(socket.getInputStream());
 
                 new Thread(new RecieveGroupList()).start();
+            } catch (UnknownHostException ex) {
+                System.out.println("Server not found: " + ex.getMessage());
+            } catch (IOException ex) {
+                System.out.println("I/O Error: " + ex.getMessage());
+            }
+        }
+    }
+
+    class ServerConnectThreadCurrentId implements Runnable {
+        public void run() {
+            System.out.println("==== I Am Currently Running Thread 1===");
+
+            try {
+                socket = new Socket(hostname, port);
+                output = new ObjectOutputStream(socket.getOutputStream());
+                input  = new ObjectInputStream(socket.getInputStream());
+
+                new Thread(new getGroupUserList()).start();
             } catch (UnknownHostException ex) {
                 System.out.println("Server not found: " + ex.getMessage());
             } catch (IOException ex) {
@@ -270,13 +270,20 @@ public class MessageFragment extends Fragment {
                     i++;
                 }
 
+
+                int[] prev_groupList = groupList;
+                for (int j = 0; j < prev_groupList.length; j++) {
+                    prev_groupList[j] = groupList[j];
+                }
                 groupList = new int[arr_groupList.size()];
                 groupName = new String[arr_groupList.size()];
 
                 for (int j = 0; j < arr_groupList.size(); j++) {
                     groupList[j] = arr_groupList.get(j);
                     groupName[j] = arr_groupName.get(j);
-                    UpdateGroupList(groupList[j], groupName[j]);
+
+                    if (prev_groupList.length > j)
+                        UpdateGroupList(groupList[j], groupName[j]);
                 }
                 Gson gson = new Gson();
                 String json = gson.toJson(groupList);
@@ -285,7 +292,7 @@ public class MessageFragment extends Fragment {
                 editor.putString(KEY_PREF_GROUPLIST_NAME, json);
                 editor.commit();
 
-                new Thread(new getUserList()).start();
+//                new Thread(new getUserList()).start();
             }
             catch (IOException e) {
                 e.printStackTrace();
@@ -304,14 +311,30 @@ public class MessageFragment extends Fragment {
                 output.writeObject("" + cur_gid);
                 output.writeObject("-1");
 
-                int num = (int) input.readObject();
-                System.out.printf("RESULT: %d\n", num);
+                String read_user;
+
+                ArrayList<Integer> temp_groupUserId = new ArrayList<>();
+                ArrayList<String> temp_groupUserName = new ArrayList<>();
+
+                while (!(read_user = "" + input.readObject()).equals("**FINISHED**")) {
+                    if (read_user.equals("NO SUCH GROUP")) {
+                        System.out.println("NO GROUP");
+                        input.readObject();
+                        return;
+                    }
+                    temp_groupUserId.add(Integer.parseInt(read_user));
+                    temp_groupUserName.add("" + input.readObject());
+                }
+
+                int num = temp_groupUserId.size();
+
                 groupUserID = new int[num];
                 groupUserName = new String[num];
 
                 for (int i = 0; i < num; i++) {
-                    groupUserID[i] = (int) input.readObject();
-                    groupUserName[i] = userName[groupUserID[i]];
+                    groupUserID[i] = temp_groupUserId.get(i);
+                    groupUserName[i] = temp_groupUserName.get(i);
+                    System.out.printf("GROUP LIST: USERID[%d] USERNAME[%s]\n", groupUserID[i], groupUserName[i]);
                 }
 
                 Gson gson = new Gson();
