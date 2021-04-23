@@ -126,9 +126,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendMessage(View view) {
-        String sendMsg = sendText.getText().toString().trim();
-        if (!sendMsg.isEmpty()) {
-            new Thread(new ClientThread(sendMsg)).start();
+        String message = sendText.getText().toString().trim();
+        message = message.replaceAll("shit" , "****");
+        message = message.replaceAll("fuck" , "****");
+        message = message.replaceAll("bitch" , "****");
+        if (!message.isEmpty()) {
+            new Thread(new ClientThread(message)).start();
         }
     }
 
