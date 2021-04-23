@@ -20,13 +20,20 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.cs307group9.privatechatchat.MainActivity;
+import com.cs307group9.privatechatchat.MainScreenActivity;
 import com.cs307group9.privatechatchat.R;
 import com.cs307group9.privatechatchat.entity.User;
 import com.cs307group9.privatechatchat.entity.UserAdapter;
+import com.cs307group9.privatechatchat.ui.login.LoginActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -50,9 +57,9 @@ public class Contacts extends Fragment {
     final String LIST = "LIST";
 
     final String KEY_PREF_FRIENDLIST_NAME = "friendlist_name";
-    final String KEY_PREF_FRIENDLIST_UID  = "friendlist_uid";
+    final String KEY_PREF_FRIENDLIST_UID = "friendlist_uid";
     final String KEY_PREF_FRIENDLIST_ADDR = "friendlist_addr";
-    final String KEY_PREF_FRIENDLIST_PSW  = "friendlist_psw";
+    final String KEY_PREF_FRIENDLIST_PSW = "friendlist_psw";
 
     View view;
 
@@ -66,7 +73,12 @@ public class Contacts extends Fragment {
     private int[] uid;
     private InetAddress[] addr;
 
+    static String hostname = "cs307-chat-app.webredirect.org";
+    //="cs307-chat-app.webredirect.org";
+    //=
+//    "10.0.2.2";
 
+    static int port = 12345;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,14 +94,18 @@ public class Contacts extends Fragment {
         Gson gson = new Gson();
 
         String jsonName = sharedPreferences.getString(KEY_PREF_FRIENDLIST_NAME, "");
-        String jsonPsw  = sharedPreferences.getString(KEY_PREF_FRIENDLIST_PSW, "");
-        String jsonUid  = sharedPreferences.getString(KEY_PREF_FRIENDLIST_UID, "");
+        String jsonPsw = sharedPreferences.getString(KEY_PREF_FRIENDLIST_PSW, "");
+        String jsonUid = sharedPreferences.getString(KEY_PREF_FRIENDLIST_UID, "");
         String jsonAddr = sharedPreferences.getString(KEY_PREF_FRIENDLIST_ADDR, "");
 
-        userName = (String[]) gson.fromJson(jsonName, new TypeToken<String[]>(){}.getType());
-        psw = (String[]) gson.fromJson(jsonPsw, new TypeToken<String[]>(){}.getType());
-        uid = (int[]) gson.fromJson(jsonUid, new TypeToken<int[]>(){}.getType());
-        addr = (InetAddress[]) gson.fromJson(jsonAddr, new TypeToken<InetAddress[]>(){}.getType());
+        userName = (String[]) gson.fromJson(jsonName, new TypeToken<String[]>() {
+        }.getType());
+        psw = (String[]) gson.fromJson(jsonPsw, new TypeToken<String[]>() {
+        }.getType());
+        uid = (int[]) gson.fromJson(jsonUid, new TypeToken<int[]>() {
+        }.getType());
+        addr = (InetAddress[]) gson.fromJson(jsonAddr, new TypeToken<InetAddress[]>() {
+        }.getType());
 
         LinkedList<User> users = new LinkedList<>();
 
@@ -127,6 +143,77 @@ public class Contacts extends Fragment {
 
         startActivity(intent);
         //finish();
+    }
+
+    private ObjectOutputStream output;
+    private ObjectInputStream input;
+
+    class ServerConnectThread implements Runnable {
+        public void run() {
+            Log.e("Contacts", "CONNECT SERVER");
+            Socket socket;
+            try {
+                socket = new Socket(hostname, port);
+                output = new ObjectOutputStream(socket.getOutputStream());
+                input  = new ObjectInputStream(socket.getInputStream());
+
+                new Thread(new RecieveFriendList()).start();
+            } catch (UnknownHostException ex) {
+                System.out.println("Server not found: " + ex.getMessage());
+            } catch (IOException ex) {
+                System.out.println("I/O Error: " + ex.getMessage());
+            }
+        }
+    }
+
+    class RecieveFriendList implements Runnable {
+        @Override
+        public void run() {
+            try {
+                output.writeObject("GetUserList");
+
+                int num = (int)input.readObject();
+
+                String[] name = new String[num];
+                int[] uid = new int[num];
+                InetAddress[] inetAddress = new InetAddress[num];
+                String[] psw = new String[num];
+                String[] avatar = new String[num];
+
+                for (int i = 0; i < num; i++) {
+                    String response = (String) input.readObject();
+                    Log.e("Contacts", response);
+                    name[i] = (String) input.readObject();
+                    uid[i] = (int) input.readObject();
+                    inetAddress[i] = (InetAddress) input.readObject();
+                    psw[i] = (String) input.readObject();
+                    avatar[i] = (String) input.readObject();
+
+                }
+
+                input.readObject();
+
+
+                Gson gson = new Gson();
+
+                String json = gson.toJson(name);
+                editor.putString(KEY_PREF_FRIENDLIST_NAME, json);
+                json = gson.toJson(uid);
+                editor.putString(KEY_PREF_FRIENDLIST_UID, json);
+                json = gson.toJson(inetAddress);
+                editor.putString(KEY_PREF_FRIENDLIST_ADDR, json);
+                json = gson.toJson(psw);
+                editor.putString(KEY_PREF_FRIENDLIST_PSW, json);
+
+                editor.commit();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

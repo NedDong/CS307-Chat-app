@@ -22,15 +22,15 @@
 
     <ImageView
         android:id="@+id/GroupAvatar"
-        android:layout_width="105dp"
+        android:layout_width="match_parent"
         android:layout_height="109dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="152dp"
+        android:layout_marginStart="154dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="154dp"
         android:background="#FFFFFF"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -47,7 +47,7 @@
         android:fontFamily="sans-serif-thin"
         android:text="Group Name"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:typeface="monospace" />
 
@@ -57,8 +57,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/GroupInfoName"
         android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="1dp"
-        android:layout_marginEnd="179dp"
+        android:layout_marginEnd="183dp"
         android:fontFamily="sans-serif-thin"
         android:text="GroupID"
         android:textAlignment="center"
@@ -79,20 +80,10 @@
         <ListView
             android:id="@+id/GroupUserList"
             android:layout_width="match_parent"
-            android:layout_height="412dp"
+            android:layout_height="428dp"
             android:layout_marginBottom="318dp"
             android:drawSelectorOnTop="false" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/members"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="250dp"
-        android:text="members" />
 
     <Button
         android:id="@+id/administrators"
@@ -101,8 +92,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="181dp"
+        android:onClick="checkAdministrators"
         android:text="administrators" />
 
     <Button
@@ -111,8 +103,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="250dp"
-        android:layout_marginEnd="11dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="21dp"
         android:text="setting" />
+
+    <Button
+        android:id="@+id/members"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="180dp"
+        android:onClick="checkMembers"
+        android:text="members" />
 
 </RelativeLayout>

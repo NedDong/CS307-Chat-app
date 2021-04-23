@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -50,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     final String KEY_PREF_USERID   = "userid";
     final String KEY_PREF_PASSWORD = "password";
     final String KEY_PREF_FEEDBACK = "feedback";
+    final String KEY_PREF_USER_AVATAR = "cur_user_avatar";
 
     final String KEY_PREF_FRIENDLIST_NAME = "friendlist_name";
     final String KEY_PREF_FRIENDLIST_UID  = "friendlist_uid";
@@ -69,8 +71,9 @@ public class LoginActivity extends AppCompatActivity {
     //="cs307-chat-app.webredirect.org";
             //=
 //    "10.0.2.2";
-    int type = -1; // 0 means LogIn, 1 means Register
+
     static int port = 12345;
+    int type = -1; // 0 means LogIn, 1 means Register
 
     boolean isLogIN = false;
 
@@ -227,12 +230,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
-    Socket socket;
+
     class feedbackThread implements Runnable {
         public void run() {
             System.out.println("==== I Am Currently Running Thread feedback===");
 
             try {
+                Socket socket;
                 socket = new Socket(hostname, port);
                 output = new ObjectOutputStream(socket.getOutputStream());
                 input  = new ObjectInputStream(socket.getInputStream());
@@ -328,6 +332,7 @@ public class LoginActivity extends AppCompatActivity {
                 int[] uid = new int[num];
                 InetAddress[] inetAddress = new InetAddress[num];
                 String[] psw = new String[num];
+                String[] avatar = new String[num];
 
                 for (int i = 0; i < num; i++) {
                     String response = (String) input.readObject();
@@ -337,13 +342,16 @@ public class LoginActivity extends AppCompatActivity {
                     uid[i] = (int) input.readObject();
                     inetAddress[i] = (InetAddress) input.readObject();
                     psw[i] = (String) input.readObject();
+                    avatar[i] = (String) input.readObject();
+                    Log.e("LOG", "AVATAR : " + avatar[i]);
 
                     if (name[i].contains(username)) {
-
+                        editor.putString(KEY_PREF_USER_AVATAR, avatar[i]);
                         editor.putInt(KEY_PREF_USERID, uid[i]);
                         editor.commit();
                     }
                 }
+
 
 
                 Gson gson = new Gson();
