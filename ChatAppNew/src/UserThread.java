@@ -616,6 +616,21 @@ public class UserThread extends Thread implements Serializable {
                     }
                     outputStream.writeObject("**FINISHED**");
                     return;
+                } else if(initialHandshake.getMessageType().equals("CheckUserBan")) {
+                    int userId = Integer.parseInt(initialHandshake.getUsername());
+                    boolean found = false;
+                    for(User user : server.getUserList()) {
+                        if(user.getUid() == userId) {
+                            if(user.isBan()) {
+                                outputStream.writeObject("USER BANNED");
+                            } else {
+                                outputStream.writeObject("USER NOT BANNED");
+                            }
+                            break;
+                        }
+                    }
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 }
 
             }
