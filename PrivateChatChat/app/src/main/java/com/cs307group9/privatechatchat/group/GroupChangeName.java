@@ -39,6 +39,7 @@ public class GroupChangeName extends AppCompatActivity {
     final String KEY_PREF_CHANGE = "ChangeGroupName";
     final String KEY_PREF_GROUPLIST_GID = "grouplist_gid";
     final String KEY_PREF_GROUPLIST_NAME = "grouplist_name";
+    final String KEY_PREF_CHANGE_IN_NAME = "Change_in_name";
 
     ObjectOutputStream oos;
     ObjectInputStream ois;
@@ -96,6 +97,9 @@ public class GroupChangeName extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 inputName = newName.getText().toString().trim();
+                editor.putInt(KEY_PREF_CHANGE_IN_NAME, 1);
+                editor.commit();
+                Log.e("Group Name", "Changed = 1");
                 new Thread(new ChangeGroupName()).start();
 //                finish();
             }

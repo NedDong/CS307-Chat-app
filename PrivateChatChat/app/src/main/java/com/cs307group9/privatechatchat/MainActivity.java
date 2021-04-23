@@ -135,9 +135,9 @@ public class MainActivity extends AppCompatActivity {
         String uri = sharedPreferences.getString(KEY_PREF_USER_BG, "");
         if (uri.length() > 0) {
             getIntent().addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                getContentResolver().takePersistableUriPermission(Uri.parse(uri), Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            }
+//            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                getContentResolver().takePersistableUriPermission(Uri.parse(uri), Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//            }
             bg.setImageURI(Uri.parse(uri));
         }
         Log.e("Chat Background Now is ", uri);
@@ -166,9 +166,9 @@ public class MainActivity extends AppCompatActivity {
         String uri = sharedPreferences.getString(KEY_PREF_USER_BG, "");
         if (uri.length() > 0) {
             getIntent().addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                getContentResolver().takePersistableUriPermission(Uri.parse(uri), Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            }
+//            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2) {
+//                getContentResolver().takePersistableUriPermission(Uri.parse(uri), Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//            }
             bg.setImageURI(Uri.parse(uri));
         }
         username = sharedPreferences.getString(KEY_PREF_USERNAME, "");
