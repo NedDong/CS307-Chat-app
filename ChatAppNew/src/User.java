@@ -18,6 +18,8 @@ public class User implements Serializable {
     private transient HashMap<Integer, User> friendList;
     private transient HashMap<Integer, User> blockedList;
     private transient String avatarId;
+    private transient int reportCount = 0;
+    private transient boolean ban = false;
 
     public User(String username, int uid, InetAddress inetAddress, String password, List<User> waitingList, List<Integer> gidList, String aid)
     {
@@ -118,5 +120,17 @@ public class User implements Serializable {
         } else {
             blockedList.put(user.getUid(), user);
         }
+    }
+
+    public void ban() {
+        ban = true;
+    }
+
+    public void report() {
+        reportCount++;
+    }
+
+    public int getReportCount() {
+        return reportCount;
     }
 }

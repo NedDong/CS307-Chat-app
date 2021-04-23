@@ -467,7 +467,7 @@ public class UserThread extends Thread implements Serializable {
                     for (GroupChat group : server.getGroupList()) {
                         if (group.getGroupID() == groupId) {
                             ArrayList<User> mana = group.getManagers();
-                            outputStream.writeObject(mana.size());
+                            //outputStream.writeObject(mana.size());
                             for (int i = 0; i < mana.size(); i++) {
                                 outputStream.writeObject(mana.get(i).getUid());
                                 outputStream.writeObject(mana.get(i).getUsername());
@@ -557,6 +557,24 @@ public class UserThread extends Thread implements Serializable {
                     for (User user : server.getUserList()) {
                         if (user.getUid() == userId) {
                             outputStream.writeObject(user.getAvatarId());
+                            outputStream.writeObject("**FINISHED**");
+                            return;
+                        }
+                    }
+                    outputStream.writeObject("NO SUCH USER");
+                    outputStream.writeObject("**FINISHED**");
+                    return;
+                } else if(initialHandshake.getMessageType().equals("Ban")) {
+                    int userId = Integer.parseInt(initialHandshake.getUsername());
+                    for(User user : server.getUserList()) {
+                        if(user.getUid() == userId) {
+                            user.report();
+                            if(user.getReportCount() >= 2) {
+                                user.ban();
+                                outputStream.writeObject("USER BANNED");
+                            } else {
+                                outputStream.writeObject("USER NOT BANNED");
+                            }
                             outputStream.writeObject("**FINISHED**");
                             return;
                         }
