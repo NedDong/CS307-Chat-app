@@ -633,6 +633,7 @@ public class UserThread extends Thread implements Serializable {
                     outputStream.writeObject(user.getUid());
                     outputStream.writeObject(user.getInetAddress());
                     outputStream.writeObject(user.getPassword());
+                    outputStream.writeObject(user.getAvatarId());
 
                     // outputStream.writeObject(new User(user.getUsername(),user.getUid(),user.getSocket(), user.getPassword()));
                     // outputStream.flush();
