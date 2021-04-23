@@ -582,6 +582,23 @@ public class UserThread extends Thread implements Serializable {
                     outputStream.writeObject("NO SUCH USER");
                     outputStream.writeObject("**FINISHED**");
                     return;
+                } else if(initialHandshake.getMessageType().equals("CheckManager")) {
+                    int groupId = Integer.parseInt(initialHandshake.getUsername());
+                    int userId = Integer.parseInt(initialHandshake.getPassword());
+                    for(GroupChat group : server.getGroupList()) {
+                        if(group.getGroupID() == groupId) {
+                            ArrayList<User> man = group.getManagers();
+                            for(int i = 0; i < man.size(); i++) {
+                                if(man.get(i).getUid() == userId) {
+                                    outputStream.writeObject("IS MANAGER");
+                                    outputStream.writeObject("**FINISHED**");
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    outputStream.writeObject("NOT A MANAGER");
+                    outputStream.writeObject("**FINISHED**");
                 }
 
             }
