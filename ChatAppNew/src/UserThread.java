@@ -537,7 +537,7 @@ public class UserThread extends Thread implements Serializable {
                     //int avatarId = Integer.parseInt(initialHandshake.getPassword());
                     for (GroupChat group : server.getGroupList()) {
                         if (group.getGroupID() == groupId) {
-                            outputStream.writeObject(group.getAvatarID());
+                            outputStream.writeObject(String.valueOf(group.getAvatarID()));
                             outputStream.writeObject("**FINISHED**");
                             return;
                         }
@@ -547,10 +547,10 @@ public class UserThread extends Thread implements Serializable {
                     return;
                 } else if (initialHandshake.getMessageType().equals("GetUserAvatar")) {//return managers of a group
                     int userId = Integer.parseInt(initialHandshake.getUsername());
-                    int avatarId = Integer.parseInt(initialHandshake.getPassword());
+                    //int avatarId = Integer.parseInt(initialHandshake.getPassword());
                     for (User user : server.getUserList()) {
                         if (user.getUid() == userId) {
-                            outputStream.writeObject(user.getAvatarId());
+                            outputStream.writeObject(String.valueOf(user.getAvatarId()));
                             outputStream.writeObject("**FINISHED**");
                             return;
                         }
