@@ -659,7 +659,7 @@ public class UserThread extends Thread implements Serializable {
                         return;
                     }
                     String sql = "INSERT INTO Posts(UserID, Post) VALUES ('" + userId +
-                            "', '" + post + "');";
+                            "', '" + post + "')";
                     server.runSQLCommand(sql);
                     outputStream.writeObject("SUCCESS");
                     outputStream.writeObject("**FINISHED**");
@@ -676,6 +676,21 @@ public class UserThread extends Thread implements Serializable {
                     while (rs.next()) {
                         outputStream.writeObject(rs.getString("Post"));
                     }
+                    outputStream.writeObject("**FINISHED**");
+                    return;
+                } else if(initialHandshake.getMessageType().equals("GetGroupOwner")) {
+                    int groupId = Integer.parseInt(initialHandshake.getUsername());
+                    for(GroupChat group : server.getGroupList()) {
+                        if(group.getGroupID() == groupId) {
+                            User owner = group.getGroupOwner();
+                            outputStream.writeObject(owner.getUid());
+                            outputStream.writeObject(owner.getUsername());
+                            outputStream.writeObject(owner.getAvatarId());
+                            outputStream.writeObject("**FINISHED**");
+                            return;
+                        }
+                    }
+                    outputStream.writeObject("NO SUCH GROUP");
                     outputStream.writeObject("**FINISHED**");
                     return;
                 }
