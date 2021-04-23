@@ -538,6 +538,32 @@ public class UserThread extends Thread implements Serializable {
                     outputStream.writeObject("NO SUCH GROUP");
                     outputStream.writeObject("**FINISHED**");
                     return;
+                } else if (initialHandshake.getMessageType().equals("GetGroupAvatar")) {//return managers of a group
+                    int groupId = Integer.parseInt(initialHandshake.getUsername());
+                    //int avatarId = Integer.parseInt(initialHandshake.getPassword());
+                    for (GroupChat group : server.getGroupList()) {
+                        if (group.getGroupID() == groupId) {
+                            outputStream.writeObject(String.valueOf(group.getAvatarID()));
+                            outputStream.writeObject("**FINISHED**");
+                            return;
+                        }
+                    }
+                    outputStream.writeObject("NO SUCH GROUP");
+                    outputStream.writeObject("**FINISHED**");
+                    return;
+                } else if (initialHandshake.getMessageType().equals("GetUserAvatar")) {//return managers of a group
+                    int userId = Integer.parseInt(initialHandshake.getUsername());
+                    //int avatarId = Integer.parseInt(initialHandshake.getPassword());
+                    for (User user : server.getUserList()) {
+                        if (user.getUid() == userId) {
+                            outputStream.writeObject(String.valueOf(user.getAvatarId()));
+                            outputStream.writeObject("**FINISHED**");
+                            return;
+                        }
+                    }
+                    outputStream.writeObject("NO SUCH USER");
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 }
 
             }
