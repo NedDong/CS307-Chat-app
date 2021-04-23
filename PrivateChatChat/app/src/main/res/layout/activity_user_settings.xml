@@ -41,6 +41,27 @@
         android:text="Change Background"
         app:backgroundTint="@color/MainCo" />
 
+    <Button
+        android:id="@+id/viewChatHist"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/deleteChatHist"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="85dp"
+        android:text="View Chat Histories"
+        app:backgroundTint="@color/MainCo" />
+
+    <EditText
+        android:id="@+id/chatText"
+        android:layout_width="316dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:ems="10"
+        android:hint="Type Here..."
+        android:inputType="textPersonName" />
+
     <Switch
         android:id="@+id/appNotification"
         android:layout_width="291dp"

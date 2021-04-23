@@ -5,20 +5,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
 import com.cs307group9.privatechatchat.MainActivity;
 import com.cs307group9.privatechatchat.R;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 
 public class UserSettings extends AppCompatActivity {
 
     private Switch appNote;
 
-    Button changeBG, deleteHist;
+    Button changeBG, deleteHist, viewHist;
     ImageButton back;
+    EditText chatT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +33,17 @@ public class UserSettings extends AppCompatActivity {
         appNote = (Switch) findViewById(R.id.appNotification);
         changeBG = (Button) findViewById(R.id.changeBG);
         deleteHist = (Button) findViewById(R.id.deleteChatHist);
-        back = (ImageButton) findViewById(R.id.groupChangeNameBack);
+        viewHist = (Button) findViewById(R.id.viewChatHist);
+        back = (ImageButton) findViewById(R.id.userSettingBack);
+        chatT = (EditText) findViewById(R.id.chatText);
 
-        /*back.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-
+        /*
         changeBG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +59,32 @@ public class UserSettings extends AppCompatActivity {
             }
         });
 
+        viewHist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewchathistory();
+                //finish();
+            }
+        });
+
+    }
+
+    public void viewchathistory() {
+        FileInputStream fis = null;
+        try {
+            fis = openFileInput("chathistory.txt");
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+
+            String chat;
+            while ((chat = br.readLine()) != null) {
+                sb.append(chat).append("\n");
+            }
+            chatT.setText(sb.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteChathistory() {
