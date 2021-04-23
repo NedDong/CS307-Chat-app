@@ -63,23 +63,14 @@ public class UserThread extends Thread implements Serializable {
                         //wait for further inputPrime x570
                         //if (usernameDuplicated) initialHandshake = (Message) reader.readObject();
                     //} while (usernameDuplicated); //creates new users and add them to database, continues until no duplicate username
-<<<<<<< Updated upstream
-                    int tempUID = server.getUid();
-                    List<User> temp = new ArrayList<User>();
-                    List<Integer> gidList = new ArrayList<>();
-                    server.getUserList().add(new User(initialHandshake.getUsername(), tempUID, socket.getInetAddress(), initialHandshake.getPassword(), temp, gidList, 0));
-                    String sql = "INSERT INTO Users(UID, UserName, Password) VALUES('" + tempUID + "','" + initialHandshake.getUsername() + "','" + initialHandshake.getPassword() + "')";
-                    System.out.println(sql);
-                    server.runSQLCommand(sql);
-                    outputStream.writeObject("User Creation Successful.");
-                    printUsers();
-                    System.out.println("User Created:   " + initialHandshake.getUsername() + "     @   " + getCurrentTime());
-=======
+//<<<<<<< Updated upstream
+
+//=======
                     if(failed!=1) {
                         int tempUID = server.getUid();
                         List<User> temp = new ArrayList<User>();
                         List<Integer> gidList = new ArrayList<>();
-                        server.getUserList().add(new User(initialHandshake.getUsername(), tempUID, socket.getInetAddress(), initialHandshake.getPassword(), temp, gidList));
+                        server.getUserList().add(new User(initialHandshake.getUsername(), tempUID, socket.getInetAddress(), initialHandshake.getPassword(), temp, gidList, 0));
                         String sql = "INSERT INTO Users(UID, UserName, Password) VALUES('" + tempUID + "','" + initialHandshake.getUsername() + "','" + initialHandshake.getPassword() + "')";
                         System.out.println(sql);
                         server.runSQLCommand(sql);
@@ -87,7 +78,6 @@ public class UserThread extends Thread implements Serializable {
                         printUsers();
                         System.out.println("User Created:   " + initialHandshake.getUsername() + "     @   " + getCurrentTime());
                     }
->>>>>>> Stashed changes
                     continue;
                 } else if (initialHandshake.getMessageType().equals("LOG")) { //if message is "LOG" (log in), try to log in the user
                     //do {
