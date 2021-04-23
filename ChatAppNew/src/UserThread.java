@@ -389,7 +389,7 @@ public class UserThread extends Thread implements Serializable {
                         if (chat.getGroupName().equals(newName)) {
                             outputStream.writeObject("DUPLICATE GROUP NAME");
                             System.out.println("DUPLICATE GROUP NAME");
-                            break;
+                            return;
                         }
                     }
                     for (GroupChat chat : server.getGroupList()) {
@@ -599,6 +599,38 @@ public class UserThread extends Thread implements Serializable {
                     }
                     outputStream.writeObject("NOT A MANAGER");
                     outputStream.writeObject("**FINISHED**");
+                    return;
+                } else if(initialHandshake.getMessageType().equals("BanList")) {
+                    //int userId = Integer.parseInt(initialHandshake.getUsername());
+                    boolean found = false;
+                    for(User user : server.getUserList()) {
+                        if(user.isBan()) {
+                            found = true;
+                            outputStream.writeObject(user.getUid());
+                            outputStream.writeObject(user.getUsername());
+                            outputStream.writeObject(user.getAvatarId());
+                        }
+                    }
+                    if(!found) {
+                        outputStream.writeObject("NO USERS BANNED");
+                    }
+                    outputStream.writeObject("**FINISHED**");
+                    return;
+                } else if(initialHandshake.getMessageType().equals("CheckUserBan")) {
+                    int userId = Integer.parseInt(initialHandshake.getUsername());
+                    boolean found = false;
+                    for(User user : server.getUserList()) {
+                        if(user.getUid() == userId) {
+                            if(user.isBan()) {
+                                outputStream.writeObject("USER BANNED");
+                            } else {
+                                outputStream.writeObject("USER NOT BANNED");
+                            }
+                            break;
+                        }
+                    }
+                    outputStream.writeObject("**FINISHED**");
+                    return;
                 }
 
             }
