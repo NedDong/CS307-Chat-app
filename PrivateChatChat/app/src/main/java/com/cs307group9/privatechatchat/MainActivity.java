@@ -283,6 +283,7 @@ public class MainActivity extends AppCompatActivity {
         textString.add(msg);
 
         writeToFile(msg, name);
+        //deleteChathistory();
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, list_item, R.layout.message_adapter,
                 new String[]{"name", "msg", "image"}, new int[]{R.id.name, R.id.msg, R.id.imgtou});
