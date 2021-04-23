@@ -77,10 +77,14 @@ public class GroupChat implements Serializable{
         }
     }
 
-    public void addManager(ArrayList<User> users) {
+    public boolean addManager(ArrayList<User> users) {
+        if(managers.size() + users.size() > 5) {
+            return false;
+        }
         for(int i = 0; i < users.size(); i++) {
             managers.add(users.get(i));
         }
+        return true;
     }
 
     public void removeManager(User user) {

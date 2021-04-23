@@ -223,7 +223,7 @@ public class LoginActivity extends AppCompatActivity {
                 input  = new ObjectInputStream(socket.getInputStream());
 
                 if (!requestGroup)
-                    new Thread(new LoginActivity.SendUserInfoThread()).start();
+                    new Thread(new SendUserInfoThread()).start();
             } catch (UnknownHostException ex) {
                 System.out.println("Server not found: " + ex.getMessage());
             } catch (IOException ex) {

@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -91,7 +92,6 @@ public class GroupSettings extends AppCompatActivity {
                 Intent intent = new Intent(GroupSettings.this, GroupChangeAvatar.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-
             }
         });
 
@@ -118,19 +118,19 @@ public class GroupSettings extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 110 && resultCode == 2) {
-            if (data != null) {
-
-                Intent intent = getIntent();
-
-                intent.putExtra("GroupAvatar", getIntent().getStringExtra("image"));
-                setResult(2, intent);
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == 110 && resultCode == 2) {
+//            if (data != null) {
+//
+//                Intent intent = getIntent();
+//
+//                intent.putExtra("GroupAvatar", getIntent().getStringExtra("image"));
+//                setResult(2, intent);
+//            }
+//        }
+//    }
 
 
 }
