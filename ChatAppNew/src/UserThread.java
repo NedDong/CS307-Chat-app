@@ -341,6 +341,14 @@ public class UserThread extends Thread implements Serializable {
                             break;
                         }
                     }
+                    ArrayList<User> members = group.getGroupMembers();
+                    for(int i = 0; i < members.size(); i++) {
+                        if(members.get(i).getUid() == member.getUid()) {
+                            outputStream.writeObject("SAME USER");
+                            outputStream.writeObject("**FINISHED**");
+                            return;
+                        }
+                    }
                     if(!group.addMember(member)) {
                         System.out.println("Max num exceeded");
                         outputStream.writeObject("Max num exceeded");
