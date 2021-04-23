@@ -27,6 +27,7 @@ public class ChatServer implements Serializable {
 
                 System.out.println("New user connected        @   "+getCurrentTime());
 
+
                 UserThread newUser = new UserThread(socket, this);
                 userThreads.add(newUser);
                 newUser.start();
@@ -40,7 +41,7 @@ public class ChatServer implements Serializable {
     }
 
     public static void main(String[] args) {
-        ChatServer server = new ChatServer(11111);
+        ChatServer server = new ChatServer(1111);
         server.execute();
     }
 

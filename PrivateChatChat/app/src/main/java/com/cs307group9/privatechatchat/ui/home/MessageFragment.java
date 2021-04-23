@@ -249,7 +249,7 @@ public class MessageFragment extends Fragment {
         @Override
         public void run() {
             try {
-                output.writeObject("GetUserGroups");
+                output.writeObject("GetGroupList");
                 output.writeObject("" + cur_uid);
                 output.writeObject("-1");
 
