@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
@@ -135,15 +138,46 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void writeToFile(String chat, Context context) {
-        try {
-            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput("chathistory.txt", Context.MODE_PRIVATE));
+    public void writeToFile(String chat) {
+        /*try {
+            OutputStreamWriter osw = new OutputStreamWriter(context.openFileOutput(
+                    "/PrivateChatChat/app/src/main/java/com/cs307group9/privatechat/chatchathistory.txt",
+                    Context.MODE_PRIVATE));
             System.out.println("Inside write to file!");
             osw.write(chat);
             osw.close();
         }
         catch (IOException e) {
             System.out.println("File write failed!");
+        }*/
+        //File file = getFileStreamPath("chatchathistory.txt");
+        /*
+        try {
+            File root = new File("/Users/xuzijuan/Documents/GitHub/CS307-Chat-app/PrivateChatChat/app/src/main/java/com/cs307group9/privatechatchat/chathistory.txt");
+
+
+            //String nf = "chathistory.txt";
+
+            //File file = new File(root, nf);
+
+            FileWriter fw = new FileWriter(root);
+            fw.append(chat);
+            fw.flush();
+            fw.close();
+
+        } catch (Exception e) {
+            System.out.println("Error");
+            e.printStackTrace();
+        }*/
+        String filename = "myfile";
+        String fileContents = "Hello world!";
+        Context context = this.getApplicationContext();
+        try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
+            fos.write(fileContents.getBytes());
+            fos.flush();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -284,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             System.out.println(msg);
-            writeToFile(msg, getBaseContext());
+            writeToFile(msg);
 
             if (msg.contains("[HIGHLIGHT] ")) {
                 int pos = Integer.parseInt(msg.split("] ")[1]);
