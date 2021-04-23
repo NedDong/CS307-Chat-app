@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".group.GroupSettings">
+
+
+    <Button
+        android:id="@+id/ManageGroupMember"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/g_ChangeAvatar"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="50dp"
+        android:text="Manage Group Members"
+        app:backgroundTint="@color/MainCo" />
+
+    <ImageButton
+        android:id="@+id/g_SettingBack"
+        android:layout_width="60dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/button_round_shape"
+        android:scaleType="fitCenter"
+        android:tint="#FFFFFF"
+        app:srcCompat="@drawable/left" />
+
+    <Button
+        android:id="@+id/g_ChangeName"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="142dp"
+        android:layout_marginEnd="86dp"
+        android:text="Change Group Name"
+        app:backgroundTint="@color/MainCo" />
+
+    <Button
+        android:id="@+id/g_ChangeAvatar"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/g_ChangeName"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="50dp"
+        android:text="Change Group Avatar"
+        app:backgroundTint="@color/MainCo" />
+</RelativeLayout>

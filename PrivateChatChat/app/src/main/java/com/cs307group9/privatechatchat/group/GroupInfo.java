@@ -1,8 +1,10 @@
 package com.cs307group9.privatechatchat.group;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.cs307group9.privatechatchat.FriendProfile;
@@ -27,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -48,6 +51,9 @@ import java.util.Map;
 public class GroupInfo extends AppCompatActivity {
 
     private ImageButton back;
+    private ImageView avatar;
+
+    private Button settings;
 
     private ContactViewModel dashboardViewModel;
 
@@ -120,12 +126,22 @@ public class GroupInfo extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GroupInfo.this, GroupChat.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
                 finish();
             }
         });
+
+        settings = (Button) findViewById(R.id.groupSettings);
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GroupInfo.this, GroupSettings.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
+        avatar = (ImageView) findViewById(R.id.GroupAvatar);
 
         Gson gson = new Gson();
 
@@ -284,6 +300,17 @@ public class GroupInfo extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 110 && resultCode == 2) {
+            if (data != null) {
+                avatar.setImageURI(Uri.parse(getIntent().getStringExtra("GroupAvatar")));
+
+            }
+        }
     }
 
 }

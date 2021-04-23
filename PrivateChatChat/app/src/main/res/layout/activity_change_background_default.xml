@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.notifications.ChangeBackgroundDefault">
+
+    <ImageButton
+        android:id="@+id/changeBGDefaultBack"
+        android:layout_width="60dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/button_round_shape"
+        android:scaleType="fitCenter"
+        android:tint="#FFFFFF"
+        tools:src="@drawable/left" />
+
+    <RadioGroup
+        android:id="@+id/radioBGGroup"
+        android:layout_width="fill_parent"
+        android:layout_height="600dp"
+        android:layoutDirection="ltr"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radioBG1"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            android:drawableRight="@drawable/b1r"
+            android:drawablePadding="20dp"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/radioBG2"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:drawableRight="@drawable/b2r"
+            android:drawablePadding="20dp"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/radioBG3"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:drawableRight="@drawable/b3r"
+            android:drawablePadding="20dp"
+            android:textColor="#FFFFFF" />
+
+        <RadioButton
+            android:id="@+id/radioBG4"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:drawableRight="@drawable/b4r"
+            android:drawablePadding="20dp"
+            android:textColor="#FFFFFF" />
+
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/UserApplyBG"
+        android:layout_width="116dp"
+        android:layout_height="59dp"
+        android:layout_below="@+id/radioBGGroup"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="10dp"
+        android:text="Apply!"
+        android:textSize="18sp"
+        app:backgroundTint="@color/MainCo" />
+
+</RelativeLayout>

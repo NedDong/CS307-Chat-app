@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/friendDeleteButton"
+        android:id="@+id/friendMuteButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -30,13 +30,31 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="100dp"
-        android:text="Delete Friend"
+        android:text="Mute Friend"
         app:backgroundTint="#F44336"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/friendChatButton"
         app:layout_constraintVertical_bias="0.346" />
+
+    <Button
+        android:id="@+id/friendDeleteButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
+        android:text="Delete Friend"
+        app:backgroundTint="#F44336"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friendChatButton"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/friendInfoBack"

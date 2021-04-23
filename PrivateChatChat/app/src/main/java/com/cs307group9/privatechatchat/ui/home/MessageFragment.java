@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +86,7 @@ public class MessageFragment extends Fragment {
 
     static String hostname = "cs307-chat-app.webredirect.org";
     //="cs307-chat-app.webredirect.org";
-    //"10.0.2.2";
+    //= "10.0.2.2";
     int type = -1; // 0 means LogIn, 1 means Register
     static int port = 12345;
 

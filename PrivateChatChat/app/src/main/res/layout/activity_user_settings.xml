@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.notifications.UserSettings">
+
+    <ImageButton
+        android:id="@+id/userSettingBack"
+        android:layout_width="60dp"
+        android:layout_height="37dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/button_round_shape"
+        android:scaleType="fitCenter"
+        android:tint="#FFFFFF"
+        tools:src="@drawable/left" />
+
+    <Button
+        android:id="@+id/deleteChatHist"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/changeBG"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="85dp"
+        android:text="Delete Chat Histories"
+        app:backgroundTint="@color/MainCo" />
+
+    <Button
+        android:id="@+id/changeBG"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appNotification"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="85dp"
+        android:text="Change Background"
+        app:backgroundTint="@color/MainCo" />
+
+    <Switch
+        android:id="@+id/appNotification"
+        android:layout_width="291dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="149dp"
+        android:layout_marginEnd="50dp"
+        android:text="App Notifications"
+        android:textSize="20sp" />
+</RelativeLayout>
