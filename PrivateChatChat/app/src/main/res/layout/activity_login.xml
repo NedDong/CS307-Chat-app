@@ -137,7 +137,7 @@
         android:layout_marginTop="592dp"
         android:background="#FFFFFF"
         android:fontFamily="@font/allerta_stencil"
-        android:text="Contact us at: xu1163@purdue.edu"
+        android:text="Contact us at: zhan3263@purdue.edu"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#FF7384DF"
         android:textSize="40px"
